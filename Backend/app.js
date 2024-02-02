@@ -1,6 +1,10 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDb from "./Config/db.js";
+import crypto from "crypto";
+
+const token = crypto.randomBytes(64).toString("hex");
+console.log(token);
 
 //App init
 dotenv.config();
