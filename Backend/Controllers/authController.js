@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import User from "../Models/userModel.js";
+import generateToken from "../Utils/generateToken.js";
 
 // @desc    Register users & and get a token
 // @route   POST /api/v1/users/auth/register
@@ -37,6 +38,9 @@ const registerUser = asyncHandler(async (req, res) => {
 
         //Functions after creating a user
         if (user) {
+            //Generating a user token
+            generateToken(res, user._id);
+
             res.status(201).json({
                 success: true,
                 message: "Account registration success.",
@@ -74,6 +78,9 @@ const loginUser = asyncHandler(async (req, res) => {
                 user.password
             );
             if (isPasswordMatch) {
+                //Generating a user token
+                generateToken(res, user._id);
+
                 //Destructuring the user details
                 const { password, ...restOfUserDetails } = user._doc;
                 res.status(200).json({
