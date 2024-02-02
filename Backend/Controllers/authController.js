@@ -53,10 +53,45 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access  Public
 const loginUser = asyncHandler(async (req, res) => {
     try {
-        res.status(200).json({
-            success: true,
-            message: "Account login success.",
-        });
+        const { email, password } = req.body;
+
+        //Check for All fields
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing fields, enter all fields.",
+            });
+        }
+
+        //Check for a user
+        const user = User.findOne({ email });
+
+        //Functions if a user
+        if (user) {
+            //Comparing passswords
+            const isPasswordMatch = await bcrypt.compare(
+                password,
+                user.password
+            );
+            if (isPasswordMatch) {
+                //Destructuring the user details
+                const { password, ...restOfUserDetails } = user._doc;
+                res.status(200).json({
+                    success: true,
+                    message: "Account login success.",
+                    data: restOfUserDetails,
+                });
+            } else {
+                return res.status(401).json({
+                    success: false,
+                    message: "Passwords does not match.",
+                });
+            }
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "User does not exists." });
+        }
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ success: false, err: err.message });
