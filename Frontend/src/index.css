@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Eudoxus-Sans";
+    font-weight: 700;
+    src: url("/Eudoxus-Sans-font/EudoxusSans-Bold.woff2") format("woff2"),
+        url("/Eudoxus-Sans-font/EudoxusSans-Bold.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Eudoxus-Sans";
+    font-weight: 500;
+    src: url("/Eudoxus-Sans-font/EudoxusSans-Medium.woff2") format("woff2"),
+        url("/Eudoxus-Sans-font/EudoxusSans-Medium.woff") format("woff");
+}
+
+@font-face {
+    font-family: "Eudoxus-Sans";
+    font-weight: 400;
+    src: url("/Eudoxus-Sans-font/EudoxusSans-Regular.woff2") format("woff2"),
+        url("/Eudoxus-Sans-font/EudoxusSans-Regular.woff") format("woff");
+}
+
+::selection {
+    color: #fff;
+    background-color: #518581;
+}

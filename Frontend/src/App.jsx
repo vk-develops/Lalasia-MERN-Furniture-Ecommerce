@@ -1,10 +1,12 @@
 import React from "react";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./Router/Router";
 
 const App = () => {
     return (
-        <div>
-            <h1 className="text-3xl underline">App</h1>
-        </div>
+        <BrowserRouter>
+            <Router />
+        </BrowserRouter>
     );
 };
 
