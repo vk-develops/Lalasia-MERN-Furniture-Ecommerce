@@ -1,8 +1,12 @@
 import React from "react";
-import { styles } from "../../Styles/styles";
+import HeroSection from "./HeroSection";
 
 const HomePage = () => {
-    return <div className={`${styles.navLink}`}>Product</div>;
+    return (
+        <>
+            <HeroSection />
+        </>
+    );
 };
 
 export default HomePage;
