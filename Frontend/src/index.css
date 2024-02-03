@@ -22,3 +22,8 @@
     src: url("/Eudoxus-Sans-font/EudoxusSans-Regular.woff2") format("woff2"),
         url("/Eudoxus-Sans-font/EudoxusSans-Regular.woff") format("woff");
 }
+
+::selection {
+    color: #fff;
+    background-color: #518581;
+}

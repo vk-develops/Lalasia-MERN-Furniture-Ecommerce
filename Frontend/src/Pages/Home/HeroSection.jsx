@@ -1,7 +1,9 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { styles } from "../../Styles/styles";
 import HeroIcon from "../../assets/HeroElement-1.png";
 import HeroImage from "../../assets/HeroBg.png";
+import SearchIcon from "../../assets/Search-Icon.png";
 
 const HeroSection = () => {
     return (
@@ -26,9 +28,26 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            <div className="-z-10">
+            <form className="px-5 py-3 relative mt-9 bg-screenColor1 shadow-new w-3/4 mx-auto z-20 flex items-center justify-between border-t border-screenColor2">
+                <div className="flex items-center justify-center gap-4 z-20">
+                    <img
+                        className="w-6"
+                        src={SearchIcon}
+                        alt="Search icon"
+                    />
+
+                    <input
+                        className={`${styles.navLink}`}
+                        type="text"
+                        placeholder="Search for products"
+                    />
+                </div>
+                <NavLink className={`${styles.navButton} px-8`}>Search</NavLink>
+            </form>
+
+            <div className="-z-20 ">
                 <img
-                    className="w-full -z-10 -mt-8"
+                    className="w-full -z-20 -mt-8"
                     src={HeroImage}
                     alt="Hero Image"
                 />
