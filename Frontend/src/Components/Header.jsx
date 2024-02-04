@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 const Header = () => {
     return (
-        <header className="w-full sticky top-0 z-30 border-b border-2 border-screenColor2 bg-screenColor1">
+        <header className="w-full sticky top-0 z-30  border-b-[1.5px] border-screenColor2 bg-screenColor1">
             <nav
                 className={`${styles.layout} flex items-center justify-between`}
             >
