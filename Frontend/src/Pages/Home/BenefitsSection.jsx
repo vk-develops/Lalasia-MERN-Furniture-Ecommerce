@@ -1,6 +1,7 @@
 import React from "react";
 import { styles } from "../../Styles/styles";
 import HomeBenefitCard from "../../Components/HomeBenefitCard";
+import { benefitData } from "../../Data/benefitData";
 
 const BenefitsSection = () => {
     return (
@@ -21,9 +22,14 @@ const BenefitsSection = () => {
             </div>
 
             <div className="flex items-center justify-center gap-8 pt-12">
-                <HomeBenefitCard />
-                <HomeBenefitCard />
-                <HomeBenefitCard />
+                {benefitData.map((benCard) => (
+                    <HomeBenefitCard
+                        key={benCard.id}
+                        title={benCard.title}
+                        description={benCard.description}
+                        img={benCard.img}
+                    />
+                ))}
             </div>
         </section>
     );
