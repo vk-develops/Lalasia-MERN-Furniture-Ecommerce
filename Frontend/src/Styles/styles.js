@@ -10,6 +10,9 @@ const styles = {
     secondaryText: "text-titleColor font-eduoxusSans text-3xl font-bold",
     secondaryParaText:
         "text-paragraphColor font-eduoxusSans text-psm font-regular",
+    tertiaryText: "text-titleColor font-eduoxusSans text-xl font-bold",
+    tertiaryParaText:
+        "text-paragraphColor font-eduoxusSans text-pxs font-regular",
 };
 
 //Export

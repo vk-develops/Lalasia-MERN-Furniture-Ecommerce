@@ -1,5 +1,6 @@
 import React from "react";
 import { styles } from "../../Styles/styles";
+import HomeBenefitCard from "../../Components/HomeBenefitCard";
 
 const BenefitsSection = () => {
     return (
@@ -17,6 +18,12 @@ const BenefitsSection = () => {
                     Eget ipsum dignissim placerat nisi, <br /> adipiscing mauris
                     non purus parturient.
                 </p>
+            </div>
+
+            <div className="flex items-center justify-center gap-8 pt-12">
+                <HomeBenefitCard />
+                <HomeBenefitCard />
+                <HomeBenefitCard />
             </div>
         </section>
     );
