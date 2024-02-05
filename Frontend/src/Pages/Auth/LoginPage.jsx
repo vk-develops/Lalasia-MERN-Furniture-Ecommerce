@@ -7,7 +7,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
 
     return (
-        <section className={`max-w-2xl mx-auto p-5 h-screen my-10`}>
+        <section className={`max-w-2xl mx-auto p-5 h-auto my-10`}>
             <div>
                 <h2 className={`${styles.secondaryText}`}>Login</h2>
                 <p className={`${styles.secondaryParaText} pt-5`}>
