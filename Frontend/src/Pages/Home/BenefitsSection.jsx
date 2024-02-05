@@ -5,7 +5,7 @@ import { benefitData } from "../../Data/benefitData";
 
 const BenefitsSection = () => {
     return (
-        <section className={`${styles.layout} h-auto my-10`}>
+        <section className={`${styles.layout} h-auto my-10 pb-5`}>
             <div className="mt-10 flex items-end justify-between gap-5">
                 <div>
                     <h6 className={`${styles.highlitedText}`}>Benefits</h6>
@@ -21,7 +21,7 @@ const BenefitsSection = () => {
                 </p>
             </div>
 
-            <div className="flex items-center justify-center gap-8 pt-12">
+            <div className="flex items-center justify-center gap-8 pt-16">
                 {benefitData.map((benCard) => (
                     <HomeBenefitCard
                         key={benCard.id}

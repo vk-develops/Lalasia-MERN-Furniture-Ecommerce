@@ -10,31 +10,50 @@ const Header = () => {
                 className={`${styles.layout} flex items-center justify-between`}
             >
                 {/* Logo */}
-                <img
-                    className="w-28"
-                    src={LalasiaLogo}
-                    alt="Lalasia Logo"
-                />
+                <NavLink to={`/`}>
+                    <img
+                        className="w-28"
+                        src={LalasiaLogo}
+                        alt="Lalasia Logo"
+                    />
+                </NavLink>
 
                 {/* Navlinks */}
                 <div className="flex items-center justify-center gap-7">
                     <NavLink
-                        className={`${styles.navLink} hover:text-primaryColor`}
+                        to={`products`}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `${styles.navLink} text-primaryColor`
+                                : `${styles.navLink} hover:text-primaryColor`
+                        }
                     >
                         Products
                     </NavLink>
                     <NavLink
-                        className={`${styles.navLink} hover:text-primaryColor`}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `${styles.navLink} text-primaryColor`
+                                : `${styles.navLink} hover:text-primaryColor`
+                        }
                     >
                         Services
                     </NavLink>
                     <NavLink
-                        className={`${styles.navLink} hover:text-primaryColor`}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `${styles.navLink} text-primaryColor`
+                                : `${styles.navLink} hover:text-primaryColor`
+                        }
                     >
                         Articles
                     </NavLink>
                     <NavLink
-                        className={`${styles.navLink} hover:text-primaryColor`}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `${styles.navLink} text-primaryColor`
+                                : `${styles.navLink} hover:text-primaryColor`
+                        }
                     >
                         About Us
                     </NavLink>
@@ -43,11 +62,19 @@ const Header = () => {
                 {/* Cta buttons */}
                 <div className="flex items-center justify-center gap-5">
                     <NavLink
-                        className={`${styles.navLink} hover:text-primaryColor`}
+                        to={`account/login`}
+                        className={({ isActive }) =>
+                            isActive
+                                ? `${styles.navLink} text-primaryColor`
+                                : `${styles.navLink} hover:text-primaryColor`
+                        }
                     >
                         Login
                     </NavLink>
-                    <NavLink className={`${styles.navButton}`}>
+                    <NavLink
+                        to={`account/register`}
+                        className={`${styles.navButton}`}
+                    >
                         Get Started
                     </NavLink>
                 </div>
