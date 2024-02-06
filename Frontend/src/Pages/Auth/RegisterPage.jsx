@@ -75,7 +75,7 @@ const RegisterPage = () => {
 
                 <div className="flex items-end justify-end flex-col">
                     <button
-                        className={`${styles.navButton} px-16 font-medium mt-8`}
+                        className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
                     >
                         Register
                     </button>
