@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { styles } from "../../Styles/styles";
 import { useRegisterMutation } from "../../App/Service/usersAuthApiSlice";
 import { setCredentials } from "../../App/Features/usersAuthSlice";
@@ -31,15 +32,14 @@ const RegisterPage = () => {
                     email,
                     password,
                 }).unwrap();
-                console.log(response);
-                console.log(response.userInfo);
                 const userInfo = response.userInfo;
                 dispatch(setCredentials({ userInfo }));
+                toast.success(response.message);
             } else {
-                console.log("Passwords does not match! ");
+                toast.error("Passwords does not match!");
             }
         } catch (err) {
-            console.log(err.message);
+            toast.error("Server Error!!");
         }
     };
 
@@ -112,7 +112,7 @@ const RegisterPage = () => {
                     <button
                         className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
                     >
-                        Register
+                        {isLoading ? `Registering...` : `Register`}
                     </button>
                 </div>
             </form>
