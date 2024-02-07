@@ -41,9 +41,21 @@ const registerUser = asyncHandler(async (req, res) => {
             //Generating a user token
             generateToken(res, user._id);
 
+            //Destructuring the user info
+            const { _id, name, email } = user;
+
+            //Destructuring the user details
+            const { password, ...restofUserDetails } = user._doc;
+
             res.status(201).json({
                 success: true,
                 message: "Account registration success.",
+                data: restofUserDetails,
+                userInfo: {
+                    _id,
+                    name,
+                    email,
+                },
             });
         }
     } catch (err) {

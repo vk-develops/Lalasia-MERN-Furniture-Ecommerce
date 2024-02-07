@@ -6,6 +6,13 @@ const styles = {
         "text-titleColor font-eduoxusSans text-4xl max-mobile:text-2xl font-bold",
     paragraphText:
         "text-paragraphColor font-eduoxusSans text-plg max-mobile:text-pxs font-medium",
+    highlitedText: "text-secondaryColor font-eduoxusSans text-lg font-bold",
+    secondaryText: "text-titleColor font-eduoxusSans text-3xl font-bold",
+    secondaryParaText:
+        "text-paragraphColor font-eduoxusSans text-psm font-regular",
+    tertiaryText: "text-titleColor font-eduoxusSans text-xl font-bold",
+    tertiaryParaText:
+        "text-paragraphColor font-eduoxusSans text-pxs font-regular",
 };
 
 //Export

@@ -7,7 +7,7 @@ import SearchIcon from "../../assets/Search-Icon.png";
 
 const HeroSection = () => {
     return (
-        <section className={`${styles.layout} h-auto mb-10 mt-8`}>
+        <section className={`${styles.layout} h-auto mt-8`}>
             <div>
                 <h1 className={`${styles.headingText} text-center`}>
                     Discover Furniture With <br /> High Quality Wood{" "}
@@ -18,7 +18,7 @@ const HeroSection = () => {
                     />{" "}
                 </h1>
 
-                <div className="w-3/4 max-mobile:w-full mx-auto">
+                <div className="w-3/4 max-mobile:w-full mx-auto pb-3">
                     <p className={`${styles.paragraphText} text-center pt-4`}>
                         Pellentesque etiam blandit in tincidunt at donec. Eget
                         ipsum dignissim placerat nisi, adipiscing mauris non.
@@ -28,8 +28,8 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            <form className="px-5 py-3 relative mt-9 bg-screenColor1 shadow-new w-3/4 mx-auto z-20 flex items-center justify-between border-t border-screenColor2">
-                <div className="flex items-center justify-center gap-4 z-20">
+            <form className="px-5 py-2 relative mt-10 bg-screenColor1 shadow-new w-3/4 mx-auto z-20 flex items-center justify-between border-[1.5px] border-screenColor2">
+                <div className="flex items-center justify-start gap-4 z-20 w-4/5">
                     <img
                         className="w-6"
                         src={SearchIcon}
@@ -37,7 +37,7 @@ const HeroSection = () => {
                     />
 
                     <input
-                        className={`${styles.navLink}`}
+                        className={`${styles.navLink} w-full outline-none`}
                         type="text"
                         placeholder="Search for products"
                     />
