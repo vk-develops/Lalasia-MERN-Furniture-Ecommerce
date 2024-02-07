@@ -1,12 +1,47 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../../Styles/styles";
+import { useRegisterMutation } from "../../App/Service/usersAuthApiSlice";
+import { setCredentials } from "../../App/Features/usersAuthSlice";
 
 const RegisterPage = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const dispatch = useDispatch();
+
+    const { userInfo } = useSelector((state) => state.auth);
+    useEffect(() => {
+        if (userInfo) {
+            console.log(userInfo);
+        }
+    }, [userInfo]);
+
+    const [register, { isLoading }] = useRegisterMutation();
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (confirmPassword === password) {
+                const response = await register({
+                    name,
+                    email,
+                    password,
+                }).unwrap();
+                console.log(response);
+                console.log(response.userInfo);
+                const userInfo = response.userInfo;
+                dispatch(setCredentials({ userInfo }));
+            } else {
+                console.log("Passwords does not match! ");
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10`}>
@@ -19,7 +54,7 @@ const RegisterPage = () => {
                     labore nulla esse aliquid ad. Excepturi, consequatur in.
                 </p>
             </div>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className="mt-5">
                     <label className="text-lg font-eduoxusSans text-titleColor font-medium">
                         Name:{" "}
