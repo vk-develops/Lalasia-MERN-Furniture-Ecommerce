@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { toast } from "react-toastify";
 import { styles } from "../../Styles/styles";
 import { useRegisterMutation } from "../../App/Service/usersAuthApiSlice";
 import { setCredentials } from "../../App/Features/usersAuthSlice";
+import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 
 const RegisterPage = () => {
     const [name, setName] = useState("");
@@ -34,12 +34,13 @@ const RegisterPage = () => {
                 }).unwrap();
                 const userInfo = response.userInfo;
                 dispatch(setCredentials({ userInfo }));
-                toast.success(response.message);
+                useSuccessToast(response.message);
             } else {
-                toast.error("Passwords does not match!");
+                useErrorToast("Passwords does not match!");
             }
         } catch (err) {
-            toast.error("Server Error!!");
+            console.log(err.message);
+            useErrorToast("Server Error!!");
         }
     };
 
