@@ -1,10 +1,32 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../../Styles/styles";
+import { useLoginMutation } from "../../App/Service/usersAuthApiSlice";
+import { useErrorToast } from "../../Hooks/useToast";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+
+    const { userInfo } = useSelector((state) => state.auth);
+
+    const [login, { isLoading }] = useLoginMutation();
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await login({ email, password }).unwrap();
+            console.log(response);
+            console.log(response.data);
+        } catch (err) {
+            console.log(err.message);
+            useErrorToast("Server Error!!");
+        }
+    };
 
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10`}>

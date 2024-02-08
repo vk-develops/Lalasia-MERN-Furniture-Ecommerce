@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { styles } from "../../Styles/styles";
 import { useRegisterMutation } from "../../App/Service/usersAuthApiSlice";
 import { setCredentials } from "../../App/Features/usersAuthSlice";
@@ -12,13 +12,6 @@ const RegisterPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const dispatch = useDispatch();
-
-    const { userInfo } = useSelector((state) => state.auth);
-    useEffect(() => {
-        if (userInfo) {
-            console.log(userInfo);
-        }
-    }, [userInfo]);
 
     const [register, { isLoading }] = useRegisterMutation();
 
