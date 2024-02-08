@@ -1,9 +1,12 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { styles } from "../Styles/styles";
 import LalasiaLogo from "../assets/Lalasia-Logo.png";
-import { NavLink } from "react-router-dom";
 
 const Header = () => {
+    const { user } = useSelector((state) => state.auth);
+
     return (
         <header className="w-full sticky top-0 z-30  border-b-[1.5px] border-screenColor2 bg-screenColor1">
             <nav
@@ -61,22 +64,45 @@ const Header = () => {
 
                 {/* Cta buttons */}
                 <div className="flex items-center justify-center gap-5">
-                    <NavLink
-                        to={`account/login`}
-                        className={({ isActive }) =>
-                            isActive
-                                ? `${styles.navLink} text-primaryColor`
-                                : `${styles.navLink} hover:text-primaryColor`
-                        }
-                    >
-                        Login
-                    </NavLink>
-                    <NavLink
-                        to={`account/register`}
-                        className={`${styles.navButton}`}
-                    >
-                        Get Started
-                    </NavLink>
+                    {user ? (
+                        <>
+                            <NavLink
+                                to={`account/login`}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `${styles.navLink} text-primaryColor`
+                                        : `${styles.navLink} hover:text-primaryColor`
+                                }
+                            >
+                                Profile
+                            </NavLink>
+                            <NavLink
+                                to={`account/register`}
+                                className={`${styles.navButton}`}
+                            >
+                                Logout
+                            </NavLink>
+                        </>
+                    ) : (
+                        <>
+                            <NavLink
+                                to={`account/login`}
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? `${styles.navLink} text-primaryColor`
+                                        : `${styles.navLink} hover:text-primaryColor`
+                                }
+                            >
+                                Login
+                            </NavLink>
+                            <NavLink
+                                to={`account/register`}
+                                className={`${styles.navButton}`}
+                            >
+                                Get Started
+                            </NavLink>
+                        </>
+                    )}
                 </div>
             </nav>
         </header>
