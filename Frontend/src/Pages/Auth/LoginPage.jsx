@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { styles } from "../../Styles/styles";
 import { useLoginMutation } from "../../App/Service/usersAuthApiSlice";
 import { useErrorToast } from "../../Hooks/useToast";
+import { setCredentials } from "../../App/Features/usersAuthSlice";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
@@ -21,7 +22,8 @@ const LoginPage = () => {
         try {
             const response = await login({ email, password }).unwrap();
             console.log(response);
-            console.log(response.data);
+            const userInfo = response.userInfo;
+            dispatch(setCredentials(userInfo));
         } catch (err) {
             console.log(err.message);
             useErrorToast("Server Error!!");
