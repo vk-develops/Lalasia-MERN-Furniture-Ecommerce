@@ -39,7 +39,7 @@ const LoginPage = () => {
                     labore nulla esse aliquid ad. Excepturi, consequatur in.
                 </p>
             </div>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className="mt-5">
                     <label className="text-lg font-eduoxusSans text-titleColor font-medium">
                         Email:{" "}
@@ -73,9 +73,10 @@ const LoginPage = () => {
                         <Link className="text-secondaryColor">Reset now</Link>
                     </p>
                     <button
+                        disabled={isLoading}
                         className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
                     >
-                        Login
+                        {isLoading ? `Logging in...` : `Login`}
                     </button>
                 </div>
             </form>
