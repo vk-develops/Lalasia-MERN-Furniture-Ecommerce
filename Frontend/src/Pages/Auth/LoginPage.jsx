@@ -25,8 +25,12 @@ const LoginPage = () => {
             const userInfo = response.userInfo;
             dispatch(setCredentials(userInfo));
         } catch (err) {
-            console.log(err.message);
-            useErrorToast("Server Error!!");
+            if (err.data && err.data.message) {
+                useErrorToast(err.data.message);
+            } else {
+                console.log(err.message);
+                useErrorToast("Server Error!");
+            }
         }
     };
 
@@ -68,15 +72,14 @@ const LoginPage = () => {
                         className="w-full outline-none border-[1.5px] text-sm px-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
                     />
                 </div>
-
-                <div className="flex items-end justify-end flex-col">
-                    <p className={`${styles.tertiaryParaText} pt-3`}>
-                        Forgot password?{" "}
-                        <Link className="text-secondaryColor">Reset now</Link>
-                    </p>
+                <p className={`${styles.tertiaryParaText} pt-5`}>
+                    Forgot password?{" "}
+                    <Link className="text-secondaryColor">Reset now</Link>
+                </p>
+                <div className="flex items-end justify-end">
                     <button
                         disabled={isLoading}
-                        className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
+                        className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-3`}
                     >
                         {isLoading ? `Logging in...` : `Login`}
                     </button>

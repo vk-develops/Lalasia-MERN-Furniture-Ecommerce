@@ -32,8 +32,12 @@ const RegisterPage = () => {
                 useErrorToast("Passwords does not match!");
             }
         } catch (err) {
-            console.log(err.message);
-            useErrorToast("Server Error!!");
+            if (err.data && err.data.message) {
+                useErrorToast(err.data.message);
+            } else {
+                console.log(err.message);
+                useErrorToast("Server Error!");
+            }
         }
     };
 
