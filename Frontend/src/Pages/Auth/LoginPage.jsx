@@ -1,10 +1,41 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { styles } from "../../Styles/styles";
+import { useLoginMutation } from "../../App/Service/usersAuthApiSlice";
+import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
+import { setCredentials } from "../../App/Features/usersAuthSlice";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
+
+    const [login, { isLoading }] = useLoginMutation();
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await login({ email, password }).unwrap();
+            console.log(response);
+            const userInfo = response.userInfo;
+            dispatch(setCredentials(userInfo));
+            useSuccessToast(response.message);
+            //Redirect after successfull login
+            navigate("/");
+        } catch (err) {
+            if (err.data && err.data.message) {
+                useErrorToast(err.data.message);
+            } else {
+                console.log(err.message);
+                useErrorToast("Server Error!");
+            }
+        }
+    };
 
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10`}>
@@ -17,7 +48,7 @@ const LoginPage = () => {
                     labore nulla esse aliquid ad. Excepturi, consequatur in.
                 </p>
             </div>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className="mt-5">
                     <label className="text-lg font-eduoxusSans text-titleColor font-medium">
                         Email:{" "}
@@ -44,16 +75,16 @@ const LoginPage = () => {
                         className="w-full outline-none border-[1.5px] text-sm px-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
                     />
                 </div>
-
-                <div className="flex items-end justify-end flex-col">
-                    <p className={`${styles.tertiaryParaText} pt-3`}>
-                        Forgot password?{" "}
-                        <Link className="text-secondaryColor">Reset now</Link>
-                    </p>
+                <p className={`${styles.tertiaryParaText} pt-5`}>
+                    Forgot password?{" "}
+                    <Link className="text-secondaryColor">Reset now</Link>
+                </p>
+                <div className="flex items-end justify-end">
                     <button
-                        className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
+                        disabled={isLoading}
+                        className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-3`}
                     >
-                        Login
+                        {isLoading ? `Logging in...` : `Login`}
                     </button>
                 </div>
             </form>

@@ -80,7 +80,7 @@ const loginUser = asyncHandler(async (req, res) => {
         }
 
         //Check for a user
-        const user = User.findOne({ email });
+        const user = await User.findOne({ email });
 
         //Functions if a user
         if (user) {
@@ -93,12 +93,21 @@ const loginUser = asyncHandler(async (req, res) => {
                 //Generating a user token
                 generateToken(res, user._id);
 
+                //Destructuring the user info
+                const { _id, name, email } = user;
+
                 //Destructuring the user details
                 const { password, ...restOfUserDetails } = user._doc;
+
                 res.status(200).json({
                     success: true,
                     message: "Account login success.",
                     data: restOfUserDetails,
+                    userInfo: {
+                        _id,
+                        name,
+                        email,
+                    },
                 });
             } else {
                 return res.status(401).json({

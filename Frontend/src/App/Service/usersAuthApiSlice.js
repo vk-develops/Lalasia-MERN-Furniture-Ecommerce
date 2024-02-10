@@ -32,6 +32,9 @@ export const usersAuthApiSlice = apiSlice.injectEndpoints({
                 url: `${USERS_AUTH_URL}/logout`,
                 method: "POST",
                 credentials: "include",
+                headers: {
+                    "Content-Type": "application/json",
+                },
             }),
         }),
     }),

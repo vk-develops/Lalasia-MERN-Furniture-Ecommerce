@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import asyncHandler from "express-async-handler";
 import User from "../Models/userModel.js";
 
-const protect = asyncHandler(async (req, res) => {
+const protect = asyncHandler(async (req, res, next) => {
     let token;
 
     //Extracting the token from the cookie

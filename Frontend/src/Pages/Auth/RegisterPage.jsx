@@ -1,12 +1,45 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { styles } from "../../Styles/styles";
+import { useRegisterMutation } from "../../App/Service/usersAuthApiSlice";
+import { setCredentials } from "../../App/Features/usersAuthSlice";
+import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 
 const RegisterPage = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const dispatch = useDispatch();
+
+    const [register, { isLoading }] = useRegisterMutation();
+
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            if (confirmPassword === password) {
+                const response = await register({
+                    name,
+                    email,
+                    password,
+                }).unwrap();
+                const userInfo = response.userInfo;
+                dispatch(setCredentials({ userInfo }));
+                useSuccessToast(response.message);
+            } else {
+                useErrorToast("Passwords does not match!");
+            }
+        } catch (err) {
+            if (err.data && err.data.message) {
+                useErrorToast(err.data.message);
+            } else {
+                console.log(err.message);
+                useErrorToast("Server Error!");
+            }
+        }
+    };
 
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10`}>
@@ -19,7 +52,7 @@ const RegisterPage = () => {
                     labore nulla esse aliquid ad. Excepturi, consequatur in.
                 </p>
             </div>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className="mt-5">
                     <label className="text-lg font-eduoxusSans text-titleColor font-medium">
                         Name:{" "}
@@ -77,7 +110,7 @@ const RegisterPage = () => {
                     <button
                         className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
                     >
-                        Register
+                        {isLoading ? `Registering...` : `Register`}
                     </button>
                 </div>
             </form>
