@@ -1,4 +1,6 @@
 import asyncHandler from "express-async-handler";
+import { uploadImages } from "../../Helpers/uploadImages";
+import Product from "../../Models/productsModel.js";
 
 // @desc    Get all the list of the products
 // @route   GET /api/v1/admin/products/get-all-products
@@ -20,6 +22,29 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @access  Private
 const createProduct = asyncHandler(async (req, res) => {
     try {
+        //Getting fields from form body
+        const { name, subTitle, description, price, type } = req.body;
+        const imageFiles = req.files;
+
+        //Uploading the images to cloudinary
+        const imageUrls = await uploadImages(imageFiles);
+
+        //Creating a new product object
+        const newProduct = {
+            name,
+            subTitle,
+            description,
+            price,
+            type,
+            imageUrls,
+            lastUpdated: new Date(),
+        };
+
+        //Adding the values to the product modal
+        const product = new Product(newProduct);
+        await product.save();
+
+        //Sending success message
         res.status(200).json({
             success: true,
             message: "Product created successfully",

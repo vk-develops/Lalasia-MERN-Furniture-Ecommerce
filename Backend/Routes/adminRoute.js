@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import { createProduct } from "../Controllers/Admin/adminProductContorller";
 
 //Router init
 const router = express.Router();
@@ -15,7 +16,7 @@ const upload = multer({
 
 //HTTP methods for app products
 router.get("/get-all-products");
-router.post("/create-product", upload.array("imageFiles", 6));
+router.post("/create-product", upload.array("imageFiles", 6), createProduct);
 router.patch("/update-product");
 router.delete("/delete-product");
 
