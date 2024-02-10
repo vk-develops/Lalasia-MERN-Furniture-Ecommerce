@@ -6,6 +6,8 @@ import ProductsPage from "../Pages/Products/ProductsPage";
 import RegisterPage from "../Pages/Auth/RegisterPage";
 import LoginPage from "../Pages/Auth/LoginPage";
 import VerifyPage from "../Pages/Auth/VerifyPage";
+import AdminPage from "../Pages/Admin/AdminPAge";
+import CreateProductPage from "../Pages/Admin/CreateProductPage";
 
 const Router = () => {
     return (
@@ -41,6 +43,17 @@ const Router = () => {
                     <Route
                         index
                         element={<ProductsPage />}
+                    />
+                </Route>
+
+                <Route path="admin">
+                    <Route
+                        index
+                        element={<AdminPage />}
+                    />
+                    <Route
+                        path="create-product"
+                        element={<CreateProductPage />}
                     />
                 </Route>
             </Route>
