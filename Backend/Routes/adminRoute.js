@@ -1,11 +1,21 @@
 import express from "express";
+import multer from "multer";
 
 //Router init
 const router = express.Router();
 
+//Multer configurations
+const storage = multer.memoryStorage();
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5 * 1024 * 1024, //Image max size 5MB
+    },
+});
+
 //HTTP methods for app products
 router.get("/get-all-products");
-router.post("/create-product");
+router.post("/create-product", upload.array("imageFiles", 6));
 router.patch("/update-product");
 router.delete("/delete-product");
 
