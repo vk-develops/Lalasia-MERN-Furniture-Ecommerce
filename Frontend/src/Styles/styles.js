@@ -13,6 +13,9 @@ const styles = {
     tertiaryText: "text-titleColor font-eduoxusSans text-xl font-bold",
     tertiaryParaText:
         "text-paragraphColor font-eduoxusSans text-pxs font-regular",
+    formLabel: "text-lg font-eduoxusSans text-titleColor font-medium",
+    formInput:
+        "w-full outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor",
 };
 
 //Export

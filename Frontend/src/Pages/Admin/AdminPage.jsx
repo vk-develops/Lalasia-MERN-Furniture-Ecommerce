@@ -7,7 +7,7 @@ const AdminPage = () => {
         <section className={`${styles.layout}`}>
             <div>
                 <h1 className={`${styles.secondaryText}`}>Admin page</h1>
-                <Link to={`create-product`} />
+                <Link to={`create-product`}>go to create product page</Link>
             </div>
         </section>
     );
