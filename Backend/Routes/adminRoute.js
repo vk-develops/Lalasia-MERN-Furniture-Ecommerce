@@ -1,7 +1,7 @@
 import express from "express";
 import multer from "multer";
-import { createProduct } from "../Controllers/Admin/adminProductContorller";
-import { isAdmin } from "../Middlewares/authMiddleware";
+import { createProduct } from "../Controllers/Admin/adminProductContorller.js";
+import { isAdmin } from "../Middlewares/authMiddleware.js";
 
 //Router init
 const router = express.Router();

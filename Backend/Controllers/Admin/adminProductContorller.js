@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { uploadImages } from "../../Helpers/uploadImages";
+import { uploadImages } from "../../Helpers/uploadImages.js";
 import Product from "../../Models/productsModel.js";
 
 // @desc    Get all the list of the products
