@@ -1,11 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { IconShoppingCart, IconChevronDown } from "@tabler/icons-react";
 import { styles } from "../Styles/styles";
 import LalasiaLogo from "../assets/Lalasia-Logo.png";
+import { removeCredentials } from "../App/Features/usersAuthSlice";
 
 const Header = () => {
     const { user } = useSelector((state) => state.auth);
+
+    const dispatch = useDispatch();
 
     return (
         <header className="w-full sticky top-0 z-30  border-b-[1.5px] border-screenColor2 bg-screenColor1">
@@ -74,13 +78,22 @@ const Header = () => {
                                         : `${styles.navLink} hover:text-primaryColor`
                                 }
                             >
-                                Profile
+                                <IconShoppingCart
+                                    stroke={1.5}
+                                    size={24}
+                                />
                             </NavLink>
+                            <button onClick={dispatch(removeCredentials())}>
+                                Logout
+                            </button>
                             <NavLink
                                 to={`account/register`}
-                                className={`${styles.navButton}`}
+                                className={`px-4 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs`}
                             >
-                                Logout
+                                <div className="flex items-end justify-center gap-3">
+                                    <p>Account</p>
+                                    <IconChevronDown size={18} />
+                                </div>
                             </NavLink>
                         </>
                     ) : (

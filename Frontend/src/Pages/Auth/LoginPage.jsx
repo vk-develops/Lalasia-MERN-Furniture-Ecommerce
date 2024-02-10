@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { styles } from "../../Styles/styles";
 import { useLoginMutation } from "../../App/Service/usersAuthApiSlice";
-import { useErrorToast } from "../../Hooks/useToast";
+import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 import { setCredentials } from "../../App/Features/usersAuthSlice";
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const { userInfo } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
 
     const [login, { isLoading }] = useLoginMutation();
 
@@ -24,6 +24,9 @@ const LoginPage = () => {
             console.log(response);
             const userInfo = response.userInfo;
             dispatch(setCredentials(userInfo));
+            useSuccessToast(response.message);
+            //Redirect after successfull login
+            navigate("/");
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
