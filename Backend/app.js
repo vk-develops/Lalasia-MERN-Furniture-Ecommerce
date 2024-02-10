@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { v2 as cloudinary } from "cloudinary";
 import cookieParser from "cookie-parser";
 import connectDb from "./Config/db.js";
 import authRoute from "./Routes/authRoute.js";
@@ -21,6 +22,13 @@ app.use(
     })
 );
 app.use(cookieParser());
+
+//Cloudinary init
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_CLOUD_API_KEY,
+    api_secret: process.env.CLOUDINARY_CLOUD_API_SECRET_KEY,
+});
 
 //HTTP GET Method Test
 app.get("/", (req, res) => {
