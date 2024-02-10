@@ -1,6 +1,7 @@
 import express from "express";
 import multer from "multer";
 import { createProduct } from "../Controllers/Admin/adminProductContorller";
+import { isAdmin } from "../Middlewares/authMiddleware";
 
 //Router init
 const router = express.Router();
@@ -16,14 +17,19 @@ const upload = multer({
 
 //HTTP methods for app products
 router.get("/get-all-products");
-router.post("/create-product", upload.array("imageFiles", 6), createProduct);
-router.patch("/update-product");
+router.post(
+    "/create-product",
+    isAdmin,
+    upload.array("imageFiles", 6),
+    createProduct
+);
+router.put("/update-product");
 router.delete("/delete-product");
 
 //HTTP methods for app blog posts
 router.get("/get-all-posts");
 router.post("/create-post");
-router.patch("/update-post");
+router.put("/update-post");
 router.delete("/delete-post");
 
 //HTTP methods for admin accessing users
