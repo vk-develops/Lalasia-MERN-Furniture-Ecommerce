@@ -37,16 +37,18 @@ const CreateProductPage = () => {
                 </p>
             </div>
             <form>
-                <div className="mt-5">
-                    <label className={`${styles.label}`}>Product Name: </label>
+                <div className="mt-7">
+                    <label className={`${styles.formLabel}`}>
+                        Product Name:{" "}
+                    </label>
                     <input
                         className={`${styles.formInput}`}
                         type="text"
                         placeholder="Enter the name of the product"
                     />
                 </div>
-                <div className="mt-5">
-                    <label className={`${styles.label}`}>
+                <div className="mt-7">
+                    <label className={`${styles.formLabel}`}>
                         Product Sub Title:{" "}
                     </label>
                     <input
@@ -55,8 +57,8 @@ const CreateProductPage = () => {
                         placeholder="Enter the sub title of the product"
                     />
                 </div>
-                <div className="mt-5">
-                    <label className={`${styles.label}`}>
+                <div className="mt-7">
+                    <label className={`${styles.formLabel}`}>
                         Product description:{" "}
                     </label>
                     <textarea
@@ -64,16 +66,28 @@ const CreateProductPage = () => {
                         className="w-full pt-5 h-40 outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
                     ></textarea>
                 </div>
-                <div className="mt-5">
-                    <label className={`${styles.label}`}>Product Price: </label>
+                <div className="mt-7">
+                    <label className={`${styles.formLabel}`}>
+                        Product Price:{" "}
+                    </label>
                     <input
                         className={`${styles.formInput}`}
                         type="text"
                         placeholder="Enter the price of the product"
                     />
                 </div>
-                <div className="mt-5">
-                    <label className={`${styles.label}`}>
+                <div className="mt-7">
+                    <label className={`${styles.formLabel}`}>
+                        Product Image:{" "}
+                    </label>
+                    <input
+                        className={`${styles.formInput}`}
+                        type="file"
+                        placeholder="Enter the image of the product"
+                    />
+                </div>
+                <div className="mt-7">
+                    <label className={`${styles.formLabel}`}>
                         Product Rating:{" "}
                     </label>
                     <select className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal">
@@ -88,26 +102,32 @@ const CreateProductPage = () => {
                         ))}
                     </select>
                 </div>
-                <div className="mt-5 py-8 grid grid-cols-4 gap-2">
-                    {furnitureTypes.map((furniture, index) => (
-                        <label
-                            key={index}
-                            className={`${
-                                checkedItems[furniture]
-                                    ? `bg-secondaryColor text-screenColor1`
-                                    : `bg-screenColor2`
-                            } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
-                        >
-                            <input
-                                type="checkbox"
-                                name={furniture}
-                                checked={checkedItems[furniture] || false}
-                                onChange={handleCheckboxChange}
-                                className="hidden"
-                            />
-                            {furniture}
-                        </label>
-                    ))}
+                <div className="mt-8">
+                    <label className={`${styles.formLabel}`}>
+                        Product Type:
+                    </label>
+
+                    <div className="pb-8 pt-6 grid grid-cols-4 gap-2">
+                        {furnitureTypes.map((furniture, index) => (
+                            <label
+                                key={index}
+                                className={`${
+                                    checkedItems[furniture]
+                                        ? `bg-secondaryColor text-screenColor1`
+                                        : `bg-screenColor2`
+                                } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
+                            >
+                                <input
+                                    type="checkbox"
+                                    name={furniture}
+                                    checked={checkedItems[furniture] || false}
+                                    onChange={handleCheckboxChange}
+                                    className="hidden"
+                                />
+                                {furniture}
+                            </label>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="flex items-end justify-end">
