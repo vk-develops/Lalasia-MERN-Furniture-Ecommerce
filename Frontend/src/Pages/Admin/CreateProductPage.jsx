@@ -1,7 +1,30 @@
+import { useState } from "react";
 import React from "react";
 import { styles } from "../../Styles/styles";
 
+const furnitureTypes = [
+    "Sofa",
+    "Bed",
+    "Table",
+    "Desk",
+    "Cabinets",
+    "Recliner",
+    "Chair",
+    "Clock",
+    "Dining Table",
+    "Barstool",
+    "Dresser",
+];
+
 const CreateProductPage = () => {
+    const [checkedItems, setCheckedItems] = useState({});
+
+    const handleCheckboxChange = (e) => {
+        setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
+    };
+
+    console.log(checkedItems);
+
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
             <div>
@@ -55,10 +78,36 @@ const CreateProductPage = () => {
                     </label>
                     <select className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal">
                         <option value="">Select an option</option>
-                        {[1, 2, 3, 4, 5].map((num) => (
-                            <option value={num}>{num}</option>
+                        {[1, 2, 3, 4, 5].map((num, index) => (
+                            <option
+                                key={index}
+                                value={num}
+                            >
+                                {num}
+                            </option>
                         ))}
                     </select>
+                </div>
+                <div className="mt-5 py-8 grid grid-cols-4 gap-2">
+                    {furnitureTypes.map((furniture, index) => (
+                        <label
+                            key={index}
+                            className={`${
+                                checkedItems[furniture]
+                                    ? `bg-secondaryColor text-screenColor1`
+                                    : `bg-screenColor2`
+                            } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
+                        >
+                            <input
+                                type="checkbox"
+                                name={furniture}
+                                checked={checkedItems[furniture] || false}
+                                onChange={handleCheckboxChange}
+                                className="hidden"
+                            />
+                            {furniture}
+                        </label>
+                    ))}
                 </div>
 
                 <div className="flex items-end justify-end">
