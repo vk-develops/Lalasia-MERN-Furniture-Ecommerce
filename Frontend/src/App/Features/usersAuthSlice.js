@@ -1,12 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    userInfo: localStorage.getItem("userInfo")
-        ? JSON.parse(localStorage.getItem("userInfo"))
-        : null,
-    user: localStorage.getItem("userInfo")
-        ? JSON.parse(localStorage.getItem("userInfo"))
-        : null,
+    user: null,
+    isAuthenticated: false,
 };
 
 const usersAuthSlice = createSlice({
@@ -15,18 +11,12 @@ const usersAuthSlice = createSlice({
     reducers: {
         setCredentials: (state, action) => {
             state.user = action.payload;
-            state.userInfo = action.payload;
-            localStorage.setItem("userInfo", JSON.stringify(action.payload));
-
-            const expirationTime =
-                new Date().getTime() + 30 * 24 * 60 * 60 * 1000; // 30 days
-            localStorage.setItem("expirationTime", expirationTime);
+            state.isAuthenticated = true;
         },
 
         removeCredentials: (state) => {
-            state.userInfo = null;
             state.user = null;
-            localStorage.clear();
+            state.isAuthenticated = false;
         },
     },
 });

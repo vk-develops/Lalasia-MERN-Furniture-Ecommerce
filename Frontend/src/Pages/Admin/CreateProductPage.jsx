@@ -17,7 +17,25 @@ const furnitureTypes = [
 ];
 
 const CreateProductPage = () => {
+    const [name, setName] = useState("");
+    const [subTitle, setSubTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
     const [checkedItems, setCheckedItems] = useState({});
+
+    const formData = new FormData();
+
+    const handleImageUpload = (e) => {
+        e.preventDefault();
+
+        const imageFiles = e.target.files;
+        console.log(imageFiles);
+
+        for (let i = 0; i < imageFiles.length; i++) {
+            formData.append("images", imageFiles[i]);
+        }
+        console.log(formData);
+    };
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
@@ -83,6 +101,9 @@ const CreateProductPage = () => {
                     <input
                         className={`${styles.formInput}`}
                         type="file"
+                        multiple
+                        accept="image/*"
+                        onChange={handleImageUpload}
                         placeholder="Enter the image of the product"
                     />
                 </div>
