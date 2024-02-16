@@ -23,11 +23,14 @@ const getAllProducts = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, type } = req.body;
-        const imageFiles = req.files;
+        const { name, subTitle, description, price, type, starRating } =
+            req.body;
+        // const imageFiles = req.files;
+        console.log(req.body);
+        console.log(req.files);
 
         //Uploading the images to cloudinary
-        const imageUrls = await uploadImages(imageFiles);
+        const imageUrls = await uploadImages(req.files);
 
         //Creating a new product object
         const newProduct = {
@@ -37,6 +40,7 @@ const createProduct = asyncHandler(async (req, res) => {
             price,
             type,
             imageUrls,
+            starRating,
             lastUpdated: new Date(),
         };
 

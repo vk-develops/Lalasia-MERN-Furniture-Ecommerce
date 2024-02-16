@@ -1,6 +1,7 @@
 import { useState } from "react";
 import React from "react";
 import { styles } from "../../Styles/styles";
+import { useCreateProductMutation } from "../../App/Service/adminProductApiSlice";
 
 const furnitureTypes = [
     "Sofa",
@@ -21,27 +22,42 @@ const CreateProductPage = () => {
     const [subTitle, setSubTitle] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const [imageFiles, setImageFiles] = useState([]);
     const [checkedItems, setCheckedItems] = useState({});
+    const [starRating, setStarRating] = useState("");
 
-    const formData = new FormData();
-
-    const handleImageUpload = (e) => {
-        e.preventDefault();
-
-        const imageFiles = e.target.files;
-        console.log(imageFiles);
-
-        for (let i = 0; i < imageFiles.length; i++) {
-            formData.append("images", imageFiles[i]);
-        }
-        console.log(formData);
-    };
+    const [createProduct] = useCreateProductMutation();
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
     };
 
-    console.log(checkedItems);
+    const submitHandler = async (e) => {
+        e.preventDefault();
+
+        try {
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("subTitle", subTitle);
+            formData.append("description", description);
+            formData.append("price", price);
+            formData.append("imageFiles", imageFiles);
+            for (let i = 0; i < imageFiles.length; i++) {
+                formData.append("imageFiles", imageFiles[i]);
+            }
+            Object.entries(checkedItems).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+            formData.append("starRating", starRating);
+
+            const response = await createProduct(formData).unwrap();
+            console.log(response);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    console.log(imageFiles);
 
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
@@ -54,7 +70,7 @@ const CreateProductPage = () => {
                     labore nulla esse aliquid ad. Excepturi, consequatur in.
                 </p>
             </div>
-            <form>
+            <form onSubmit={submitHandler}>
                 <div className="mt-7">
                     <label className={`${styles.formLabel}`}>
                         Product Name:{" "}
@@ -63,6 +79,8 @@ const CreateProductPage = () => {
                         className={`${styles.formInput}`}
                         type="text"
                         placeholder="Enter the name of the product"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
                     />
                 </div>
                 <div className="mt-7">
@@ -73,6 +91,8 @@ const CreateProductPage = () => {
                         className={`${styles.formInput}`}
                         type="text"
                         placeholder="Enter the sub title of the product"
+                        value={subTitle}
+                        onChange={(e) => setSubTitle(e.target.value)}
                     />
                 </div>
                 <div className="mt-7">
@@ -80,6 +100,8 @@ const CreateProductPage = () => {
                         Product description:{" "}
                     </label>
                     <textarea
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         placeholder="Enter the description of the product"
                         className="w-full pt-5 h-40 outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
                     ></textarea>
@@ -92,26 +114,36 @@ const CreateProductPage = () => {
                         className={`${styles.formInput}`}
                         type="text"
                         placeholder="Enter the price of the product"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
                 <div className="mt-7">
-                    <label className={`${styles.formLabel}`}>
+                    <label
+                        htmlFor="imageFiles"
+                        className={`${styles.formLabel}`}
+                    >
                         Product Image:{" "}
                     </label>
                     <input
                         className={`${styles.formInput}`}
                         type="file"
+                        name="imageFiles"
+                        id="imageFiles"
                         multiple
-                        accept="image/*"
-                        onChange={handleImageUpload}
-                        placeholder="Enter the image of the product"
+                        onChange={(e) => setImageFiles(e.target.files)}
+                        required
                     />
                 </div>
                 <div className="mt-7">
                     <label className={`${styles.formLabel}`}>
                         Product Rating:{" "}
                     </label>
-                    <select className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal">
+                    <select
+                        value={starRating}
+                        onChange={(e) => setStarRating(e.target.value)}
+                        className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
+                    >
                         <option value="">Select an option</option>
                         {[1, 2, 3, 4, 5].map((num, index) => (
                             <option

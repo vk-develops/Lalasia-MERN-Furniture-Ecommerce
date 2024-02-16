@@ -1,24 +1,33 @@
 import express from "express";
 import multer from "multer";
 import { createProduct } from "../Controllers/Admin/adminProductContorller.js";
-import { isAdmin } from "../Middlewares/authMiddleware.js";
+import { isAdmin, protect } from "../Middlewares/authMiddleware.js";
 
 //Router init
 const router = express.Router();
 
 //Multer configurations
+// const storage = multer.memoryStorage();
+// const upload = multer({
+//     storage: storage,
+//     limits: {
+//         fileSize: 5 * 1024 * 1024, //Image max size 5MB
+//     },
+// });
+
 const storage = multer.memoryStorage();
 const upload = multer({
     storage: storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024, //Image max size 5MB
-    },
+    limits: { fileSize: 50 * 1024 * 1024 },
 });
+
+// const upload = multer({ dest: "uploads/" });
 
 //HTTP methods for app products
 router.get("/get-all-products");
 router.post(
     "/create-product",
+    protect,
     isAdmin,
     upload.array("imageFiles", 6),
     createProduct

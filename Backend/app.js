@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 8080;
 
 //Built-in Middlewares and Imported ones
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(
     cors({
         credentials: true,

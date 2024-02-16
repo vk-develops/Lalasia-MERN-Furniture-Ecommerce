@@ -8,9 +8,9 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 url: `${ADMIN_PRODUCT_URL}/create-product`,
                 method: "POST",
                 credentials: "include",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                // headers: {
+                //     "Content-Type": "application/json",
+                // },
                 body: data,
             }),
         }),
