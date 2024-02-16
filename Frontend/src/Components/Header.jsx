@@ -7,7 +7,7 @@ import LalasiaLogo from "../assets/Lalasia-Logo.png";
 import useLogout from "../Hooks/useLogout";
 
 const Header = () => {
-    const { user } = useSelector((state) => state.auth);
+    const { user, isAuthenticated } = useSelector((state) => state.auth);
 
     const { logoutHandler } = useLogout();
 
@@ -72,7 +72,7 @@ const Header = () => {
 
                 {/* Cta buttons */}
                 <div className="flex items-center justify-center gap-5">
-                    {user ? (
+                    {isAuthenticated ? (
                         <>
                             <NavLink
                                 to={`account/login`}

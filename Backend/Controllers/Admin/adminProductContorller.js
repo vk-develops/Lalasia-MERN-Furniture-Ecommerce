@@ -1,5 +1,5 @@
 import asyncHandler from "express-async-handler";
-import { uploadImages } from "../../Helpers/uploadImages";
+import { uploadImages } from "../../Helpers/uploadImages.js";
 import Product from "../../Models/productsModel.js";
 
 // @desc    Get all the list of the products
@@ -23,11 +23,15 @@ const getAllProducts = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, type } = req.body;
-        const imageFiles = req.files;
+        const { name, subTitle, description, price, type, starRating } =
+            req.body;
+
+        const typeArray = Object.entries(req.body)
+            .filter(([key, value]) => value === "true")
+            .map(([key, value]) => key);
 
         //Uploading the images to cloudinary
-        const imageUrls = await uploadImages(imageFiles);
+        const imageUrls = await uploadImages(req.files);
 
         //Creating a new product object
         const newProduct = {
@@ -35,8 +39,9 @@ const createProduct = asyncHandler(async (req, res) => {
             subTitle,
             description,
             price,
-            type,
+            type: typeArray,
             imageUrls,
+            starRating,
             lastUpdated: new Date(),
         };
 
