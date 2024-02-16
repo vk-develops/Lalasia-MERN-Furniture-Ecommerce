@@ -25,9 +25,10 @@ const createProduct = asyncHandler(async (req, res) => {
         //Getting fields from form body
         const { name, subTitle, description, price, type, starRating } =
             req.body;
-        // const imageFiles = req.files;
-        console.log(req.body);
-        console.log(req.files);
+
+        const typeArray = Object.entries(req.body)
+            .filter(([key, value]) => value === "true")
+            .map(([key, value]) => key);
 
         //Uploading the images to cloudinary
         const imageUrls = await uploadImages(req.files);
@@ -38,7 +39,7 @@ const createProduct = asyncHandler(async (req, res) => {
             subTitle,
             description,
             price,
-            type,
+            type: typeArray,
             imageUrls,
             starRating,
             lastUpdated: new Date(),
