@@ -42,6 +42,14 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
+        deleteProduct: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `${ADMIN_PRODUCT_URL}/delete-product/${id}`,
+                method: "DELETE",
+                credentials: "include",
+                body: data,
+            }),
+        }),
     }),
 });
 
