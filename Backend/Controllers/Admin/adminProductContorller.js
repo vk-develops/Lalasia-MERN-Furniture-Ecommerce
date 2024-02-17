@@ -71,8 +71,7 @@ const getAProduct = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, type, starRating } =
-            req.body;
+        const { name, subTitle, description, price, starRating } = req.body;
 
         const typeArray = Object.entries(req.body)
             .filter(([key, value]) => value === "true")
@@ -114,10 +113,51 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const updateProduct = asyncHandler(async (req, res) => {
     try {
-        res.status(200).json({
-            success: true,
-            message: "Product update done successfully",
-        });
+        const { id } = req.params;
+
+        //Check for vaild id
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
+        const product = await Product.findById(id);
+
+        if (product) {
+            //Updating the products with current value
+            product.name =
+                req.body.name !== undefined ? req.body.name : product.name;
+            product.subTitle =
+                req.body.subTitle !== undefined
+                    ? req.body.subTitle
+                    : product.subTitle;
+            product.description =
+                req.body.description !== undefined
+                    ? req.body.description
+                    : product.description;
+            product.price =
+                req.body.price !== undefined ? req.body.price : product.price;
+            product.starRating =
+                req.body.starRating !== undefined
+                    ? req.body.starRating
+                    : product.starRating;
+
+            if (req.files) {
+                const imageUrls = await uploadImages(req.files);
+                product.imageUrls = imageUrls || product.imageUrls;
+            }
+
+            res.status(200).json({
+                success: true,
+                message: "Product update done successfully",
+                data: product,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "Product not found" });
+        }
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ success: false, err: err.message });
