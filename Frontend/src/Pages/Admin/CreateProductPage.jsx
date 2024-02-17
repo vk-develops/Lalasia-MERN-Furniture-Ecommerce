@@ -2,20 +2,8 @@ import { useState } from "react";
 import React from "react";
 import { styles } from "../../Styles/styles";
 import { useCreateProductMutation } from "../../App/Service/adminProductApiSlice";
-
-const furnitureTypes = [
-    "Sofa",
-    "Bed",
-    "Table",
-    "Desk",
-    "Cabinets",
-    "Recliner",
-    "Chair",
-    "Clock",
-    "Dining Table",
-    "Barstool",
-    "Dresser",
-];
+import { furnitureTypes } from "../../Data/furnitureTypes";
+import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 
 const CreateProductPage = () => {
     const [name, setName] = useState("");
@@ -26,7 +14,7 @@ const CreateProductPage = () => {
     const [checkedItems, setCheckedItems] = useState({});
     const [starRating, setStarRating] = useState("");
 
-    const [createProduct] = useCreateProductMutation();
+    const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
@@ -35,29 +23,34 @@ const CreateProductPage = () => {
     const submitHandler = async (e) => {
         e.preventDefault();
 
-        try {
-            const formData = new FormData();
-            formData.append("name", name);
-            formData.append("subTitle", subTitle);
-            formData.append("description", description);
-            formData.append("price", price);
-            formData.append("imageFiles", imageFiles);
-            for (let i = 0; i < imageFiles.length; i++) {
-                formData.append("imageFiles", imageFiles[i]);
-            }
-            Object.entries(checkedItems).forEach(([key, value]) => {
-                formData.append(key, value);
-            });
-            formData.append("starRating", starRating);
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("subTitle", subTitle);
+        formData.append("description", description);
+        formData.append("price", price);
+        formData.append("imageFiles", imageFiles);
+        for (let i = 0; i < imageFiles.length; i++) {
+            formData.append("imageFiles", imageFiles[i]);
+        }
+        Object.entries(checkedItems).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        formData.append("starRating", starRating);
 
+        try {
             const response = await createProduct(formData).unwrap();
+
+            //Extracting the response
             console.log(response);
-        } catch (error) {
-            console.log(error.message);
+        } catch (err) {
+            if (err.data && err.data.message) {
+                useErrorToast(err.data.message);
+            } else {
+                console.log(err.message);
+                useErrorToast("Server Error!");
+            }
         }
     };
-
-    console.log(imageFiles);
 
     return (
         <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
@@ -185,9 +178,10 @@ const CreateProductPage = () => {
 
                 <div className="flex items-end justify-end">
                     <button
+                        disabled={isLoading}
                         className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
                     >
-                        Create Product
+                        {isLoading ? "Creating product..." : "Create Product"}
                     </button>
                 </div>
             </form>
