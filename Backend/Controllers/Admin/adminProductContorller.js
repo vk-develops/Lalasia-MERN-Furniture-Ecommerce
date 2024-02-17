@@ -1,16 +1,64 @@
 import asyncHandler from "express-async-handler";
 import { uploadImages } from "../../Helpers/uploadImages.js";
 import Product from "../../Models/productsModel.js";
+import mongoose from "mongoose";
 
 // @desc    Get all the list of the products
 // @route   GET /api/v1/admin/products/get-all-products
 // @access  Private
 const getAllProducts = asyncHandler(async (req, res) => {
     try {
-        res.status(200).json({
-            success: true,
-            message: "Products data retrieval success",
-        });
+        const products = await Product.find();
+
+        //Retreive count
+        const productCount = await Product.countDocuments();
+
+        if (products) {
+            //Sending the response
+            res.status(200).json({
+                success: true,
+                message: "Products data retrieval success",
+                count: productCount,
+                data: products,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No products found" });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
+// @desc    Get the list of a product
+// @route   GET /api/v1/admin/products/get-a-product/:id
+// @access  Private
+const getAProduct = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
+        const product = await Product.findById(id);
+
+        if (product) {
+            //Sending the response
+            res.status(200).json({
+                success: true,
+                message: "Product data retrieval success",
+                data: product,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No products found" });
+        }
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ success: false, err: err.message });
@@ -23,8 +71,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, type, starRating } =
-            req.body;
+        const { name, subTitle, description, price, starRating } = req.body;
 
         const typeArray = Object.entries(req.body)
             .filter(([key, value]) => value === "true")
@@ -66,10 +113,45 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const updateProduct = asyncHandler(async (req, res) => {
     try {
-        res.status(200).json({
-            success: true,
-            message: "Product update done successfully",
-        });
+        const { id } = req.params;
+
+        const { name, subTitle, description, price, starRating } = req.body;
+
+        //Check for vaild id
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
+        const product = await Product.findById(id);
+
+        if (product) {
+            //Updating the products with current value
+            product.name = name || product.name;
+            product.subTitle = subTitle || product.subTitle;
+            product.description = description || product.description;
+            product.price = price || product.price;
+            product.starRating = starRating || product.starRating;
+
+            if (req.files) {
+                const imageUrls = await uploadImages(req.files);
+                product.imageUrls = imageUrls || product.imageUrls;
+            }
+
+            // Save the updated product
+            const updatedProduct = await product.save();
+
+            res.status(200).json({
+                success: true,
+                message: "Product update done successfully",
+                data: updatedProduct,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "Product not found" });
+        }
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ success: false, err: err.message });
@@ -81,6 +163,23 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const deleteProduct = asyncHandler(async (req, res) => {
     try {
+        const { id } = req.params;
+
+        //Check for vaild id
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Product not found" });
+        }
+
         res.status(200).json({
             success: true,
             message: "Product deletion was successfully done",
@@ -92,4 +191,10 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 //Export
-export { getAllProducts, createProduct, updateProduct, deleteProduct };
+export {
+    getAllProducts,
+    getAProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+};

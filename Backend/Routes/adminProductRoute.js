@@ -1,6 +1,12 @@
 import express from "express";
 import multer from "multer";
-import { createProduct } from "../Controllers/Admin/adminProductContorller.js";
+import {
+    createProduct,
+    deleteProduct,
+    getAProduct,
+    getAllProducts,
+    updateProduct,
+} from "../Controllers/Admin/adminProductContorller.js";
 import { isAdmin, protect } from "../Middlewares/authMiddleware.js";
 
 //Router init
@@ -14,7 +20,8 @@ const upload = multer({
 });
 
 //HTTP methods for app products
-router.get("/get-all-products");
+router.get("/get-all-products", protect, isAdmin, getAllProducts);
+router.get("/get-a-product/:id", protect, isAdmin, getAProduct);
 router.post(
     "/create-product",
     protect,
@@ -22,8 +29,8 @@ router.post(
     upload.array("imageFiles", 6),
     createProduct
 );
-router.put("/update-product/:id");
-router.delete("/delete-product/:id");
+router.put("/update-product/:id", protect, isAdmin, updateProduct);
+router.delete("/delete-product/:id", protect, isAdmin, deleteProduct);
 
 //Exports
 export default router;
