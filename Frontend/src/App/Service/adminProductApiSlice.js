@@ -14,6 +14,16 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
+        getAllProducts: builder.query({
+            query: () => ({
+                url: `${ADMIN_PRODUCT_URL}/get-all-products`,
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
