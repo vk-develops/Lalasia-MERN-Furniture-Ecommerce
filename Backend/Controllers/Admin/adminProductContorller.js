@@ -13,12 +13,19 @@ const getAllProducts = asyncHandler(async (req, res) => {
         //Retreive count
         const productCount = await Product.countDocuments();
 
-        res.status(200).json({
-            success: true,
-            message: "Products data retrieval success",
-            count: productCount,
-            data: products,
-        });
+        if (products) {
+            //Sending the response
+            res.status(200).json({
+                success: true,
+                message: "Products data retrieval success",
+                count: productCount,
+                data: products,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No products found" });
+        }
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ success: false, err: err.message });
