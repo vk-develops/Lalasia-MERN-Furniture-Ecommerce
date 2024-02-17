@@ -115,6 +115,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
 
+        const { name, subTitle, description, price, starRating } = req.body;
+
         //Check for vaild id
         if (!mongoose.isValidObjectId(id)) {
             return res
@@ -126,32 +128,24 @@ const updateProduct = asyncHandler(async (req, res) => {
 
         if (product) {
             //Updating the products with current value
-            product.name =
-                req.body.name !== undefined ? req.body.name : product.name;
-            product.subTitle =
-                req.body.subTitle !== undefined
-                    ? req.body.subTitle
-                    : product.subTitle;
-            product.description =
-                req.body.description !== undefined
-                    ? req.body.description
-                    : product.description;
-            product.price =
-                req.body.price !== undefined ? req.body.price : product.price;
-            product.starRating =
-                req.body.starRating !== undefined
-                    ? req.body.starRating
-                    : product.starRating;
+            product.name = name || product.name;
+            product.subTitle = subTitle || product.subTitle;
+            product.description = description || product.description;
+            product.price = price || product.price;
+            product.starRating = starRating || product.starRating;
 
             if (req.files) {
                 const imageUrls = await uploadImages(req.files);
                 product.imageUrls = imageUrls || product.imageUrls;
             }
 
+            // Save the updated product
+            const updatedProduct = await product.save();
+
             res.status(200).json({
                 success: true,
                 message: "Product update done successfully",
-                data: product,
+                data: updatedProduct,
             });
         } else {
             return res
@@ -169,6 +163,23 @@ const updateProduct = asyncHandler(async (req, res) => {
 // @access  Private
 const deleteProduct = asyncHandler(async (req, res) => {
     try {
+        const { id } = req.params;
+
+        //Check for vaild id
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
+        const deletedProduct = await Product.findByIdAndDelete(id);
+
+        if (!deletedProduct) {
+            return res
+                .status(404)
+                .json({ success: false, message: "Product not found" });
+        }
+
         res.status(200).json({
             success: true,
             message: "Product deletion was successfully done",

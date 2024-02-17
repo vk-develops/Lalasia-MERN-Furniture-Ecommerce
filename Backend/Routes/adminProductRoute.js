@@ -2,8 +2,10 @@ import express from "express";
 import multer from "multer";
 import {
     createProduct,
+    deleteProduct,
     getAProduct,
     getAllProducts,
+    updateProduct,
 } from "../Controllers/Admin/adminProductContorller.js";
 import { isAdmin, protect } from "../Middlewares/authMiddleware.js";
 
@@ -27,8 +29,8 @@ router.post(
     upload.array("imageFiles", 6),
     createProduct
 );
-router.put("/update-product/:id");
-router.delete("/delete-product/:id");
+router.put("/update-product/:id", protect, isAdmin, updateProduct);
+router.delete("/delete-product/:id", protect, isAdmin, deleteProduct);
 
 //Exports
 export default router;
