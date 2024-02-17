@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { uploadImages } from "../../Helpers/uploadImages.js";
 import Product from "../../Models/productsModel.js";
+import mongoose from "mongoose";
 
 // @desc    Get all the list of the products
 // @route   GET /api/v1/admin/products/get-all-products
@@ -31,14 +32,26 @@ const getAProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
 
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
         const product = await Product.findById(id);
 
-        //Sending the response
-        res.status(200).json({
-            success: true,
-            message: "Product data retrieval success",
-            data: product,
-        });
+        if (product) {
+            //Sending the response
+            res.status(200).json({
+                success: true,
+                message: "Product data retrieval success",
+                data: product,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No products found" });
+        }
     } catch (err) {
         console.log(err.message);
         res.status(500).json({ success: false, err: err.message });
