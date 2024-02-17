@@ -24,7 +24,21 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+        getAProduct: builder.query({
+            query: () => ({
+                url: `${ADMIN_PRODUCT_URL}/get-a-product`,
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
-export const { useCreateProductMutation } = adminProductApiSlice;
+export const {
+    useCreateProductMutation,
+    useGetAllProductsQuery,
+    useGetAProductQuery,
+} = adminProductApiSlice;
