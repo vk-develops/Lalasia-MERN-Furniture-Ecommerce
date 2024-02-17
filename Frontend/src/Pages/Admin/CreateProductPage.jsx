@@ -42,6 +42,9 @@ const CreateProductPage = () => {
 
             //Extracting the response
             console.log(response);
+
+            //Sending success message
+            useSuccessToast(response.message);
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
