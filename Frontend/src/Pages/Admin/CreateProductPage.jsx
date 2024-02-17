@@ -1,34 +1,10 @@
 import { useState } from "react";
 import React from "react";
-import { Triangle } from "react-loader-spinner";
 import { styles } from "../../Styles/styles";
 import { useCreateProductMutation } from "../../App/Service/adminProductApiSlice";
 import { furnitureTypes } from "../../Data/furnitureTypes";
 import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
-
-const LoadingSection = () => {
-    return (
-        <section
-            style={{
-                backgroundColor: "rgb(235, 235, 235, .5)",
-                backdropFilter: blur("200px"),
-            }}
-            className="w-full h-screen fixed top-0 left-0 z-0 overflow-y-hidden"
-        >
-            <div className="absolute top-1/2 left-2/4 transform -translate-x-2/4 -translate-y-1/2 bg-white p-12">
-                <div className="relative ">
-                    <Triangle
-                        visible={true}
-                        height="100"
-                        width="100"
-                        color="#518581"
-                        ariaLabel="triangle-loading"
-                    />
-                </div>
-            </div>
-        </section>
-    );
-};
+import Loader from "../../Components/Loader";
 
 const CreateProductPage = () => {
     const [name, setName] = useState("");
@@ -91,7 +67,7 @@ const CreateProductPage = () => {
 
     return (
         <>
-            {isLoading && <LoadingSection />}
+            {isLoading && <Loader />}
             <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
                 <div>
                     <h2 className={`${styles.secondaryText}`}>
