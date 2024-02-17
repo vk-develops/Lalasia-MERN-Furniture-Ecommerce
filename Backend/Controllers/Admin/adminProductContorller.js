@@ -7,9 +7,16 @@ import Product from "../../Models/productsModel.js";
 // @access  Private
 const getAllProducts = asyncHandler(async (req, res) => {
     try {
+        const products = await Product.find();
+
+        //Retreive count
+        const productCount = await Product.countDocuments();
+
         res.status(200).json({
             success: true,
             message: "Products data retrieval success",
+            count: productCount,
+            data: products,
         });
     } catch (err) {
         console.log(err.message);

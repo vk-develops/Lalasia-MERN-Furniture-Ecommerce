@@ -1,6 +1,9 @@
 import express from "express";
 import multer from "multer";
-import { createProduct } from "../Controllers/Admin/adminProductContorller.js";
+import {
+    createProduct,
+    getAllProducts,
+} from "../Controllers/Admin/adminProductContorller.js";
 import { isAdmin, protect } from "../Middlewares/authMiddleware.js";
 
 //Router init
@@ -14,7 +17,7 @@ const upload = multer({
 });
 
 //HTTP methods for app products
-router.get("/get-all-products");
+router.get("/get-all-products", protect, isAdmin, getAllProducts);
 router.post(
     "/create-product",
     protect,
