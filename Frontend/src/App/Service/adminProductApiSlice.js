@@ -14,7 +14,42 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
+        getAllProducts: builder.query({
+            query: () => ({
+                url: `${ADMIN_PRODUCT_URL}/get-all-products`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
+        getAProduct: builder.query({
+            query: ({ id }) => ({
+                url: `${ADMIN_PRODUCT_URL}/get-a-product/${id}`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
+        updateProduct: builder.mutation({
+            query: (id, data) => ({
+                url: `${ADMIN_PRODUCT_URL}/update-product/${id}`,
+                method: "PUT",
+                credentials: "include",
+                body: data,
+            }),
+        }),
+        deleteProduct: builder.mutation({
+            query: (id) => ({
+                url: `${ADMIN_PRODUCT_URL}/delete-product/${id}`,
+                method: "DELETE",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
-export const { useCreateProductMutation } = adminProductApiSlice;
+export const {
+    useCreateProductMutation,
+    useGetAllProductsQuery,
+    useGetAProductQuery,
+    useUpdateProductMutation,
+    useDeleteProductMutation,
+} = adminProductApiSlice;
