@@ -24,6 +24,27 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Get the list of a product
+// @route   GET /api/v1/admin/products/get-a-product/:id
+// @access  Private
+const getAProduct = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const product = await Product.findById(id);
+
+        //Sending the response
+        res.status(200).json({
+            success: true,
+            message: "Product data retrieval success",
+            data: product,
+        });
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 // @desc    Create a new product
 // @route   POST /api/v1/admin/products/create-product
 // @access  Private
@@ -99,4 +120,10 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 //Export
-export { getAllProducts, createProduct, updateProduct, deleteProduct };
+export {
+    getAllProducts,
+    getAProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+};

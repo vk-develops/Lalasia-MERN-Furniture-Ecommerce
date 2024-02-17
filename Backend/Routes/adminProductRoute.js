@@ -2,6 +2,7 @@ import express from "express";
 import multer from "multer";
 import {
     createProduct,
+    getAProduct,
     getAllProducts,
 } from "../Controllers/Admin/adminProductContorller.js";
 import { isAdmin, protect } from "../Middlewares/authMiddleware.js";
@@ -18,6 +19,7 @@ const upload = multer({
 
 //HTTP methods for app products
 router.get("/get-all-products", protect, isAdmin, getAllProducts);
+router.get("/get-a-product/:id", protect, isAdmin, getAProduct);
 router.post(
     "/create-product",
     protect,
