@@ -76,6 +76,7 @@ const CreateProductPage = () => {
                         type="text"
                         placeholder="Enter the name of the product"
                         value={name}
+                        required
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
@@ -88,6 +89,7 @@ const CreateProductPage = () => {
                         type="text"
                         placeholder="Enter the sub title of the product"
                         value={subTitle}
+                        required
                         onChange={(e) => setSubTitle(e.target.value)}
                     />
                 </div>
@@ -97,6 +99,7 @@ const CreateProductPage = () => {
                     </label>
                     <textarea
                         value={description}
+                        required
                         onChange={(e) => setDescription(e.target.value)}
                         placeholder="Enter the description of the product"
                         className="w-full pt-5 h-40 outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
@@ -111,6 +114,7 @@ const CreateProductPage = () => {
                         type="text"
                         placeholder="Enter the price of the product"
                         value={price}
+                        required
                         onChange={(e) => setPrice(e.target.value)}
                     />
                 </div>
@@ -137,6 +141,7 @@ const CreateProductPage = () => {
                     </label>
                     <select
                         value={starRating}
+                        required
                         onChange={(e) => setStarRating(e.target.value)}
                         className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
                     >
