@@ -18,24 +18,18 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
             query: () => ({
                 url: `${ADMIN_PRODUCT_URL}/get-all-products`,
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 credentials: "include",
             }),
         }),
         getAProduct: builder.query({
-            query: () => ({
-                url: `${ADMIN_PRODUCT_URL}/get-a-product`,
+            query: ({ id }) => ({
+                url: `${ADMIN_PRODUCT_URL}/get-a-product/${id}`,
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                },
                 credentials: "include",
             }),
         }),
         updateProduct: builder.mutation({
-            query: ({ id, data }) => ({
+            query: (id, data) => ({
                 url: `${ADMIN_PRODUCT_URL}/update-product/${id}`,
                 method: "PUT",
                 credentials: "include",
@@ -43,11 +37,10 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
             }),
         }),
         deleteProduct: builder.mutation({
-            query: ({ id, data }) => ({
+            query: (id) => ({
                 url: `${ADMIN_PRODUCT_URL}/delete-product/${id}`,
                 method: "DELETE",
                 credentials: "include",
-                body: data,
             }),
         }),
     }),
@@ -58,4 +51,5 @@ export const {
     useGetAllProductsQuery,
     useGetAProductQuery,
     useUpdateProductMutation,
+    useDeleteProductMutation,
 } = adminProductApiSlice;
