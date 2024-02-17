@@ -45,6 +45,15 @@ const CreateProductPage = () => {
 
             //Sending success message
             useSuccessToast(response.message);
+
+            //Setting back the states as empty
+            setName("");
+            setSubTitle("");
+            setDescription("");
+            setPrice("");
+            setImageFiles([]);
+            setCheckedItems({});
+            setStarRating("");
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
