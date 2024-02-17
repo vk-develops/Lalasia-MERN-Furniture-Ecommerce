@@ -34,6 +34,14 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+        updateProduct: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `${ADMIN_PRODUCT_URL}/update-product/${id}`,
+                method: "PUT",
+                credentials: "include",
+                body: data,
+            }),
+        }),
     }),
 });
 
@@ -41,4 +49,5 @@ export const {
     useCreateProductMutation,
     useGetAllProductsQuery,
     useGetAProductQuery,
+    useUpdateProductMutation,
 } = adminProductApiSlice;
