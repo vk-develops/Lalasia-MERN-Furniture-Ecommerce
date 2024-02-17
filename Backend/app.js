@@ -5,7 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 import cookieParser from "cookie-parser";
 import connectDb from "./Config/db.js";
 import authRoute from "./Routes/authRoute.js";
-import adminRoute from "./Routes/adminRoute.js";
+import adminProductRoute from "./Routes/adminProductRoute.js";
 
 //App init
 dotenv.config();
@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 
 //APP HTTP Methods
 app.use("/api/v1/users/auth/", authRoute);
-app.use("/api/v1/admin/", adminRoute);
+app.use("/api/v1/admin/products/", adminProductRoute);
 
 //App listen
 app.listen(PORT, () => {
