@@ -5,14 +5,22 @@ import { useGetAllProductsQuery } from "../../App/Service/adminProductApiSlice";
 import Loader from "../../Components/Loader";
 
 const ProductSection = () => {
+    const [products, setProducts] = useState([]);
+
     const { data, isLoading, isError } = useGetAllProductsQuery();
 
-    console.log(data);
+    useEffect(() => {
+        if (data) {
+            setProducts(data.data);
+        }
+    }, [data]);
+
+    console.log(products);
 
     return (
         <>
             {isLoading && <Loader />}
-            <section className={`${styles.layout} h-auto mt-16 pb-4`}>
+            <section className={`${styles.layout} h-auto my-16 `}>
                 <div className="flex items-center justify-center flex-col text-center">
                     <h6 className={`${styles.highlitedText}`}>Products</h6>
                     <h2 className={`${styles.secondaryText} pt-3`}>
@@ -25,9 +33,12 @@ const ProductSection = () => {
                     </p>
                 </div>
                 <div className="my-8 flex items-center pt-10 justify-between gap-8">
-                    <ProductCard product={data} />
-                    <ProductCard product={data} />
-                    <ProductCard product={data} />
+                    {products.map((product) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                        />
+                    ))}
                 </div>
             </section>
         </>

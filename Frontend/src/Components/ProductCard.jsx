@@ -1,20 +1,36 @@
 import React from "react";
 
-const ProductCard = () => {
+const ProductCard = ({ product }) => {
+    function generateRandomId() {
+        const randomNumberString = Math.random().toString().substring(2);
+
+        const randomId = `${randomNumberString}`;
+        return randomId;
+    }
+
     return (
         <div className="w-96 bg-screenColor1">
             <div>
                 <img
-                    src="https://images.pexels.com/photos/90946/pexels-photo-90946.jpeg?cs=srgb&dl=pexels-math-90946.jpg&fm=jpg"
+                    src={product.imageUrls[5]}
                     alt="Product Image"
                 />
             </div>
             <div className="py-3">
-                <h5 className="text-secondaryColor text-sm font-eduoxusSans font-medium pt-[10px]">
-                    Product
-                </h5>
+                <div className="flex items-center justify-start gap-2">
+                    {product.type.map((type) => (
+                        <div
+                            key={generateRandomId()}
+                            className="mt-4 mb-1 px-4 py-[2px] bg-primaryColor rounded-lg flex items-center justify-center"
+                        >
+                            <h5 className="text-screenColor1 text-[12px] font-eduoxusSans font-medium">
+                                {type}
+                            </h5>
+                        </div>
+                    ))}
+                </div>
                 <h3 className="text-2xl font-eduoxusSans font-bold text-titleColor pt-4">
-                    White Aesthetic Chair
+                    {product.name}
                 </h3>
                 <h4 className="text-paragraphColor font-eduoxusSans text-base font-medium pt-2">
                     Combination of wool which was made using the popular wool
