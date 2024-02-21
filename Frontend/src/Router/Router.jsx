@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route, useFetcher } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import HomePage from "../Pages/Home/HomePage";
 import Layout from "../Components/Layout";
 import ProductsPage from "../Pages/Products/ProductsPage";
@@ -8,8 +8,12 @@ import LoginPage from "../Pages/Auth/LoginPage";
 import VerifyPage from "../Pages/Auth/VerifyPage";
 import AdminPage from "../Pages/Admin/AdminPAge";
 import CreateProductPage from "../Pages/Admin/CreateProductPage";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../App/Features/usersAuthSlice";
 
 const Router = () => {
+    const dispatch = useDispatch();
+
     const checkIsLoggedIn = async () => {
         try {
             const response = await fetch(
@@ -22,8 +26,12 @@ const Router = () => {
                 }
             );
 
-            const data = await response.json();
-            console.log(data);
+            if (response.ok) {
+                const data = await response.json();
+                const userInfo = data.userInfo;
+
+                dispatch(setCredentials(userInfo));
+            }
         } catch (error) {
             console.log(error.message);
         }
