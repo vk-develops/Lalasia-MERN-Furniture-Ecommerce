@@ -163,10 +163,14 @@ const isLoggedin = asyncHandler(async (req, res) => {
             //Destructuring the user details
             const { password, ...resetofUserDetails } = user._doc;
 
+            //Destructuring the user info
+            const { _id, name, email } = user;
+
             res.status(200).json({
                 success: true,
                 message: "Yes, User is loggedin",
                 data: resetofUserDetails,
+                userInfo: { _id, name, email },
             });
         }
     } catch (err) {
