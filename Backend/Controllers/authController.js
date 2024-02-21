@@ -176,4 +176,4 @@ const isLoggedin = asyncHandler(async (req, res) => {
 });
 
 //Exports
-export { registerUser, loginUser, logoutUser };
+export { registerUser, loginUser, logoutUser, isLoggedin };
