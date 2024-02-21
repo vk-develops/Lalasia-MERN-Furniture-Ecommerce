@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
     }
 
     return (
-        <div className="w-96 bg-screenColor1">
+        <div className="w-72 bg-screenColor1">
             <div>
                 <img
                     src={product.imageUrls[5]}

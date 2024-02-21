@@ -3,20 +3,9 @@ import { styles } from "../../Styles/styles";
 import ProductCard from "../../Components/ProductCard";
 import { useGetAllProductsQuery } from "../../App/Service/adminProductApiSlice";
 import Loader from "../../Components/Loader";
+import ProductSlider from "../../Components/ProductSlider";
 
 const ProductSection = () => {
-    const [products, setProducts] = useState([]);
-
-    const { data, isLoading, isError } = useGetAllProductsQuery();
-
-    useEffect(() => {
-        if (data) {
-            setProducts(data.data);
-        }
-    }, [data]);
-
-    console.log(products);
-
     return (
         <>
             {/* {isLoading && <Loader />} */}
@@ -32,13 +21,14 @@ const ProductSection = () => {
                         non purus parturient.
                     </p>
                 </div>
-                <div className="my-8 flex items-center pt-10 justify-between gap-8">
-                    {products.map((product) => (
+                <div className="my-8 pt-10 gap-8">
+                    {/* {products.map((product) => (
                         <ProductCard
                             key={product._id}
                             product={product}
                         />
-                    ))}
+                    ))} */}
+                    <ProductSlider />
                 </div>
             </section>
         </>
