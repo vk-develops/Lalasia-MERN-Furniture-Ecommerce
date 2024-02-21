@@ -37,8 +37,20 @@ export const usersAuthApiSlice = apiSlice.injectEndpoints({
                 },
             }),
         }),
+
+        isLoggedIn: builder.query({
+            query: () => ({
+                url: `${USERS_AUTH_URL}/isloggedin`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } =
-    usersAuthApiSlice;
+export const {
+    useRegisterMutation,
+    useLoginMutation,
+    useLogoutMutation,
+    useIsLoggedInQuery,
+} = usersAuthApiSlice;

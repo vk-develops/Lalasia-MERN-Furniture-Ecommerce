@@ -19,7 +19,7 @@ const ProductSection = () => {
 
     return (
         <>
-            {isLoading && <Loader />}
+            {/* {isLoading && <Loader />} */}
             <section className={`${styles.layout} h-auto my-16 `}>
                 <div className="flex items-center justify-center flex-col text-center">
                     <h6 className={`${styles.highlitedText}`}>Products</h6>

@@ -1,5 +1,5 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Routes, Route, useFetcher } from "react-router-dom";
 import HomePage from "../Pages/Home/HomePage";
 import Layout from "../Components/Layout";
 import ProductsPage from "../Pages/Products/ProductsPage";
@@ -10,6 +10,29 @@ import AdminPage from "../Pages/Admin/AdminPAge";
 import CreateProductPage from "../Pages/Admin/CreateProductPage";
 
 const Router = () => {
+    const checkIsLoggedIn = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:8080/${
+                    import.meta.env.VITE_BACKEND_USERS_AUTH_URI
+                }/isloggedin`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                }
+            );
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    useEffect(() => {
+        checkIsLoggedIn();
+    }, []);
+
     return (
         <Routes>
             <Route
