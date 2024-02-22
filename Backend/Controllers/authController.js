@@ -148,5 +148,36 @@ const logoutUser = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    To check if user is loggedin and do they have the token
+// @route   POST /api/v1/users/auth/isloggedin
+// @access  Private
+const isLoggedin = asyncHandler(async (req, res) => {
+    try {
+        //Getting the id from the protect route
+        const id = req.user._id;
+
+        //Find the user
+        const user = await User.findById(id);
+
+        if (user) {
+            //Destructuring the user details
+            const { password, ...resetofUserDetails } = user._doc;
+
+            //Destructuring the user info
+            const { _id, name, email } = user;
+
+            res.status(200).json({
+                success: true,
+                message: "Yes, User is loggedin",
+                data: resetofUserDetails,
+                userInfo: { _id, name, email },
+            });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 //Exports
-export { registerUser, loginUser, logoutUser };
+export { registerUser, loginUser, logoutUser, isLoggedin };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../Pages/Home/HomePage";
 import Layout from "../Components/Layout";
@@ -8,8 +8,40 @@ import LoginPage from "../Pages/Auth/LoginPage";
 import VerifyPage from "../Pages/Auth/VerifyPage";
 import AdminPage from "../Pages/Admin/AdminPAge";
 import CreateProductPage from "../Pages/Admin/CreateProductPage";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "../App/Features/usersAuthSlice";
+import ProductDetailPage from "../Pages/Products/ProductDetailPage";
 
 const Router = () => {
+    const dispatch = useDispatch();
+
+    const checkIsLoggedIn = async () => {
+        try {
+            const response = await fetch(
+                `http://localhost:8080/${
+                    import.meta.env.VITE_BACKEND_USERS_AUTH_URI
+                }/isloggedin`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                }
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                const userInfo = data.userInfo;
+
+                dispatch(setCredentials(userInfo));
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    useEffect(() => {
+        checkIsLoggedIn();
+    }, []);
+
     return (
         <Routes>
             <Route
@@ -39,12 +71,14 @@ const Router = () => {
                     <Route path="reset-password" />
                 </Route>
 
-                <Route path="products">
-                    <Route
-                        index
-                        element={<ProductsPage />}
-                    />
-                </Route>
+                <Route
+                    path="products"
+                    element={<ProductsPage />}
+                />
+                <Route
+                    path="products/:id"
+                    element={<ProductDetailPage />}
+                />
 
                 <Route path="admin">
                     <Route
