@@ -17,7 +17,10 @@ const ProductCard = ({ product }) => {
                     alt="Product Image"
                 />
             </div>
-            <Link className="py-3">
+            <Link
+                to={`products/${product._id}`}
+                className="py-3"
+            >
                 <div className="flex items-center justify-start gap-2">
                     {product.type.map((type) => (
                         <div
