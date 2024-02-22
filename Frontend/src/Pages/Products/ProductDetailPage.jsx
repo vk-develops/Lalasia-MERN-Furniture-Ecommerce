@@ -7,22 +7,32 @@ import Loader from "../../Components/Loader";
 const ProductDetailPage = () => {
     const { id } = useParams();
 
+    const [product, setProduct] = useState(null);
+
     const { data, isLoading, isError } = useGetAProductQuery({ id });
+
+    useEffect(() => {
+        if (data) {
+            setProduct(data.data);
+        }
+    }, [data]);
 
     return (
         <>
             {isLoading && <Loader />}
-            {data && data.data && (
+            {product && (
                 <section className={`${styles.layout} h-screen my-16`}>
                     <div className="grid grid-cols-2 gap-12">
                         <div className="w-full">
                             <img
-                                src={data.data.imageUrls[0]}
+                                src={product.imageUrls[0]}
                                 alt="Product Image"
                             />
                         </div>
                         <div>
-                            <h1>fdf</h1>
+                            <h1 className={`${styles.secondaryText}`}>
+                                {product.name}
+                            </h1>
                         </div>
                     </div>
                 </section>
