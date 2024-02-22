@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
     function generateRandomId() {
@@ -9,14 +10,14 @@ const ProductCard = ({ product }) => {
     }
 
     return (
-        <div className="w-72 bg-screenColor1">
+        <div className="w-72 bg-screenColor1 mb-6">
             <div>
                 <img
                     src={product.imageUrls[5]}
                     alt="Product Image"
                 />
             </div>
-            <div className="py-3">
+            <Link className="py-3">
                 <div className="flex items-center justify-start gap-2">
                     {product.type.map((type) => (
                         <div
@@ -38,7 +39,7 @@ const ProductCard = ({ product }) => {
                 <h3 className="text-2xl font-eduoxusSans font-bold text-primaryColor pt-5">
                     $63.45
                 </h3>
-            </div>
+            </Link>
         </div>
     );
 };

@@ -10,6 +10,7 @@ import AdminPage from "../Pages/Admin/AdminPAge";
 import CreateProductPage from "../Pages/Admin/CreateProductPage";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../App/Features/usersAuthSlice";
+import ProductDetailPage from "../Pages/Products/ProductDetailPage";
 
 const Router = () => {
     const dispatch = useDispatch();
@@ -70,12 +71,14 @@ const Router = () => {
                     <Route path="reset-password" />
                 </Route>
 
-                <Route path="products">
-                    <Route
-                        index
-                        element={<ProductsPage />}
-                    />
-                </Route>
+                <Route
+                    path="products"
+                    element={<ProductsPage />}
+                />
+                <Route
+                    path="products/:id"
+                    element={<ProductDetailPage />}
+                />
 
                 <Route path="admin">
                     <Route
