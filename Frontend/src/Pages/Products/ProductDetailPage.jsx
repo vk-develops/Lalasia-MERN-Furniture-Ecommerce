@@ -3,6 +3,7 @@ import { styles } from "../../Styles/styles";
 import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
+import ProductCard from "../../Components/ProductCard";
 
 const ProductDetailPage = () => {
     const { id } = useParams();
@@ -103,6 +104,19 @@ const ProductDetailPage = () => {
                                     Add To Cart
                                 </button>
                             </div>
+                        </div>
+                    </div>
+
+                    <div className="mt-10 pt-16">
+                        <h2
+                            className={`text-titleColor font-eduoxusSans text-[32px] font-bold pb-8`}
+                        >
+                            Related Products
+                        </h2>
+                        <div className="grid grid-cols-3 gap-10">
+                            <ProductCard product={product} />
+                            <ProductCard product={product} />
+                            <ProductCard product={product} />
                         </div>
                     </div>
                 </section>
