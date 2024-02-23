@@ -62,18 +62,23 @@ const ProductDetailPage = () => {
                             </h6>
 
                             <div className="mt-9 flex items-center justify-start gap-3 flex-wrap">
-                                {product.imageUrls.map((img, index) => (
-                                    <button
-                                        onClick={() => handleImageSelect(img)}
-                                        key={index}
-                                    >
-                                        <img
-                                            className="w-[70px]"
-                                            src={img}
-                                            alt="Product Image"
-                                        />
-                                    </button>
-                                ))}
+                                {product.imageUrls
+                                    .slice()
+                                    .reverse()
+                                    .map((img, index) => (
+                                        <button
+                                            onClick={() =>
+                                                handleImageSelect(img)
+                                            }
+                                            key={index}
+                                        >
+                                            <img
+                                                className="w-[70px]"
+                                                src={img}
+                                                alt="Product Image"
+                                            />
+                                        </button>
+                                    ))}
                             </div>
 
                             <p className={`${styles.secondaryParaText} pt-6`}>
