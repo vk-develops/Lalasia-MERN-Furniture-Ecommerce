@@ -41,7 +41,7 @@ const ProductDetailPage = () => {
         <>
             {isLoading && <Loader />}
             {product && (
-                <section className={`${styles.layout} h-screen my-16`}>
+                <section className={`${styles.layout} h-auto my-16`}>
                     <div className="grid grid-cols-2 gap-12">
                         <div className="w-full">
                             <img
@@ -91,10 +91,18 @@ const ProductDetailPage = () => {
                                 </button>
                             </p>
                             <h1
-                                className={`text-primaryColor font-eduoxusSans text-3xl font-bold mt-10`}
+                                className={`text-secondaryColor font-eduoxusSans text-3xl font-medium mt-10`}
                             >
-                                ${product.price}
+                                &#8377; {product.price}
                             </h1>
+                            <div className="flex items-center justify-start gap-5 mt-10">
+                                <button className="px-16 py-[10px] bg-primaryColor text-screenColor1 font-medium font-eduoxusSans text-base">
+                                    Buy Now
+                                </button>
+                                <button className="px-16 py-[10px] bg-primaryColor text-screenColor1 font-medium font-eduoxusSans text-base">
+                                    Add To Cart
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </section>
