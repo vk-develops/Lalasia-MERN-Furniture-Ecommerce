@@ -33,6 +33,13 @@ const ProductDetailPage = () => {
         setIsExpanded((prevExpanded) => !prevExpanded);
     };
 
+    function generateRandomId() {
+        const randomNumberString = Math.random().toString().substring(6);
+
+        const randomId = `${randomNumberString}`;
+        return randomId;
+    }
+
     return (
         <>
             {isLoading && <Loader />}
@@ -52,6 +59,22 @@ const ProductDetailPage = () => {
                             <h6 className="text-secondaryColor text-lg pt-[14px] font-medium font-eduoxusSans">
                                 {product.subTitle}
                             </h6>
+
+                            <div className="mt-9 flex items-center justify-start gap-3 flex-wrap">
+                                {product.imageUrls.map((img) => (
+                                    <button
+                                        onClick={console.log(img)}
+                                        key={generateRandomId()}
+                                    >
+                                        <img
+                                            className="w-[70px]"
+                                            src={img}
+                                            alt="Product Image"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+
                             <p className={`${styles.secondaryParaText} pt-6`}>
                                 {truncatedText}
                                 <button
