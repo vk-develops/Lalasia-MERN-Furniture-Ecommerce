@@ -68,18 +68,28 @@ const ProductSlider = () => {
 
     return (
         <>
-            <Slider
-                ref={sliderRef}
-                className="cursor-grab"
-                {...settings}
-            >
-                {products.map((product) => (
-                    <ProductCard
-                        key={product._id}
-                        product={product}
-                    />
-                ))}
-            </Slider>
+            <div className="relative">
+                <Slider
+                    ref={sliderRef}
+                    className="cursor-grab"
+                    {...settings}
+                >
+                    {products.map((product) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                        />
+                    ))}
+                </Slider>
+                <div>
+                    <button className=" absolute top-2/4 left-0 px-3 py-1 bg-primaryColor text-screenColor1">
+                        B
+                    </button>
+                    <button className=" absolute top-2/4 right-0 px-3 py-1 bg-primaryColor text-screenColor1">
+                        B
+                    </button>
+                </div>
+            </div>
         </>
     );
 };
