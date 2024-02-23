@@ -61,11 +61,8 @@ const ProductDetailPage = () => {
                             </h6>
 
                             <div className="mt-9 flex items-center justify-start gap-3 flex-wrap">
-                                {product.imageUrls.map((img) => (
-                                    <button
-                                        onClick={console.log(img)}
-                                        key={generateRandomId()}
-                                    >
+                                {product.imageUrls.map((img, index) => (
+                                    <button key={index}>
                                         <img
                                             className="w-[70px]"
                                             src={img}
