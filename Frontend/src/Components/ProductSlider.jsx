@@ -4,6 +4,7 @@ import ProductCard from "./ProductCard";
 import { useGetAllProductsQuery } from "../App/Service/adminProductApiSlice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 
 const ProductSlider = () => {
     const sliderRef = useRef(null);
@@ -68,18 +69,44 @@ const ProductSlider = () => {
 
     return (
         <>
-            <Slider
-                ref={sliderRef}
-                className="cursor-grab"
-                {...settings}
-            >
-                {products.map((product) => (
-                    <ProductCard
-                        key={product._id}
-                        product={product}
-                    />
-                ))}
-            </Slider>
+            <div className="relative">
+                <Slider
+                    ref={sliderRef}
+                    className="cursor-grab"
+                    {...settings}
+                >
+                    {products.map((product) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                        />
+                    ))}
+                </Slider>
+                <div>
+                    <button
+                        onClick={() => previous()}
+                        style={{
+                            backgroundColor: "rgba(0, 0, 0, .5)",
+                            backdropFilter: "blur(4px)",
+                            borderRadius: "100px",
+                        }}
+                        className="absolute top-2/4 -left-3 px-3 py-3 text-screenColor1"
+                    >
+                        <FiArrowLeft size={16} />
+                    </button>
+                    <button
+                        onClick={() => next()}
+                        style={{
+                            backgroundColor: "rgba(0, 0, 0, .5)",
+                            backdropFilter: "blur(4px)",
+                            borderRadius: "100px",
+                        }}
+                        className="absolute top-2/4 -right-3 px-3 py-3 text-screenColor1"
+                    >
+                        <FiArrowRight size={16} />
+                    </button>
+                </div>
+            </div>
         </>
     );
 };

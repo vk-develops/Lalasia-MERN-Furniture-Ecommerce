@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { styles } from "../../Styles/styles";
-import ProductCard from "../../Components/ProductCard";
-import { useGetAllProductsQuery } from "../../App/Service/adminProductApiSlice";
-import Loader from "../../Components/Loader";
 import ProductSlider from "../../Components/ProductSlider";
 
 const ProductSection = () => {

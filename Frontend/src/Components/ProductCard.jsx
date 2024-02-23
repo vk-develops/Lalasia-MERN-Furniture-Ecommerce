@@ -17,14 +17,17 @@ const ProductCard = ({ product }) => {
                     alt="Product Image"
                 />
             </div>
-            <Link className="py-3">
+            <Link
+                to={`products/${product._id}`}
+                className="py-3"
+            >
                 <div className="flex items-center justify-start gap-2">
                     {product.type.map((type) => (
                         <div
                             key={generateRandomId()}
-                            className="mt-4 mb-1 px-4 py-[2px] bg-primaryColor rounded-lg flex items-center justify-center"
+                            className="mt-4 mb-1 px-3 py-[2px] bg-secondaryColor rounded-lg flex items-center justify-center"
                         >
-                            <h5 className="text-screenColor1 text-[12px] font-eduoxusSans font-medium">
+                            <h5 className="text-screenColor1 text-[11px] font-eduoxusSans font-medium">
                                 {type}
                             </h5>
                         </div>
@@ -34,7 +37,7 @@ const ProductCard = ({ product }) => {
                     {product.name}
                 </h3>
                 <h4 className="text-paragraphColor font-eduoxusSans text-base font-medium pt-2">
-                    Combination of wool which was made using the popular wool
+                    {product.subTitle}
                 </h4>
                 <h3 className="text-2xl font-eduoxusSans font-bold text-primaryColor pt-5">
                     $63.45
