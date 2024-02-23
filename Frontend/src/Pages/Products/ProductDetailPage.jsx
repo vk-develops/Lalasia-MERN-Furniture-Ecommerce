@@ -8,6 +8,7 @@ const ProductDetailPage = () => {
     const { id } = useParams();
 
     const [product, setProduct] = useState(null);
+    const [selectedImg, setSelectedImg] = useState(null);
 
     const { data, isLoading, isError } = useGetAProductQuery({ id });
 
@@ -19,10 +20,8 @@ const ProductDetailPage = () => {
 
     const [isExpanded, setIsExpanded] = useState(false);
 
-    // Check if product is null before accessing its properties
     const text = product ? product.description : null;
 
-    // Ensure text is not null before truncating
     const truncatedText = text
         ? isExpanded
             ? text
@@ -33,12 +32,10 @@ const ProductDetailPage = () => {
         setIsExpanded((prevExpanded) => !prevExpanded);
     };
 
-    function generateRandomId() {
-        const randomNumberString = Math.random().toString().substring(6);
-
-        const randomId = `${randomNumberString}`;
-        return randomId;
-    }
+    const handleImageSelect = (imageUrl) => {
+        console.log(imageUrl);
+        setSelectedImg(imageUrl);
+    };
 
     return (
         <>
@@ -48,7 +45,11 @@ const ProductDetailPage = () => {
                     <div className="grid grid-cols-2 gap-12">
                         <div className="w-full">
                             <img
-                                src={product.imageUrls[5]}
+                                src={
+                                    selectedImg
+                                        ? selectedImg
+                                        : product.imageUrls[5]
+                                }
                                 alt="Product Image"
                             />
                         </div>
@@ -62,7 +63,10 @@ const ProductDetailPage = () => {
 
                             <div className="mt-9 flex items-center justify-start gap-3 flex-wrap">
                                 {product.imageUrls.map((img, index) => (
-                                    <button key={index}>
+                                    <button
+                                        onClick={() => handleImageSelect(img)}
+                                        key={index}
+                                    >
                                         <img
                                             className="w-[70px]"
                                             src={img}
