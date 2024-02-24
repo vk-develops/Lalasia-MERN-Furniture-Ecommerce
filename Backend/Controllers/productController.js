@@ -37,6 +37,9 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
     try {
         const { type } = req.params;
 
+        //Capitalizing the type
+        const productType = type.charAt(0).toUpperCase() + type.slice(1);
+
         //Check for valid params
         if (!type) {
             return res
@@ -45,8 +48,8 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
         }
 
         //finding related product based on the type
-        const relatedProducts = await Product.find({ type: type });
-        if (relatedProducts) {
+        const relatedProducts = await Product.find({ type: productType });
+        if (relatedProducts.length > 0) {
             //Sending the response
             res.status(200).json({
                 success: true,
