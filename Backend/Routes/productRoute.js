@@ -1,12 +1,15 @@
 import express from "express";
-import { getAllProducts } from "../Controllers/productController";
+import {
+    getAllProducts,
+    getRelatedProducts,
+} from "../Controllers/productController.js";
 
 //Router init
 const router = express.Router();
 
 //HTTP Methods
 router.get("/get-all-products", getAllProducts);
-router.get("get-related-product/:type");
+router.get("get-related-product/:type", getRelatedProducts);
 
 //Export
 export default router;
