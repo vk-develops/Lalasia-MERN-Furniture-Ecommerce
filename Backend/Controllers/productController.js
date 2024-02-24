@@ -35,7 +35,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @access  Public
 const getRelatedProducts = asyncHandler(async (req, res) => {
     try {
-        const { type } = req.params();
+        const { type } = req.params;
 
         //Check for valid params
         if (!type) {
