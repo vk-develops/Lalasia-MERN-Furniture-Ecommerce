@@ -35,7 +35,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @access  Public
 const getRelatedProducts = asyncHandler(async (req, res) => {
     try {
-        const { type } = req.params;
+        const { type, id } = req.params;
 
         //Capitalizing the type
         const productType = type.charAt(0).toUpperCase() + type.slice(1);
@@ -48,7 +48,10 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
         }
 
         //finding related product based on the type
-        const relatedProducts = await Product.find({ type: productType });
+        const relatedProducts = await Product.find({
+            type: productType,
+            _id: { $ne: id },
+        });
         if (relatedProducts.length > 0) {
             //Sending the response
             res.status(200).json({

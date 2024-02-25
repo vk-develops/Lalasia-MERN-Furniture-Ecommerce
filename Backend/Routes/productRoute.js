@@ -9,7 +9,7 @@ const router = express.Router();
 
 //HTTP Methods
 router.get("/get-all-products", getAllProducts);
-router.get("/get-related-products/:type", getRelatedProducts);
+router.get("/get-related-products/:id/:type", getRelatedProducts);
 
 //Export
 export default router;

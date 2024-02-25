@@ -28,7 +28,7 @@ const RelatedProducts = ({ product }) => {
     }
 
     if (isError) {
-        return <h1>Error occured...</h1>;
+        return null;
     }
 
     return (
