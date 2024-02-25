@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import ProductCard from "./ProductCard";
-import { useGetAllProductsQuery } from "../App/Service/adminProductApiSlice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { useGetAllProductsQuery } from "../App/Service/productApiSlice";
 
 const ProductSlider = () => {
     const sliderRef = useRef(null);

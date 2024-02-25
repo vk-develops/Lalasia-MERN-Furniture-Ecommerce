@@ -4,6 +4,52 @@ import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
+import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
+
+const RelatedProducts = ({ product }) => {
+    const [relatedProducts, setRelatedProducts] = useState(null);
+
+    const type = product.commonType;
+
+    const { data, isLoading, isError } = useGetRelatedProductsQuery({ type });
+
+    useEffect(() => {
+        if (data) {
+            console.log(data);
+            setRelatedProducts(data.data);
+        } else {
+            console.log(isError);
+            console.log(isError);
+        }
+    }, [data, isError]);
+
+    if (isLoading) {
+        return <h1>Loading...</h1>;
+    }
+
+    if (isError) {
+        return <h1>Error occured...</h1>;
+    }
+
+    return (
+        <div className="mt-10 pt-16">
+            <h2
+                className={`text-titleColor font-eduoxusSans text-[32px] font-bold pb-8`}
+            >
+                Related Products
+            </h2>
+            <div className="grid grid-cols-3 gap-10">
+                {relatedProducts &&
+                    relatedProducts.map((product) => (
+                        <ProductCard
+                            key={product._id}
+                            product={product}
+                        />
+                    ))}
+            </div>
+        </div>
+    );
+};
 
 const ProductDetailPage = () => {
     const { id } = useParams();
@@ -106,19 +152,7 @@ const ProductDetailPage = () => {
                             </div>
                         </div>
                     </div>
-
-                    <div className="mt-10 pt-16">
-                        <h2
-                            className={`text-titleColor font-eduoxusSans text-[32px] font-bold pb-8`}
-                        >
-                            Related Products
-                        </h2>
-                        <div className="grid grid-cols-3 gap-10">
-                            <ProductCard product={product} />
-                            <ProductCard product={product} />
-                            <ProductCard product={product} />
-                        </div>
-                    </div>
+                    <RelatedProducts product={product} />
                 </section>
             )}
             {isError && <div>Error fetching data</div>}
