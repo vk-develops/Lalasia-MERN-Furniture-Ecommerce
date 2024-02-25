@@ -9,9 +9,13 @@ import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
 const RelatedProducts = ({ product }) => {
     const [relatedProducts, setRelatedProducts] = useState(null);
 
+    const id = product._id;
     const type = product.commonType;
 
-    const { data, isLoading, isError } = useGetRelatedProductsQuery({ type });
+    const { data, isLoading, isError } = useGetRelatedProductsQuery({
+        type,
+        id,
+    });
 
     useEffect(() => {
         if (data) {
