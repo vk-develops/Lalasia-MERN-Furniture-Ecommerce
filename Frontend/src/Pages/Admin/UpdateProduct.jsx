@@ -1,7 +1,11 @@
 import React from "react";
 
 const UpdateProduct = () => {
-    return <div>UpdateProduct</div>;
+    return (
+        <section>
+            <div>hjh</div>
+        </section>
+    );
 };
 
 export default UpdateProduct;

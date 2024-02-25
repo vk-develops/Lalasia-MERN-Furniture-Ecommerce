@@ -95,7 +95,7 @@ const Router = () => {
                         element={<CreateProductPage />}
                     />
                     <Route
-                        path="update-product"
+                        path="update-product/:id"
                         element={<UpdateProduct />}
                     />
                 </Route>
