@@ -11,6 +11,7 @@ import CreateProductPage from "../Pages/Admin/CreateProductPage";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../App/Features/usersAuthSlice";
 import ProductDetailPage from "../Pages/Products/ProductDetailPage";
+import UpdateProduct from "../Pages/Admin/UpdateProduct";
 
 const Router = () => {
     const { pathname } = useLocation();
@@ -92,6 +93,10 @@ const Router = () => {
                     <Route
                         path="create-product"
                         element={<CreateProductPage />}
+                    />
+                    <Route
+                        path="update-product"
+                        element={<UpdateProduct />}
                     />
                 </Route>
             </Route>

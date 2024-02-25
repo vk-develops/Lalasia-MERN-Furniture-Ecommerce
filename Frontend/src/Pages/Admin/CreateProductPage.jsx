@@ -148,7 +148,12 @@ const CreateProductPage = () => {
                             name="imageFiles"
                             id="imageFiles"
                             multiple
-                            onChange={(e) => setImageFiles(e.target.files)}
+                            onChange={(e) =>
+                                setImageFiles([
+                                    ...imageFiles,
+                                    ...e.target.files,
+                                ])
+                            }
                             required
                         />
                     </div>
