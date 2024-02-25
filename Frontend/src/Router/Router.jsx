@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import HomePage from "../Pages/Home/HomePage";
 import Layout from "../Components/Layout";
 import ProductsPage from "../Pages/Products/ProductsPage";
@@ -13,6 +13,8 @@ import { setCredentials } from "../App/Features/usersAuthSlice";
 import ProductDetailPage from "../Pages/Products/ProductDetailPage";
 
 const Router = () => {
+    const { pathname } = useLocation();
+
     const dispatch = useDispatch();
 
     const checkIsLoggedIn = async () => {
@@ -38,9 +40,11 @@ const Router = () => {
         }
     };
 
+    //Adding scroll to top on loading a new page and checking is user logged in or not
     useEffect(() => {
         checkIsLoggedIn();
-    }, []);
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     return (
         <Routes>
