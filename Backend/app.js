@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import connectDb from "./Config/db.js";
 import authRoute from "./Routes/authRoute.js";
 import adminProductRoute from "./Routes/adminProductRoute.js";
+import productsRoute from "./Routes/productRoute.js";
 
 //App init
 dotenv.config();
@@ -40,6 +41,7 @@ app.get("/", (req, res) => {
 //APP HTTP Methods
 app.use("/api/v1/users/auth/", authRoute);
 app.use("/api/v1/admin/products/", adminProductRoute);
+app.use("/api/v1/furniture/products/", productsRoute);
 
 //App listen
 app.listen(PORT, () => {

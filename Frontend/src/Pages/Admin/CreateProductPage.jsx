@@ -14,6 +14,7 @@ const CreateProductPage = () => {
     const [imageFiles, setImageFiles] = useState([]);
     const [checkedItems, setCheckedItems] = useState({});
     const [starRating, setStarRating] = useState("");
+    const [commonType, setCommonType] = useState("");
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
@@ -37,6 +38,7 @@ const CreateProductPage = () => {
             formData.append(key, value);
         });
         formData.append("starRating", starRating);
+        formData.append("commonType", commonType);
 
         try {
             const response = await createProduct(formData).unwrap();
@@ -146,7 +148,12 @@ const CreateProductPage = () => {
                             name="imageFiles"
                             id="imageFiles"
                             multiple
-                            onChange={(e) => setImageFiles(e.target.files)}
+                            onChange={(e) =>
+                                setImageFiles([
+                                    ...imageFiles,
+                                    ...e.target.files,
+                                ])
+                            }
                             required
                         />
                     </div>
@@ -167,6 +174,27 @@ const CreateProductPage = () => {
                                     value={num}
                                 >
                                     {num}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Product Common Type:{" "}
+                        </label>
+                        <select
+                            value={commonType}
+                            required
+                            onChange={(e) => setCommonType(e.target.value)}
+                            className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
+                        >
+                            <option value="">Select an option</option>
+                            {furnitureTypes.map((type, index) => (
+                                <option
+                                    key={index}
+                                    value={type}
+                                >
+                                    {type}
                                 </option>
                             ))}
                         </select>

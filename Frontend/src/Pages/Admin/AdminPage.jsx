@@ -8,6 +8,7 @@ const AdminPage = () => {
             <div>
                 <h1 className={`${styles.secondaryText}`}>Admin page</h1>
                 <Link to={`create-product`}>go to create product page</Link>
+                <Link to={`update-product`}>go to update product page</Link>
             </div>
         </section>
     );

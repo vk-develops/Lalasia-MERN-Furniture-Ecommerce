@@ -71,7 +71,8 @@ const getAProduct = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, starRating } = req.body;
+        const { name, subTitle, description, price, starRating, commonType } =
+            req.body;
 
         const typeArray = Object.entries(req.body)
             .filter(([key, value]) => value === "true")
@@ -89,6 +90,7 @@ const createProduct = asyncHandler(async (req, res) => {
             type: typeArray,
             imageUrls,
             starRating,
+            commonType,
             lastUpdated: new Date(),
         };
 

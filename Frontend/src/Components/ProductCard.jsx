@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
                 />
             </div>
             <Link
-                to={`products/${product._id}`}
+                to={`/products/${product._id}`}
                 className="py-3"
             >
                 <div className="flex items-center justify-start gap-2">

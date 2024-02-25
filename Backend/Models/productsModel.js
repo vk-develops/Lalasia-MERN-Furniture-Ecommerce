@@ -23,6 +23,11 @@ const productSchema = mongoose.Schema({
             required: true,
         },
     ],
+    commonType: {
+        type: String,
+        default: "Unknown",
+        required: true,
+    },
     starRating: {
         type: Number,
         required: true,
