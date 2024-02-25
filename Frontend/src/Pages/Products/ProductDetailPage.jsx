@@ -19,10 +19,8 @@ const RelatedProducts = ({ product }) => {
 
     useEffect(() => {
         if (data) {
-            console.log(data);
             setRelatedProducts(data.data);
         } else {
-            console.log(isError);
             console.log(isError);
         }
     }, [data, isError]);

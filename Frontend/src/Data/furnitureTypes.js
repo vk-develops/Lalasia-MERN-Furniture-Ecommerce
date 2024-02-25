@@ -10,4 +10,7 @@ export const furnitureTypes = [
     "Dining Table",
     "Barstool",
     "Dresser",
+    "BookShelf",
+    "Ottoman",
+    "Bench",
 ];
