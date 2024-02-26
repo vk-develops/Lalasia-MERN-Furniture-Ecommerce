@@ -117,7 +117,10 @@ const updateProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
 
-        const { name, subTitle, description, price, starRating } = req.body;
+        console.log(req.body);
+
+        const { name, subTitle, description, price, starRating, commonType } =
+            req.body;
 
         //Check for vaild id
         if (!mongoose.isValidObjectId(id)) {
@@ -135,6 +138,7 @@ const updateProduct = asyncHandler(async (req, res) => {
             product.description = description || product.description;
             product.price = price || product.price;
             product.starRating = starRating || product.starRating;
+            product.commonType = commonType || product.commonType;
 
             if (req.files) {
                 const imageUrls = await uploadImages(req.files);

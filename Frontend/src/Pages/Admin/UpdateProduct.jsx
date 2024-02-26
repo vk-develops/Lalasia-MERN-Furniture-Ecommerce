@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "../../Styles/styles";
-import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
+import {
+    useGetAProductQuery,
+    useUpdateProductMutation,
+} from "../../App/Service/adminProductApiSlice";
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import { furnitureTypes } from "../../Data/furnitureTypes";
@@ -19,6 +22,8 @@ const UpdateProduct = () => {
     const [commonType, setCommonType] = useState("");
 
     const { data, isLoading, isError } = useGetAProductQuery({ id });
+
+    const [updateProduct, loading] = useUpdateProductMutation();
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
@@ -60,6 +65,35 @@ const UpdateProduct = () => {
         setImageFiles(imageFiles.filter((url) => url != imageUrl));
     };
 
+    const updateHandler = async (e) => {
+        e.preventDefault();
+
+        const userReq = {
+            name,
+            subTitle,
+            description,
+            price,
+            commonType,
+            starRating,
+            type: checkedItems,
+            imageUrls: imageFiles,
+        };
+
+        console.log(userReq);
+
+        try {
+            const response = await updateProduct({
+                id,
+                data: userReq,
+            }).unwrap();
+
+            //Extracting the response
+            console.log(response);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     return (
         <>
             {isLoading && <Loader />}
@@ -76,7 +110,7 @@ const UpdateProduct = () => {
                         Excepturi, consequatur in.
                     </p>
                 </div>
-                <form>
+                <form onSubmit={(e) => updateHandler(e)}>
                     <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
                             Product Name:{" "}

@@ -29,11 +29,14 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
             }),
         }),
         updateProduct: builder.mutation({
-            query: (id, data) => ({
+            query: ({ id, data }) => ({
                 url: `${ADMIN_PRODUCT_URL}/update-product/${id}`,
                 method: "PUT",
                 credentials: "include",
-                body: data,
+                body: JSON.stringify(data), // Convert data to JSON string
+                headers: {
+                    "Content-Type": "application/json", // Set Content-Type header
+                },
             }),
         }),
         deleteProduct: builder.mutation({
