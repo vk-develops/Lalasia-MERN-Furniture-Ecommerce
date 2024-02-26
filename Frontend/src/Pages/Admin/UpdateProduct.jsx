@@ -132,14 +132,17 @@ const UpdateProduct = () => {
                         </label>
                         {imageFiles.length > 0 && (
                             <div className="w-full flex items-center justify-start gap-3 flex-wrap border-[1.5px] border-paragraphColor p-2 my-2 mt-5 rounded-md">
-                                {imageFiles.map((img, index) => (
-                                    <img
-                                        key={index}
-                                        className="w-24 h-24"
-                                        src={`${img}`}
-                                        alt="Product Image"
-                                    />
-                                ))}
+                                {imageFiles
+                                    .slice()
+                                    .reverse()
+                                    .map((img, index) => (
+                                        <img
+                                            key={index}
+                                            className="w-32 h-32"
+                                            src={`${img}`}
+                                            alt="Product Image"
+                                        />
+                                    ))}
                             </div>
                         )}
                         <input
@@ -154,7 +157,6 @@ const UpdateProduct = () => {
                                     ...e.target.files,
                                 ])
                             }
-                            required
                         />
                     </div>
                     <div className="mt-7">
@@ -227,6 +229,15 @@ const UpdateProduct = () => {
                                 </label>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="flex items-end justify-end">
+                        <button
+                            disabled={isLoading}
+                            className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
+                        >
+                            {isLoading ? "Updating..." : "Update Product"}
+                        </button>
                     </div>
                 </form>
             </section>
