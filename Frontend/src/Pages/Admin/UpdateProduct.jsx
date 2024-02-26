@@ -136,12 +136,30 @@ const UpdateProduct = () => {
                                     .slice()
                                     .reverse()
                                     .map((img, index) => (
-                                        <img
+                                        <div
+                                            className="relative group rounded-sm overflow-hidden"
                                             key={index}
-                                            className="w-32 h-32"
-                                            src={`${img}`}
-                                            alt="Product Image"
-                                        />
+                                        >
+                                            <img
+                                                className="w-32 h-32"
+                                                src={`${img}`}
+                                                alt="Product Image"
+                                            />
+                                            <button
+                                                style={{
+                                                    background:
+                                                        "rgba(17, 17, 17, .5)",
+                                                    backdropFilter:
+                                                        "blur(15px)",
+                                                    transition:
+                                                        "bottom 0.3s ease-in-out",
+                                                    top: "-100%",
+                                                }}
+                                                className="absolute h-full w-full top-0 left-0 text-screenColor1 font-eduoxusSans text-base group-hover:top-0"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
                                     ))}
                             </div>
                         )}

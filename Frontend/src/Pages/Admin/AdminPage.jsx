@@ -40,7 +40,7 @@ const AdminPage = () => {
                     <h2 className={`${styles.secondaryText}`}>
                         Furniture Products
                     </h2>
-                    <div className="max-w-full overflow-x-scroll">
+                    <div className="max-w-full overflow-x-scroll mt-6">
                         <table className="w-full border border-paragraphColor">
                             <thead>
                                 <tr
@@ -84,8 +84,11 @@ const AdminPage = () => {
                             </thead>
                             <tbody>
                                 {products &&
-                                    products.map((product) => (
-                                        <tr className="text-center">
+                                    products.map((product, index) => (
+                                        <tr
+                                            key={index}
+                                            className="text-center"
+                                        >
                                             <td className="hover:bg-screenColor2 border whitespace-nowrap p-4 border-paragraphColor">
                                                 {product._id}
                                             </td>
