@@ -68,23 +68,25 @@ const UpdateProduct = () => {
     const updateHandler = async (e) => {
         e.preventDefault();
 
-        const userReq = {
-            name,
-            subTitle,
-            description,
-            price,
-            commonType,
-            starRating,
-            type: checkedItems,
-            imageUrls: imageFiles,
-        };
-
-        console.log(userReq);
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("subTitle", subTitle);
+        formData.append("description", description);
+        formData.append("price", price);
+        formData.append("imageFiles", imageFiles);
+        for (let i = 0; i < imageFiles.length; i++) {
+            formData.append("imageFiles", imageFiles[i]);
+        }
+        Object.entries(checkedItems).forEach(([key, value]) => {
+            formData.append(key, value);
+        });
+        formData.append("starRating", starRating);
+        formData.append("commonType", commonType);
 
         try {
             const response = await updateProduct({
                 id,
-                data: userReq,
+                data: formData,
             }).unwrap();
 
             //Extracting the response

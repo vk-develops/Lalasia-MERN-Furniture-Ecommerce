@@ -33,10 +33,10 @@ export const adminProductApiSlice = apiSlice.injectEndpoints({
                 url: `${ADMIN_PRODUCT_URL}/update-product/${id}`,
                 method: "PUT",
                 credentials: "include",
-                body: JSON.stringify(data), // Convert data to JSON string
-                headers: {
-                    "Content-Type": "application/json", // Set Content-Type header
-                },
+                body: data, // Convert data to JSON string
+                // headers: {
+                //     "Content-Type": "application/json", // Set Content-Type header
+                // },
             }),
         }),
         deleteProduct: builder.mutation({
