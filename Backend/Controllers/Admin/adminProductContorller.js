@@ -117,8 +117,6 @@ const updateProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
 
-        console.log(req.body);
-
         const { name, subTitle, description, price, starRating, commonType } =
             req.body;
 

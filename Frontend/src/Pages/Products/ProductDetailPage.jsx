@@ -97,7 +97,9 @@ const ProductDetailPage = () => {
                                 src={
                                     selectedImg
                                         ? selectedImg
-                                        : product.imageUrls[5]
+                                        : product.imageUrls[
+                                              product.imageUrls.length - 1
+                                          ]
                                 }
                                 alt="Product Image"
                             />
