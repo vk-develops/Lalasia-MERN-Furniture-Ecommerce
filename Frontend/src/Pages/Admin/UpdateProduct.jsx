@@ -26,6 +26,7 @@ const UpdateProduct = () => {
         data,
         isLoading: getProductLoading,
         isError,
+        refetch: refetchProduct,
     } = useGetAProductQuery({ id });
 
     const [updateProduct, { isLoading: updateProductLoading }] =
@@ -100,6 +101,9 @@ const UpdateProduct = () => {
 
             //Sending success message
             useSuccessToast(response.message);
+
+            //Re fetching the product
+            refetchProduct();
         } catch (error) {
             console.log(error.message);
         }
