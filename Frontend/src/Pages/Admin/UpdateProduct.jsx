@@ -55,6 +55,11 @@ const UpdateProduct = () => {
         return <h1>Error Occured</h1>;
     }
 
+    const handleImageDelete = (e, imageUrl) => {
+        e.preventDefault();
+        setImageFiles(imageFiles.filter((url) => url != imageUrl));
+    };
+
     return (
         <>
             {isLoading && <Loader />}
@@ -146,16 +151,18 @@ const UpdateProduct = () => {
                                                 alt="Product Image"
                                             />
                                             <button
+                                                onClick={(e) =>
+                                                    handleImageDelete(
+                                                        e,
+                                                        `${img}`
+                                                    )
+                                                }
                                                 style={{
                                                     background:
                                                         "rgba(17, 17, 17, .5)",
-                                                    backdropFilter:
-                                                        "blur(15px)",
-                                                    transition:
-                                                        "bottom 0.3s ease-in-out",
-                                                    top: "-100%",
+                                                    backdropFilter: "blur(5px)",
                                                 }}
-                                                className="absolute h-full w-full top-0 left-0 text-screenColor1 font-eduoxusSans text-base group-hover:top-0"
+                                                className="absolute h-full w-full -bottom-full transition-all left-0 text-screenColor1 font-eduoxusSans text-base group-hover:bottom-0"
                                             >
                                                 Delete
                                             </button>
