@@ -7,6 +7,7 @@ import {
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import { furnitureTypes } from "../../Data/furnitureTypes";
+import { useSuccessToast } from "../../Hooks/useToast";
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -21,9 +22,14 @@ const UpdateProduct = () => {
     const [starRating, setStarRating] = useState("");
     const [commonType, setCommonType] = useState("");
 
-    const { data, isLoading, isError } = useGetAProductQuery({ id });
+    const {
+        data,
+        isLoading: getProductLoading,
+        isError,
+    } = useGetAProductQuery({ id });
 
-    const [updateProduct, loading] = useUpdateProductMutation();
+    const [updateProduct, { isLoading: updateProductLoading }] =
+        useUpdateProductMutation();
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
@@ -91,6 +97,9 @@ const UpdateProduct = () => {
 
             //Extracting the response
             console.log(response);
+
+            //Sending success message
+            useSuccessToast(response.message);
         } catch (error) {
             console.log(error.message);
         }
@@ -98,7 +107,8 @@ const UpdateProduct = () => {
 
     return (
         <>
-            {isLoading && <Loader />}
+            {getProductLoading && <Loader />}
+            {updateProductLoading && <Loader />}
             <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
                 <div>
                     <h2 className={`${styles.secondaryText}`}>
@@ -294,10 +304,12 @@ const UpdateProduct = () => {
 
                     <div className="flex items-end justify-end">
                         <button
-                            disabled={isLoading}
+                            disabled={updateProductLoading}
                             className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs mt-8`}
                         >
-                            {isLoading ? "Updating..." : "Update Product"}
+                            {updateProductLoading
+                                ? "Updating..."
+                                : "Update Product"}
                         </button>
                     </div>
                 </form>
