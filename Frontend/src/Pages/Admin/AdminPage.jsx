@@ -48,7 +48,7 @@ const AdminPage = () => {
                                         color: "#ffffff",
                                         fontWeight: 500,
                                     }}
-                                    className="bg-primaryColor text-white"
+                                    className="bg-primaryColor text-white whitespace-nowrap"
                                 >
                                     <th className="border border-paragraphColor p-4">
                                         ID
@@ -111,7 +111,9 @@ const AdminPage = () => {
                                                 {product.commonType}
                                             </td>
                                             <td className="hover:bg-screenColor2 border flex items-center justify-center whitespace-nowrap p-4 border-paragraphColor">
-                                                <Link>
+                                                <Link
+                                                    to={`/products/${product._id}`}
+                                                >
                                                     {" "}
                                                     <IoMdEye
                                                         style={{
@@ -122,7 +124,9 @@ const AdminPage = () => {
                                                 </Link>
                                             </td>
                                             <td className="hover:bg-screenColor2 border whitespace-nowrap p-4 border-paragraphColor">
-                                                <Link>
+                                                <Link
+                                                    to={`update-product/${product._id}`}
+                                                >
                                                     {" "}
                                                     <FiEdit
                                                         style={{
