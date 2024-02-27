@@ -29,7 +29,13 @@ router.post(
     upload.array("imageFiles", 6),
     createProduct
 );
-router.put("/update-product/:id", protect, isAdmin, updateProduct);
+router.put(
+    "/update-product/:id",
+    protect,
+    isAdmin,
+    upload.array("imageFiles", 6),
+    updateProduct
+);
 router.delete("/delete-product/:id", protect, isAdmin, deleteProduct);
 
 //Exports
