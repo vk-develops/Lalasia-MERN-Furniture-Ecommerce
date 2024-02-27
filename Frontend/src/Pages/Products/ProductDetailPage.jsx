@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
+import BackButton from "../../Components/BackButton";
 
 const RelatedProducts = ({ product }) => {
     const [relatedProducts, setRelatedProducts] = useState(null);
@@ -91,7 +92,11 @@ const ProductDetailPage = () => {
             {isLoading && <Loader />}
             {product && (
                 <section className={`${styles.layout} h-auto my-16`}>
-                    <div className="grid grid-cols-2 gap-12">
+                    <BackButton
+                        backTo={"../"}
+                        buttonText={"Back to admin page"}
+                    />
+                    <div className="grid grid-cols-2 gap-12 mt-8">
                         <div className="w-full">
                             <img
                                 src={
