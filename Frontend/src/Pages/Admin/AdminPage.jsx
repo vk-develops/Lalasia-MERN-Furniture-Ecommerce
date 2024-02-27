@@ -6,8 +6,20 @@ import Loader from "../../Components/Loader";
 import { IoMdEye } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
+import ModalComponent from "../../Components/ModalComponent";
 
 const AdminPage = () => {
+    const [modal, setModal] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState({
+        id: "",
+        name: "",
+    });
+
+    const onCloseModal = (productData) => {
+        setSelectedProduct(productData);
+        setModal(!modal);
+    };
+
     const [products, setProducts] = useState(null);
     const { data, isLoading, isError } = useGetAllProductsQuery();
 
@@ -25,6 +37,12 @@ const AdminPage = () => {
     return (
         <>
             {isLoading && <Loader />}
+            {modal && (
+                <ModalComponent
+                    onCloseModal={onCloseModal}
+                    product={selectedProduct}
+                />
+            )}
             <section className={`${styles.layout} h-auto`}>
                 <div className="my-10 text-center">
                     <h1 className={styles.headingText}>Admin Pannel</h1>
@@ -141,7 +159,14 @@ const AdminPage = () => {
                                                 </Link>
                                             </td>
                                             <td className="hover:bg-screenColor2 flex items-center justify-center flex-row border whitespace-nowrap p-4 border-paragraphColor">
-                                                <Link>
+                                                <button
+                                                    onClick={() =>
+                                                        onCloseModal({
+                                                            id: product._id,
+                                                            name: product.name,
+                                                        })
+                                                    }
+                                                >
                                                     {" "}
                                                     <MdDeleteOutline
                                                         style={{
@@ -149,7 +174,7 @@ const AdminPage = () => {
                                                         }}
                                                         size={24}
                                                     />
-                                                </Link>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
