@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import { furnitureTypes } from "../../Data/furnitureTypes";
 import { useSuccessToast } from "../../Hooks/useToast";
-import BackButton from "../../Components/BackButton";
+import NormalBackButton from "../../Components/NormalBackButton";
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -124,7 +124,7 @@ const UpdateProduct = () => {
             {getProductLoading && <Loader />}
             {updateProductLoading && <Loader />}
             <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
-                <BackButton
+                <NormalBackButton
                     backTo={"../"}
                     buttonText={"Back to admin page"}
                 />

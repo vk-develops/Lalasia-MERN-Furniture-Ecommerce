@@ -5,7 +5,7 @@ import { useCreateProductMutation } from "../../App/Service/adminProductApiSlice
 import { furnitureTypes } from "../../Data/furnitureTypes";
 import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 import Loader from "../../Components/Loader";
-import BackButton from "../../Components/BackButton";
+import NormalBackButton from "../../Components/NormalBackButton";
 
 const CreateProductPage = () => {
     const [name, setName] = useState("");
@@ -72,7 +72,7 @@ const CreateProductPage = () => {
         <>
             {isLoading && <Loader />}
             <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
-                <BackButton
+                <NormalBackButton
                     backTo={"../"}
                     buttonText={"Back to admin page"}
                 />
