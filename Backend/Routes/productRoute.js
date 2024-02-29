@@ -10,7 +10,7 @@ const router = express.Router();
 
 //HTTP Methods
 router.get("/get-all-products", getAllProducts);
-router.get("/get-a-product", getAProduct);
+router.get("/get-a-product/:id", getAProduct);
 router.get("/get-related-products/:id/:type", getRelatedProducts);
 
 //Export
