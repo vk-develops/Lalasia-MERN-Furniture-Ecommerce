@@ -30,6 +30,39 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Get the list of a product
+// @route   GET /api/v1/admin/products/get-a-product/:id
+// @access  Private
+const getAProduct = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!mongoose.isValidObjectId(id)) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Invalid product id" });
+        }
+
+        const product = await Product.findById(id);
+
+        if (product) {
+            //Sending the response
+            res.status(200).json({
+                success: true,
+                message: "Product data retrieval success",
+                data: product,
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No products found" });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 // @desc    Get all the products by the type
 // @route   GET /api/v1/furniture/products/get-related-products
 // @access  Public
@@ -71,4 +104,4 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 });
 
 //Export
-export { getAllProducts, getRelatedProducts };
+export { getAllProducts, getRelatedProducts, getAProduct };

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { styles } from "../../Styles/styles";
 import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
-import { useLocation, useParams } from "react-router-dom";
+// import { useGetAProductQuery } from "../../App/Service/productApiSlice";
+import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
@@ -31,7 +32,7 @@ const RelatedProducts = ({ product }) => {
     }
 
     if (isError) {
-        return null;
+        return <h1>No related products found!!!</h1>;
     }
 
     return (
@@ -83,7 +84,6 @@ const ProductDetailPage = () => {
     };
 
     const handleImageSelect = (imageUrl) => {
-        console.log(imageUrl);
         setSelectedImg(imageUrl);
     };
 

@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    getAProduct,
     getAllProducts,
     getRelatedProducts,
 } from "../Controllers/productController.js";
@@ -9,6 +10,7 @@ const router = express.Router();
 
 //HTTP Methods
 router.get("/get-all-products", getAllProducts);
+router.get("/get-a-product", getAProduct);
 router.get("/get-related-products/:id/:type", getRelatedProducts);
 
 //Export
