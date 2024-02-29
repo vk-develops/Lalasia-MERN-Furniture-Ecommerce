@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 const BackButton = ({ backTo, buttonText }) => {
     const location = useLocation();
 
-    console.log(location);
+    // console.log(location);
 
     return (
         <div className="inline-block">

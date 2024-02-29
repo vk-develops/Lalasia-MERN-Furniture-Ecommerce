@@ -148,6 +148,7 @@ const AdminPage = () => {
                                             <td className="hover:bg-screenColor2 border flex items-center justify-center whitespace-nowrap p-4 border-paragraphColor">
                                                 <Link
                                                     to={`/products/${product._id}`}
+                                                    state={{ from: "/admin" }}
                                                 >
                                                     {" "}
                                                     <IoMdEye

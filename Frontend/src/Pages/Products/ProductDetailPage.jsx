@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { styles } from "../../Styles/styles";
 import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
@@ -56,6 +56,10 @@ const RelatedProducts = ({ product }) => {
 
 const ProductDetailPage = () => {
     const { id } = useParams();
+
+    const location = useLocation();
+
+    console.log(location);
 
     const [product, setProduct] = useState(null);
     const [selectedImg, setSelectedImg] = useState(null);

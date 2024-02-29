@@ -137,10 +137,28 @@ const updateProduct = asyncHandler(async (req, res) => {
             product.price = price || product.price;
             product.starRating = starRating || product.starRating;
             product.commonType = commonType || product.commonType;
+            // Handle image updates and deletions
+            if (req.files && req.files.length > 0) {
+                const newImageUrls = await uploadImages(req.files);
+                // Add new image URLs to the existing ones
+                product.imageUrls.push(...newImageUrls);
+            }
 
-            if (req.files) {
-                const imageUrls = await uploadImages(req.files);
-                product.imageUrls = imageUrls || product.imageUrls;
+            if (req.body.deletedImageUrls) {
+                // Parse the JSON string to an array
+                const deletedImageUrls = JSON.parse(req.body.deletedImageUrls);
+                if (Array.isArray(deletedImageUrls)) {
+                    // Remove deleted image URLs from the product
+                    deletedImageUrls.forEach((deletedImageUrl) => {
+                        const index =
+                            product.imageUrls.indexOf(deletedImageUrl);
+                        if (index !== -1) {
+                            product.imageUrls.splice(index, 1);
+                        }
+                    });
+                } else {
+                    console.error("deletedImageUrls is not an array");
+                }
             }
 
             // Save the updated product

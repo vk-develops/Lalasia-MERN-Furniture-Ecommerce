@@ -22,6 +22,7 @@ const UpdateProduct = () => {
     const [checkedItems, setCheckedItems] = useState({});
     const [starRating, setStarRating] = useState("");
     const [commonType, setCommonType] = useState("");
+    const [deletedImageUrls, setDeletedImageUrls] = useState([]);
 
     const {
         data,
@@ -70,6 +71,10 @@ const UpdateProduct = () => {
 
     const handleImageDelete = (e, imageUrl) => {
         e.preventDefault();
+        setDeletedImageUrls((prevDeletedImageUrls) => [
+            ...prevDeletedImageUrls,
+            imageUrl,
+        ]);
         setImageFiles(imageFiles.filter((url) => url != imageUrl));
     };
 
@@ -82,14 +87,16 @@ const UpdateProduct = () => {
         formData.append("description", description);
         formData.append("price", price);
         formData.append("imageFiles", imageFiles);
-        for (let i = 0; i < imageFiles.length; i++) {
-            formData.append("imageFiles", imageFiles[i]);
-        }
+        // Append existing and newly selected image files
+        imageFiles.forEach((img) => {
+            formData.append("imageFiles", img);
+        });
         Object.entries(checkedItems).forEach(([key, value]) => {
             formData.append(key, value);
         });
         formData.append("starRating", starRating);
         formData.append("commonType", commonType);
+        formData.append("deletedImageUrls", JSON.stringify(deletedImageUrls));
 
         try {
             const response = await updateProduct({
@@ -109,6 +116,8 @@ const UpdateProduct = () => {
             console.log(error.message);
         }
     };
+
+    console.log(imageFiles);
 
     return (
         <>
