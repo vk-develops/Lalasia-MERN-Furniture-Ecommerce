@@ -10,7 +10,13 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
-        // getAProductQuery: builder
+        getAProductQuery: builder.query({
+            query: ({ id }) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/get-a-product`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
         getRelatedProducts: builder.query({
             query: ({ type, id }) => ({
                 url: `${FURNITURE_PRODUCTS_URI}/get-related-products/${id}/${type}`,
