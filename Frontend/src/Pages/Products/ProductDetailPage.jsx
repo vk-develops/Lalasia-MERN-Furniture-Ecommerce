@@ -57,10 +57,6 @@ const RelatedProducts = ({ product }) => {
 const ProductDetailPage = () => {
     const { id } = useParams();
 
-    const location = useLocation();
-
-    console.log(location);
-
     const [product, setProduct] = useState(null);
     const [selectedImg, setSelectedImg] = useState(null);
 

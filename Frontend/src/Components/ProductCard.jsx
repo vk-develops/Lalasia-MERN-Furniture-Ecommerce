@@ -2,18 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
-    function generateRandomId() {
-        const randomNumberString = Math.random().toString().substring(2);
-
-        const randomId = `${randomNumberString}`;
-        return randomId;
-    }
-
     return (
         <div className="w-72 bg-screenColor1 mb-6">
             <div>
                 <img
-                    src={product.imageUrls[5]}
+                    src={product.imageUrls[product.imageUrls.length - 1]}
                     alt="Product Image"
                 />
             </div>
@@ -22,9 +15,9 @@ const ProductCard = ({ product }) => {
                 className="py-3"
             >
                 <div className="flex items-center justify-start gap-2">
-                    {product.type.map((type) => (
+                    {product.type.map((type, index) => (
                         <div
-                            key={generateRandomId()}
+                            key={index}
                             className="mt-4 mb-1 px-3 py-[2px] bg-secondaryColor rounded-lg flex items-center justify-center"
                         >
                             <h5 className="text-screenColor1 text-[11px] font-eduoxusSans font-medium">
