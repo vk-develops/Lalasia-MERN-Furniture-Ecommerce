@@ -5,7 +5,7 @@ const styles = {
     headingText:
         "text-titleColor font-eduoxusSans text-4xl max-mobile:text-2xl font-bold",
     paragraphText:
-        "text-paragraphColor font-eduoxusSans text-plg max-mobile:text-pxs font-medium",
+        "text-paragraphColor font-eduoxusSans text-plg max-mobile:text-pxs font-regular",
     highlitedText: "text-secondaryColor font-eduoxusSans text-lg font-bold",
     secondaryText: "text-titleColor font-eduoxusSans text-3xl font-bold",
     secondaryParaText:
