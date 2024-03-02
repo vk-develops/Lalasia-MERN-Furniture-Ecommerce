@@ -39,7 +39,7 @@ const ProductsPage = () => {
                 </div>
                 <div className="pt-32">
                     <h1 className={`${styles.secondaryText}`}>Products</h1>
-                    <div className="grid grid-cols-3 gap-5">
+                    <div className="grid grid-cols-3 gap-5 mt-8">
                         {products &&
                             products.map((product) => (
                                 <ProductCard product={product} />

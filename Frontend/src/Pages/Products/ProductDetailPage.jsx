@@ -94,7 +94,7 @@ const ProductDetailPage = () => {
             {isLoading && <Loader />}
             {product && (
                 <section className={`${styles.layout} h-auto my-16`}>
-                    <div className="grid grid-cols-2 gap-12 mt-8">
+                    <div className="grid grid-cols-2 gap-12 mt-4">
                         <div className="w-full">
                             <img
                                 src={
