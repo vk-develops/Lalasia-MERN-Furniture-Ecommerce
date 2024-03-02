@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styles } from "../../Styles/styles";
-import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
-// import { useGetAProductQuery } from "../../App/Service/productApiSlice";
+import { useGetAProductQuery } from "../../App/Service/productApiSlice";
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
@@ -66,6 +65,10 @@ const ProductDetailPage = () => {
     useEffect(() => {
         if (data) {
             setProduct(data.data);
+        }
+
+        if (isError) {
+            console.log(isError);
         }
     }, [data]);
 

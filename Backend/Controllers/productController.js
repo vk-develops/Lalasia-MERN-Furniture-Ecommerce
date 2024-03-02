@@ -1,4 +1,5 @@
 import asyncHandler from "express-async-handler";
+import mongoose from "mongoose";
 import Product from "../Models/productsModel.js";
 
 // @desc    Get all the products
@@ -32,7 +33,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
 // @desc    Get the list of a product
 // @route   GET /api/v1/admin/products/get-a-product/:id
-// @access  Private
+// @access  Public
 const getAProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
