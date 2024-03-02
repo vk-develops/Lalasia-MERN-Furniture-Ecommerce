@@ -32,20 +32,34 @@ const getAllProducts = asyncHandler(async (req, res) => {
 });
 
 // @desc    Search all the products
-// @route   GET /api/v1/furniture/products/search-all-products
+// @route   GET /api/v1/furniture/products/search-products
 // @access  Public
 const searchProducts = asyncHandler(async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
-        const perPage = 6;
+        const perPage = 3;
         const skip = (page - 1) * perPage;
 
-        const products = await Product.find(req.query.search || {})
+        const searchCriteria = {};
+
+        // Check if search query parameter exists and is not empty
+        if (req.query.search && req.query.search.trim() !== "") {
+            // Assuming you want to search products with names containing the specified string
+            searchCriteria.name = new RegExp(req.query.search.trim(), "i");
+        }
+
+        console.log("Search Criteria (Before):", searchCriteria);
+
+        const products = await Product.find(searchCriteria)
             .skip(skip)
             .limit(perPage)
             .exec();
 
-        const productCount = await products.countDocuments();
+        console.log("Search Criteria (After):", searchCriteria);
+
+        const productCount = await Product.countDocuments(
+            searchCriteria
+        ).exec();
 
         if (products) {
             res.status(200).json({
