@@ -42,9 +42,7 @@ const searchProducts = asyncHandler(async (req, res) => {
 
         const searchCriteria = {};
 
-        // Check if search query parameter exists and is not empty
         if (req.query.search && req.query.search.trim() !== "") {
-            // Assuming you want to search products with names containing the specified string
             searchCriteria.name = new RegExp(req.query.search.trim(), "i");
         }
 

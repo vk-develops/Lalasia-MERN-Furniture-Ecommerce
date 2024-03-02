@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IoFilter } from "react-icons/io5";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import SearchIcon from "../assets/Search-Icon.png";
 import { useGetAllProductsQuery } from "../App/Service/productApiSlice";
 
@@ -47,6 +47,9 @@ const ProductSearchResults = () => {
 
 const ProductFormComponent = () => {
     const [isInputFocused, setIsInputFocused] = useState(false);
+    const [search, setSearch] = useState("");
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const handleInputFocus = () => {
         setIsInputFocused(true);
@@ -54,6 +57,24 @@ const ProductFormComponent = () => {
 
     const handleInputBlur = () => {
         setIsInputFocused(false);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        handleSearch("search", search);
+    };
+
+    const handleSearch = (key, value) => {
+        setSearchParams((prevParam) => {
+            if (value === null) {
+                prevParam.delete(key);
+            } else {
+                prevParam.set(key, value);
+            }
+
+            return prevParam;
+        });
     };
 
     return (
@@ -72,12 +93,17 @@ const ProductFormComponent = () => {
                     <input
                         className={`font-eduoxusSans text-sm font-regular w-full outline-none`}
                         type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search for products"
                         onFocus={handleInputFocus}
                         onBlur={handleInputBlur}
                     />
                 </div>
-                <button className="px-8 py-2 bg-primaryColor text-base font-eduoxusSans font-medium text-screenColor1">
+                <button
+                    onClick={handleSubmit}
+                    className="px-8 py-2 bg-primaryColor text-base font-eduoxusSans font-medium text-screenColor1"
+                >
                     Search
                 </button>
             </div>
