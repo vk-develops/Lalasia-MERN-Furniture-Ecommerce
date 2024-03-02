@@ -31,6 +31,41 @@ const getAllProducts = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Search all the products
+// @route   GET /api/v1/furniture/products/search-all-products
+// @access  Public
+const searchProducts = asyncHandler(async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const perPage = 6;
+        const skip = (page - 1) * perPage;
+
+        const products = await Product.find(req.query.search || {})
+            .skip(skip)
+            .limit(perPage)
+            .exec();
+
+        const productCount = await products.countDocuments();
+
+        if (products) {
+            res.status(200).json({
+                success: true,
+                count: productCount,
+                data: products,
+                pagination: { page: page, perPage: perPage },
+            });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: "No products found",
+            });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 // @desc    Get the list of a product
 // @route   GET /api/v1/admin/products/get-a-product/:id
 // @access  Public
@@ -105,4 +140,4 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 });
 
 //Export
-export { getAllProducts, getRelatedProducts, getAProduct };
+export { getAllProducts, getRelatedProducts, getAProduct, searchProducts };

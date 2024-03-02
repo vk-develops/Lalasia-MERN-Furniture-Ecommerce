@@ -26,6 +26,8 @@ const ProductSearchResults = () => {
             {products &&
                 products.map((product, index) => (
                     <Link
+                        to={`./${product._id}`}
+                        onMouseDown={(e) => e.preventDefault()}
                         key={index}
                         className="flex items-center justify-start gap-2 py-3"
                     >
