@@ -1,12 +1,10 @@
 import React from "react";
-import { IoFilter } from "react-icons/io5";
 import { styles } from "../../Styles/styles";
-import SearchIcon from "../../assets/Search-Icon.png";
 import ProductSearchComponent from "../../Components/ProductSearchComponent";
 
 const ProductsPage = () => {
     return (
-        <section className={`${styles.layout} h-screen mt-8`}>
+        <section className={`${styles.layout} h-auto mt-8`}>
             <div>
                 <h1 className={`${styles.headingText} text-center`}>
                     Products
