@@ -4,9 +4,17 @@ import ProductSearchComponent from "../../Components/ProductSearchComponent";
 import { useGetSearchProductsQuery } from "../../App/Service/productApiSlice";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
+import { useSearchParams } from "react-router-dom";
 
 const ProductsPage = () => {
-    const { data, isLoading, isError } = useGetSearchProductsQuery();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [page, setPage] = useState(1);
+
+    const searchedProduct = searchParams.get("search");
+    console.log(searchedProduct);
+    console.log(page);
+
+    const { data, isLoading, isError } = useGetSearchProductsQuery(page);
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -19,6 +27,16 @@ const ProductsPage = () => {
     if (isError) {
         return <h1>Error no products found</h1>;
     }
+
+    const nextPage = () => {
+        setPage(page + 1);
+    };
+
+    const prevPage = () => {
+        if (page > 1) {
+            setPage(page - 1);
+        }
+    };
 
     return (
         <>
@@ -49,6 +67,15 @@ const ProductsPage = () => {
                                 />
                             ))}
                     </div>
+                </div>
+                <div>
+                    <button
+                        onClick={prevPage}
+                        disabled={page === 1}
+                    >
+                        Previous
+                    </button>
+                    <button onClick={nextPage}>Next</button>
                 </div>
             </section>
         </>

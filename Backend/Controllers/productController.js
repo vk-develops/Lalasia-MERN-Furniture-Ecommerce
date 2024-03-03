@@ -55,12 +55,18 @@ const searchProducts = asyncHandler(async (req, res) => {
             searchCriteria
         ).exec();
 
+        const totalPages = Math.ceil(productCount / perPage);
+
         if (products) {
             res.status(200).json({
                 success: true,
                 count: productCount,
                 data: products,
-                pagination: { page: page, perPage: perPage },
+                pagination: {
+                    page: page,
+                    perPage: perPage,
+                    totalPages: totalPages,
+                },
             });
         } else {
             res.status(400).json({
