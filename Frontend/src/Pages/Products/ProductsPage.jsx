@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "../../Styles/styles";
 import ProductSearchComponent from "../../Components/ProductSearchComponent";
-import { useGetAllProductsQuery } from "../../App/Service/productApiSlice";
+import { useGetSearchProductsQuery } from "../../App/Service/productApiSlice";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 
 const ProductsPage = () => {
-    const { data, isLoading, isError } = useGetAllProductsQuery();
+    const { data, isLoading, isError } = useGetSearchProductsQuery();
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
         if (data) {
+            console.log(data);
             setProducts(data.data);
         }
     }, [data]);
@@ -42,7 +43,10 @@ const ProductsPage = () => {
                     <div className="grid grid-cols-3 gap-5 mt-8">
                         {products &&
                             products.map((product) => (
-                                <ProductCard product={product} />
+                                <ProductCard
+                                    key={product._id}
+                                    product={product}
+                                />
                             ))}
                     </div>
                 </div>

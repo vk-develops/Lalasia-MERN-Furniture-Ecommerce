@@ -12,7 +12,9 @@ export const productApiSlice = apiSlice.injectEndpoints({
         }),
         getSearchProducts: builder.query({
             query: (search, page) => ({
-                url: `${FURNITURE_PRODUCTS_URI}/search-products?search=${search}&page=${page}`,
+                url: `${FURNITURE_PRODUCTS_URI}/search-products?page=${page}${
+                    search ? `&search=` & { search } : null
+                }`,
                 method: "GET",
                 credentials: "include",
             }),

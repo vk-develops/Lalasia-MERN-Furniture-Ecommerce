@@ -46,14 +46,10 @@ const searchProducts = asyncHandler(async (req, res) => {
             searchCriteria.name = new RegExp(req.query.search.trim(), "i");
         }
 
-        console.log("Search Criteria (Before):", searchCriteria);
-
         const products = await Product.find(searchCriteria)
             .skip(skip)
             .limit(perPage)
             .exec();
-
-        console.log("Search Criteria (After):", searchCriteria);
 
         const productCount = await Product.countDocuments(
             searchCriteria
