@@ -16,11 +16,13 @@ const ProductsPage = () => {
 
     const { data, isLoading, isError } = useGetSearchProductsQuery(page);
     const [products, setProducts] = useState([]);
+    const [pagination, setPagination] = useState(null);
 
     useEffect(() => {
         if (data) {
             console.log(data);
             setProducts(data.data);
+            setPagination(data.pagination);
         }
     }, [data]);
 
@@ -28,14 +30,8 @@ const ProductsPage = () => {
         return <h1>Error no products found</h1>;
     }
 
-    const nextPage = () => {
-        setPage(page + 1);
-    };
-
-    const prevPage = () => {
-        if (page > 1) {
-            setPage(page - 1);
-        }
+    const handlePageClick = (pageNumber) => {
+        setPage(pageNumber);
     };
 
     return (
@@ -68,14 +64,21 @@ const ProductsPage = () => {
                             ))}
                     </div>
                 </div>
-                <div>
-                    <button
-                        onClick={prevPage}
-                        disabled={page === 1}
-                    >
-                        Previous
-                    </button>
-                    <button onClick={nextPage}>Next</button>
+                <div className="text-center mt-12">
+                    {pagination &&
+                        pagination.totalPages &&
+                        Array.from(
+                            { length: pagination.totalPages },
+                            (_, index) => index + 1
+                        ).map((pageNumber) => (
+                            <button
+                                className="px-5 py-3 bg-primaryColor text-screenColor1 text-base font-eduoxusSans font-medium m-3"
+                                key={pageNumber}
+                                onClick={() => handlePageClick(pageNumber)}
+                            >
+                                {pageNumber}
+                            </button>
+                        ))}
                 </div>
             </section>
         </>
