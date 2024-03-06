@@ -10,25 +10,31 @@ const ProductsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
 
-    const searchedProduct = searchParams.get("search");
-    console.log(searchedProduct);
-    console.log(page);
+    const search = searchParams.get("search");
+    const searchedProduct = search ? search : {};
 
-    const { data, isLoading, isError } = useGetSearchProductsQuery(page);
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState(null);
 
-    useEffect(() => {
-        if (data) {
-            console.log(data);
-            setProducts(data.data);
-            setPagination(data.pagination);
-        }
-    }, [data]);
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_APP_BACKEND_URI}${
+                    import.meta.env.VITE_BACKEND_FURNITURE_PRODUCTS_URI
+                }/search-products?page=${page}&search=${searchedProduct}`
+            );
 
-    if (isError) {
-        return <h1>Error no products found</h1>;
-    }
+            const data = await response.json();
+
+            console.log(data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
+    useEffect(() => {
+        fetchProducts();
+    }, [searchedProduct]);
 
     const handlePageClick = (pageNumber) => {
         setPage(pageNumber);
@@ -36,7 +42,7 @@ const ProductsPage = () => {
 
     return (
         <>
-            {isLoading && <Loader />}
+            {/* {isLoading && <Loader />} */}
             <section className={`${styles.layout} h-auto mt-8`}>
                 <div>
                     <h1 className={`${styles.headingText} text-center`}>

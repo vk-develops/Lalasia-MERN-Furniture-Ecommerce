@@ -11,10 +11,13 @@ export const productApiSlice = apiSlice.injectEndpoints({
             }),
         }),
         getSearchProducts: builder.query({
-            query: (page) => ({
-                url: `${FURNITURE_PRODUCTS_URI}/search-products?page=${page}`,
+            query: (page, search) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/search-products?page=${page}${
+                    search ? `&search=${search}` : ``
+                }`,
                 method: "GET",
                 credentials: "include",
+                selectFromResult: ({ data }) => data,
             }),
         }),
         getAProduct: builder.query({
