@@ -33,7 +33,7 @@ const ProductCard = ({ product }) => {
                     {product.subTitle}
                 </h4>
                 <h3 className="text-2xl font-eduoxusSans font-bold text-primaryColor pt-5">
-                    $63.45
+                    &#8377;{product.price}
                 </h3>
             </Link>
         </div>

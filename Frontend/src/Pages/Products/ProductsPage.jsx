@@ -14,9 +14,13 @@ const ProductsPage = () => {
 
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const fetchProducts = async () => {
         try {
+            setIsLoading(true);
+
             const url = `${import.meta.env.VITE_APP_BACKEND_URI}${
                 import.meta.env.VITE_BACKEND_FURNITURE_PRODUCTS_URI
             }/search-products?page=${page}`;
@@ -29,7 +33,9 @@ const ProductsPage = () => {
             if (response.ok) {
                 setProducts(data.data);
                 setPagination(data.pagination);
+                setIsLoading(false);
             } else {
+                setIsError(true);
                 console.log(data.message);
             }
 
@@ -49,7 +55,7 @@ const ProductsPage = () => {
 
     return (
         <>
-            {/* {isLoading && <Loader />} */}
+            {isLoading && <Loader />}
             <section className={`${styles.layout} h-auto mt-8`}>
                 <div>
                     <h1 className={`${styles.headingText} text-center`}>
