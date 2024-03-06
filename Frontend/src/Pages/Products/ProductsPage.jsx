@@ -10,21 +10,28 @@ const ProductsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
 
-    const search = searchParams.get("search");
-    const searchedProduct = search ? search : {};
+    const search = searchParams.get("search") || null;
 
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState(null);
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch(
-                `${import.meta.env.VITE_APP_BACKEND_URI}${
-                    import.meta.env.VITE_BACKEND_FURNITURE_PRODUCTS_URI
-                }/search-products?page=${page}&search=${searchedProduct}`
-            );
+            const url = `${import.meta.env.VITE_APP_BACKEND_URI}${
+                import.meta.env.VITE_BACKEND_FURNITURE_PRODUCTS_URI
+            }/search-products?page=${page}`;
+            const fullUrl = search ? `${url}&search=${search}` : url;
+
+            const response = await fetch(fullUrl);
 
             const data = await response.json();
+
+            if (response.ok) {
+                setProducts(data.data);
+                setPagination(data.pagination);
+            } else {
+                console.log(data.message);
+            }
 
             console.log(data);
         } catch (error) {
@@ -34,7 +41,7 @@ const ProductsPage = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, [searchedProduct]);
+    }, [search, page]);
 
     const handlePageClick = (pageNumber) => {
         setPage(pageNumber);
