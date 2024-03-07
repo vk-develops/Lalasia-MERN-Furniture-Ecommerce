@@ -4,7 +4,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import SearchIcon from "../assets/Search-Icon.png";
 import { useGetAllProductsQuery } from "../App/Service/productApiSlice";
 
-const ProductSearchResults = () => {
+const ProductSearchResults = ({ search }) => {
     const [products, setProducts] = useState([]);
     const { data, isError } = useGetAllProductsQuery();
 
@@ -18,13 +18,17 @@ const ProductSearchResults = () => {
         return <h1>No Products Found</h1>;
     }
 
+    const filteredProduct = products.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+    );
+
     return (
         <div className="w-full py-3 h-full overflow-scroll mb-2">
             <div className="px-2 py-1 mt-2 mb-4 rounded-md bg-primaryColor text-screenColor1 inline-block font-eduoxusSans text-xs font-regular">
                 <p>Search Products</p>
             </div>
             {products &&
-                products.map((product, index) => (
+                filteredProduct.map((product, index) => (
                     <Link
                         to={`./${product._id}`}
                         onMouseDown={(e) => e.preventDefault()}
@@ -107,7 +111,7 @@ const ProductFormComponent = () => {
                     Search
                 </button>
             </div>
-            {isInputFocused && <ProductSearchResults />}
+            {isInputFocused && <ProductSearchResults search={search} />}
         </form>
     );
 };
