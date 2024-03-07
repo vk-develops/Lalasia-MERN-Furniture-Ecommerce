@@ -71,10 +71,28 @@ const getAProduct = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, starRating, commonType } =
-            req.body;
+        const {
+            name,
+            subTitle,
+            description,
+            price,
+            starRating,
+            commonType,
+            colors,
+            quantity,
+            material,
+            discounts,
+        } = req.body;
 
         const typeArray = Object.entries(req.body)
+            .filter(([key, value]) => value === "true")
+            .map(([key, value]) => key);
+
+        const colorArray = Object.entries(req.body)
+            .filter(([key, value]) => value === "true")
+            .map(([key, value]) => key);
+
+        const materialArray = Object.entries(req.body)
             .filter(([key, value]) => value === "true")
             .map(([key, value]) => key);
 
@@ -91,6 +109,9 @@ const createProduct = asyncHandler(async (req, res) => {
             imageUrls,
             starRating,
             commonType,
+            colors: colorArray,
+            material: materialArray,
+            quantity,
             lastUpdated: new Date(),
         };
 
