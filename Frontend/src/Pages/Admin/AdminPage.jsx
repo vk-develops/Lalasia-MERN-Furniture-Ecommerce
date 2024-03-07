@@ -5,9 +5,21 @@ import { useGetAllProductsQuery } from "../../App/Service/adminProductApiSlice";
 import Loader from "../../Components/Loader";
 import { IoMdEye } from "react-icons/io";
 import { FiEdit } from "react-icons/fi";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdDeleteOutline, MdAddBox } from "react-icons/md";
+import ModalComponent from "../../Components/ModalComponent";
 
 const AdminPage = () => {
+    const [modal, setModal] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState({
+        id: "",
+        name: "",
+    });
+
+    const onCloseModal = (productData) => {
+        setSelectedProduct(productData);
+        setModal(!modal);
+    };
+
     const [products, setProducts] = useState(null);
     const { data, isLoading, isError } = useGetAllProductsQuery();
 
@@ -25,6 +37,12 @@ const AdminPage = () => {
     return (
         <>
             {isLoading && <Loader />}
+            {modal && (
+                <ModalComponent
+                    onCloseModal={onCloseModal}
+                    product={selectedProduct}
+                />
+            )}
             <section className={`${styles.layout} h-auto`}>
                 <div className="my-10 text-center">
                     <h1 className={styles.headingText}>Admin Pannel</h1>
@@ -37,9 +55,23 @@ const AdminPage = () => {
                     </p>
                 </div>
                 <div className="pt-10">
-                    <h2 className={`${styles.secondaryText}`}>
-                        Furniture Products
-                    </h2>
+                    <div className="flex items-center justify-between ">
+                        <h2 className={`${styles.secondaryText}`}>
+                            Furniture Products
+                        </h2>
+                        <Link
+                            to={`create-product`}
+                            className=" bg-placeholderColor border-[.5px] border-[#8885] px-8 py-3 rounded-sm flex items-center justify-center gap-2"
+                        >
+                            <MdAddBox
+                                size={22}
+                                color="#555"
+                            />
+                            <h4 className="text-base font-eduoxusSans font-medium text-[#555]">
+                                Create Product
+                            </h4>
+                        </Link>
+                    </div>
                     <div className="max-w-full overflow-x-scroll mt-6">
                         <table className="w-full border border-paragraphColor">
                             <thead>
@@ -116,6 +148,7 @@ const AdminPage = () => {
                                             <td className="hover:bg-screenColor2 border flex items-center justify-center whitespace-nowrap p-4 border-paragraphColor">
                                                 <Link
                                                     to={`/products/${product._id}`}
+                                                    state={{ from: "/admin" }}
                                                 >
                                                     {" "}
                                                     <IoMdEye
@@ -141,7 +174,14 @@ const AdminPage = () => {
                                                 </Link>
                                             </td>
                                             <td className="hover:bg-screenColor2 flex items-center justify-center flex-row border whitespace-nowrap p-4 border-paragraphColor">
-                                                <Link>
+                                                <button
+                                                    onClick={() =>
+                                                        onCloseModal({
+                                                            id: product._id,
+                                                            name: product.name,
+                                                        })
+                                                    }
+                                                >
                                                     {" "}
                                                     <MdDeleteOutline
                                                         style={{
@@ -149,7 +189,7 @@ const AdminPage = () => {
                                                         }}
                                                         size={24}
                                                     />
-                                                </Link>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}

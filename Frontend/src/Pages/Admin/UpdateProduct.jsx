@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import { furnitureTypes } from "../../Data/furnitureTypes";
 import { useSuccessToast } from "../../Hooks/useToast";
+import NormalBackButton from "../../Components/NormalBackButton";
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -21,6 +22,7 @@ const UpdateProduct = () => {
     const [checkedItems, setCheckedItems] = useState({});
     const [starRating, setStarRating] = useState("");
     const [commonType, setCommonType] = useState("");
+    const [deletedImageUrls, setDeletedImageUrls] = useState([]);
 
     const {
         data,
@@ -69,6 +71,10 @@ const UpdateProduct = () => {
 
     const handleImageDelete = (e, imageUrl) => {
         e.preventDefault();
+        setDeletedImageUrls((prevDeletedImageUrls) => [
+            ...prevDeletedImageUrls,
+            imageUrl,
+        ]);
         setImageFiles(imageFiles.filter((url) => url != imageUrl));
     };
 
@@ -81,14 +87,16 @@ const UpdateProduct = () => {
         formData.append("description", description);
         formData.append("price", price);
         formData.append("imageFiles", imageFiles);
-        for (let i = 0; i < imageFiles.length; i++) {
-            formData.append("imageFiles", imageFiles[i]);
-        }
+        // Append existing and newly selected image files
+        imageFiles.forEach((img) => {
+            formData.append("imageFiles", img);
+        });
         Object.entries(checkedItems).forEach(([key, value]) => {
             formData.append(key, value);
         });
         formData.append("starRating", starRating);
         formData.append("commonType", commonType);
+        formData.append("deletedImageUrls", JSON.stringify(deletedImageUrls));
 
         try {
             const response = await updateProduct({
@@ -109,12 +117,18 @@ const UpdateProduct = () => {
         }
     };
 
+    console.log(imageFiles);
+
     return (
         <>
             {getProductLoading && <Loader />}
             {updateProductLoading && <Loader />}
             <section className={`max-w-2xl mx-auto p-5 h-auto my-10 pb-8`}>
-                <div>
+                <NormalBackButton
+                    backTo={"../"}
+                    buttonText={"Back to admin page"}
+                />
+                <div className="mt-8">
                     <h2 className={`${styles.secondaryText}`}>
                         Update Product
                     </h2>

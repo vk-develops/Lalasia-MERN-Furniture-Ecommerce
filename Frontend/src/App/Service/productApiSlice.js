@@ -10,6 +10,23 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+        getSearchProducts: builder.query({
+            query: (page, search) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/search-products?page=${page}${
+                    search ? `&search=${search}` : ``
+                }`,
+                method: "GET",
+                credentials: "include",
+                selectFromResult: ({ data }) => data,
+            }),
+        }),
+        getAProduct: builder.query({
+            query: ({ id }) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/get-a-product/${id}`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
         getRelatedProducts: builder.query({
             query: ({ type, id }) => ({
                 url: `${FURNITURE_PRODUCTS_URI}/get-related-products/${id}/${type}`,
@@ -20,5 +37,9 @@ export const productApiSlice = apiSlice.injectEndpoints({
     }),
 });
 
-export const { useGetAllProductsQuery, useGetRelatedProductsQuery } =
-    productApiSlice;
+export const {
+    useGetAllProductsQuery,
+    useGetRelatedProductsQuery,
+    useGetAProductQuery,
+    useGetSearchProductsQuery,
+} = productApiSlice;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { styles } from "../../Styles/styles";
-import { useGetAProductQuery } from "../../App/Service/adminProductApiSlice";
+import { useGetAProductQuery } from "../../App/Service/productApiSlice";
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
@@ -30,7 +30,7 @@ const RelatedProducts = ({ product }) => {
     }
 
     if (isError) {
-        return null;
+        return <h1>No related products found!!!</h1>;
     }
 
     return (
@@ -65,6 +65,10 @@ const ProductDetailPage = () => {
         if (data) {
             setProduct(data.data);
         }
+
+        if (isError) {
+            console.log(isError);
+        }
     }, [data]);
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -82,7 +86,6 @@ const ProductDetailPage = () => {
     };
 
     const handleImageSelect = (imageUrl) => {
-        console.log(imageUrl);
         setSelectedImg(imageUrl);
     };
 
@@ -91,7 +94,7 @@ const ProductDetailPage = () => {
             {isLoading && <Loader />}
             {product && (
                 <section className={`${styles.layout} h-auto my-16`}>
-                    <div className="grid grid-cols-2 gap-12">
+                    <div className="grid grid-cols-2 gap-12 mt-4">
                         <div className="w-full">
                             <img
                                 src={
