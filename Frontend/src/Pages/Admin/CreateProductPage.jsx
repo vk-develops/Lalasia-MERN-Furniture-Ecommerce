@@ -16,6 +16,9 @@ const CreateProductPage = () => {
     const [checkedItems, setCheckedItems] = useState({});
     const [starRating, setStarRating] = useState("");
     const [commonType, setCommonType] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const [colors, setColors] = useState({});
+    const [materials, setMaterials] = useState({});
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
