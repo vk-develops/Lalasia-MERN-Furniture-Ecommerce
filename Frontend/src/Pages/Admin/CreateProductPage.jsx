@@ -6,6 +6,7 @@ import { furnitureTypes } from "../../Data/furnitureTypes";
 import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 import Loader from "../../Components/Loader";
 import NormalBackButton from "../../Components/NormalBackButton";
+import { furnitureMaterialTypes } from "../../Data/furnitureMaterialTypes";
 
 const CreateProductPage = () => {
     const [name, setName] = useState("");
@@ -25,6 +26,13 @@ const CreateProductPage = () => {
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
     };
+
+    const handleMaterialchange = (e) => {
+        setMaterials({ ...materials, [e.target.name]: e.target.checked });
+    };
+
+    console.log(materials);
+    console.log(checkedItems);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -186,6 +194,35 @@ const CreateProductPage = () => {
                             ))}
                         </select>
                     </div>
+
+                    <div className="mt-8">
+                        <label className={`${styles.formLabel}`}>
+                            Furniture Material:
+                        </label>
+
+                        <div className="pb-8 pt-6 grid grid-cols-4 gap-2">
+                            {furnitureMaterialTypes.map((material, index) => (
+                                <label
+                                    key={index}
+                                    className={`${
+                                        materials[material]
+                                            ? `bg-secondaryColor text-screenColor1`
+                                            : `bg-screenColor2`
+                                    } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        name={material}
+                                        checked={materials[material] || false}
+                                        onChange={handleMaterialchange}
+                                        className="hidden"
+                                    />
+                                    {material}
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
                             Product Common Type:{" "}
