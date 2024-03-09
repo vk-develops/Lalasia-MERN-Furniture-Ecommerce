@@ -159,6 +159,12 @@ const updateProduct = asyncHandler(async (req, res) => {
             product.color = color || product.color;
             product.quantity = quantity || product.quantity;
 
+            const typeArray = Object.entries(req.body)
+                .filter(([key, value]) => value === "true")
+                .map(([key, value]) => key);
+
+            product.type = typeArray || product.type;
+
             // Handle image updates and deletions
             if (req.files && req.files.length > 0) {
                 const newImageUrls = await uploadImages(req.files);
