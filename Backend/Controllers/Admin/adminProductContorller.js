@@ -78,21 +78,12 @@ const createProduct = asyncHandler(async (req, res) => {
             price,
             starRating,
             commonType,
-            colors,
+            color,
             quantity,
-            material,
-            discounts,
+            // discounts,
         } = req.body;
 
         const typeArray = Object.entries(req.body)
-            .filter(([key, value]) => value === "true")
-            .map(([key, value]) => key);
-
-        const colorArray = Object.entries(req.body)
-            .filter(([key, value]) => value === "true")
-            .map(([key, value]) => key);
-
-        const materialArray = Object.entries(req.body)
             .filter(([key, value]) => value === "true")
             .map(([key, value]) => key);
 
@@ -109,8 +100,7 @@ const createProduct = asyncHandler(async (req, res) => {
             imageUrls,
             starRating,
             commonType,
-            colors: colorArray,
-            material: materialArray,
+            color,
             quantity,
             lastUpdated: new Date(),
         };

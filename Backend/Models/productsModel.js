@@ -18,7 +18,7 @@ const productSchema = mongoose.Schema({
         required: true,
     },
     quantity: {
-        type: Number,
+        type: String,
         required: true,
         min: 0,
     },
@@ -39,12 +39,10 @@ const productSchema = mongoose.Schema({
             required: true,
         },
     ],
-    colors: [
-        {
-            type: String,
-            required: true,
-        },
-    ],
+    color: {
+        type: String,
+        required: true,
+    },
     discounts: [
         {
             discountType: {

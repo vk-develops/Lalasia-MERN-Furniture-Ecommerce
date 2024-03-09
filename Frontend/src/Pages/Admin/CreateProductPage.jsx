@@ -18,17 +18,13 @@ const CreateProductPage = () => {
     const [starRating, setStarRating] = useState("");
     const [commonType, setCommonType] = useState("");
     const [quantity, setQuantity] = useState("");
-    const [colors, setColors] = useState({});
+    const [colors, setColors] = useState("");
     const [materials, setMaterials] = useState({});
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
-    };
-
-    const handleMaterialchange = (e) => {
-        setMaterials({ ...materials, [e.target.name]: e.target.checked });
     };
 
     console.log(materials);
@@ -51,6 +47,8 @@ const CreateProductPage = () => {
         });
         formData.append("starRating", starRating);
         formData.append("commonType", commonType);
+        formData.append("color", colors);
+        formData.append("quantity", quantity);
 
         try {
             const response = await createProduct(formData).unwrap();
@@ -195,32 +193,49 @@ const CreateProductPage = () => {
                         </select>
                     </div>
 
-                    <div className="mt-8">
+                    <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
-                            Furniture Material:
+                            Product Colors:{" "}
                         </label>
-
-                        <div className="pb-8 pt-6 grid grid-cols-4 gap-2">
-                            {furnitureMaterialTypes.map((material, index) => (
-                                <label
+                        <select
+                            value={colors}
+                            required
+                            onChange={(e) => setColors(e.target.value)}
+                            className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
+                        >
+                            <option value="">Select an option</option>
+                            {[
+                                "Red",
+                                "Green",
+                                "Blue",
+                                "Black",
+                                "White",
+                                "Yellow",
+                                "Orange",
+                                "Pink",
+                            ].map((num, index) => (
+                                <option
                                     key={index}
-                                    className={`${
-                                        materials[material]
-                                            ? `bg-secondaryColor text-screenColor1`
-                                            : `bg-screenColor2`
-                                    } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
+                                    value={num}
                                 >
-                                    <input
-                                        type="checkbox"
-                                        name={material}
-                                        checked={materials[material] || false}
-                                        onChange={handleMaterialchange}
-                                        className="hidden"
-                                    />
-                                    {material}
-                                </label>
+                                    {num}
+                                </option>
                             ))}
-                        </div>
+                        </select>
+                    </div>
+
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Products In Stock:{" "}
+                        </label>
+                        <input
+                            className={`${styles.formInput}`}
+                            type="text"
+                            placeholder="Enter the total number of products in stock"
+                            value={quantity}
+                            required
+                            onChange={(e) => setQuantity(e.target.value)}
+                        />
                     </div>
 
                     <div className="mt-7">
