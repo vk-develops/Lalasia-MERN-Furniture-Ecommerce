@@ -33,12 +33,6 @@ const productSchema = mongoose.Schema({
         default: "Unknown",
         required: true,
     },
-    material: [
-        {
-            type: String,
-            required: true,
-        },
-    ],
     color: {
         type: String,
         required: true,
