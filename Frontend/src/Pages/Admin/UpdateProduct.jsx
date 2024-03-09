@@ -101,6 +101,8 @@ const UpdateProduct = () => {
         formData.append("starRating", starRating);
         formData.append("commonType", commonType);
         formData.append("deletedImageUrls", JSON.stringify(deletedImageUrls));
+        formData.append("color", color);
+        formData.append("quantity", quantity);
 
         try {
             const response = await updateProduct({
@@ -275,7 +277,7 @@ const UpdateProduct = () => {
                     </div>
                     <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
-                            Product Rating:{" "}
+                            Product Color:{" "}
                         </label>
                         <select
                             value={color}
