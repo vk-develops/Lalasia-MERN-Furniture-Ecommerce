@@ -19,16 +19,12 @@ const CreateProductPage = () => {
     const [commonType, setCommonType] = useState("");
     const [quantity, setQuantity] = useState("");
     const [colors, setColors] = useState("");
-    const [materials, setMaterials] = useState({});
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
     const handleCheckboxChange = (e) => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
     };
-
-    console.log(materials);
-    console.log(checkedItems);
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -67,6 +63,8 @@ const CreateProductPage = () => {
             setImageFiles([]);
             setCheckedItems({});
             setStarRating("");
+            setQuantity("");
+            setColors("");
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
