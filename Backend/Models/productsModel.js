@@ -17,6 +17,11 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    quantity: {
+        type: String,
+        required: true,
+        min: 0,
+    },
     type: [
         {
             type: String,
@@ -28,6 +33,28 @@ const productSchema = mongoose.Schema({
         default: "Unknown",
         required: true,
     },
+    color: {
+        type: String,
+        required: true,
+    },
+    discounts: [
+        {
+            discountType: {
+                type: String,
+                enum: ["Percentage", "Fixed"],
+            },
+            value: {
+                type: Number,
+                min: 0,
+            },
+            startDate: {
+                type: Date,
+            },
+            endDate: {
+                type: Date,
+            },
+        },
+    ],
     starRating: {
         type: Number,
         required: true,
@@ -51,3 +78,5 @@ const Product = mongoose.model("Product", productSchema);
 
 //Export
 export default Product;
+
+//discount, color, material, quantity

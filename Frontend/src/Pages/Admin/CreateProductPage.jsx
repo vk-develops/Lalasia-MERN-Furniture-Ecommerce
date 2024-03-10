@@ -16,6 +16,8 @@ const CreateProductPage = () => {
     const [checkedItems, setCheckedItems] = useState({});
     const [starRating, setStarRating] = useState("");
     const [commonType, setCommonType] = useState("");
+    const [quantity, setQuantity] = useState("");
+    const [colors, setColors] = useState("");
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
@@ -40,6 +42,8 @@ const CreateProductPage = () => {
         });
         formData.append("starRating", starRating);
         formData.append("commonType", commonType);
+        formData.append("color", colors);
+        formData.append("quantity", quantity);
 
         try {
             const response = await createProduct(formData).unwrap();
@@ -58,6 +62,8 @@ const CreateProductPage = () => {
             setImageFiles([]);
             setCheckedItems({});
             setStarRating("");
+            setQuantity("");
+            setColors("");
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
@@ -183,6 +189,52 @@ const CreateProductPage = () => {
                             ))}
                         </select>
                     </div>
+
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Product Colors:{" "}
+                        </label>
+                        <select
+                            value={colors}
+                            required
+                            onChange={(e) => setColors(e.target.value)}
+                            className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
+                        >
+                            <option value="">Select an option</option>
+                            {[
+                                "Red",
+                                "Green",
+                                "Blue",
+                                "Black",
+                                "White",
+                                "Yellow",
+                                "Orange",
+                                "Pink",
+                            ].map((num, index) => (
+                                <option
+                                    key={index}
+                                    value={num}
+                                >
+                                    {num}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Products In Stock:{" "}
+                        </label>
+                        <input
+                            className={`${styles.formInput}`}
+                            type="text"
+                            placeholder="Enter the total number of products in stock"
+                            value={quantity}
+                            required
+                            onChange={(e) => setQuantity(e.target.value)}
+                        />
+                    </div>
+
                     <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
                             Product Common Type:{" "}

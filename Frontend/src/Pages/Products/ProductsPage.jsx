@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { styles } from "../../Styles/styles";
-import ProductSearchComponent from "../../Components/ProductSearchComponent";
-import { useGetSearchProductsQuery } from "../../App/Service/productApiSlice";
+import ProductSearchComponent, {
+    ProductSearchFilterComponent,
+} from "../../Components/ProductSearchComponent";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 import { useSearchParams } from "react-router-dom";
@@ -16,6 +17,7 @@ const ProductsPage = () => {
     const [pagination, setPagination] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [toggleFilter, setToggleFilter] = useState(false);
 
     const fetchProducts = async () => {
         try {
@@ -53,6 +55,10 @@ const ProductsPage = () => {
         setPage(pageNumber);
     };
 
+    const handleToggle = () => {
+        setToggleFilter(!toggleFilter);
+    };
+
     return (
         <>
             {isLoading && <Loader />}
@@ -69,9 +75,12 @@ const ProductsPage = () => {
                     </p>
                 </div>
                 <div className="my-12">
-                    <ProductSearchComponent />
+                    <ProductSearchComponent toggle={handleToggle} />
                 </div>
-                <div className="pt-32">
+                <div className="pt-20">
+                    {toggleFilter && <ProductSearchFilterComponent />}
+                </div>
+                <div className="pt-12">
                     <h1 className={`${styles.secondaryText}`}>Products</h1>
                     <div className="grid grid-cols-3 gap-5 mt-8">
                         {products &&

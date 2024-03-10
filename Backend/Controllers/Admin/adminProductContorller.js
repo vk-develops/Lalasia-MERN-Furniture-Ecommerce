@@ -71,8 +71,17 @@ const getAProduct = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
     try {
         //Getting fields from form body
-        const { name, subTitle, description, price, starRating, commonType } =
-            req.body;
+        const {
+            name,
+            subTitle,
+            description,
+            price,
+            starRating,
+            commonType,
+            color,
+            quantity,
+            // discounts,
+        } = req.body;
 
         const typeArray = Object.entries(req.body)
             .filter(([key, value]) => value === "true")
@@ -91,6 +100,8 @@ const createProduct = asyncHandler(async (req, res) => {
             imageUrls,
             starRating,
             commonType,
+            color,
+            quantity,
             lastUpdated: new Date(),
         };
 
@@ -117,8 +128,16 @@ const updateProduct = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
 
-        const { name, subTitle, description, price, starRating, commonType } =
-            req.body;
+        const {
+            name,
+            subTitle,
+            description,
+            price,
+            starRating,
+            commonType,
+            quantity,
+            color,
+        } = req.body;
 
         //Check for vaild id
         if (!mongoose.isValidObjectId(id)) {
@@ -137,6 +156,15 @@ const updateProduct = asyncHandler(async (req, res) => {
             product.price = price || product.price;
             product.starRating = starRating || product.starRating;
             product.commonType = commonType || product.commonType;
+            product.color = color || product.color;
+            product.quantity = quantity || product.quantity;
+
+            const typeArray = Object.entries(req.body)
+                .filter(([key, value]) => value === "true")
+                .map(([key, value]) => key);
+
+            product.type = typeArray || product.type;
+
             // Handle image updates and deletions
             if (req.files && req.files.length > 0) {
                 const newImageUrls = await uploadImages(req.files);
