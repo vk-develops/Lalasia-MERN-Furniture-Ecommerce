@@ -122,6 +122,7 @@ const ProductFormComponent = () => {
 const ProductSearchFilterComponent = () => {
     const [selectedType, setSelectedType] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
+    const [budget, setBudget] = useState("");
 
     const handleRadioChange = (e) => {
         setSelectedType(e.target.value);
@@ -133,7 +134,7 @@ const ProductSearchFilterComponent = () => {
 
     return (
         <div className="p-8 bg-screenColor1 border-[1px] border-[#ccc] shadow-new">
-            <div>
+            <form>
                 <div>
                     <label className={`${styles.formLabel}`}>
                         Product Type:
@@ -162,12 +163,12 @@ const ProductSearchFilterComponent = () => {
                         ))}
                     </div>
                 </div>
-                <div>
+                <div className="grid grid-flow-col gap-10">
                     <div>
                         <label className={`${styles.formLabel}`}>
                             Product Type:
                         </label>
-                        <div className="pb-8 pt-6 grid grid-cols-10 gap-2">
+                        <div className="pb-8 pt-6 grid grid-cols-5 gap-2">
                             {furnitureColors.map((color, index) => (
                                 <label
                                     key={index}
@@ -190,8 +191,18 @@ const ProductSearchFilterComponent = () => {
                             ))}
                         </div>
                     </div>
+                    <div className="w-full">
+                        <label className={`${styles.formLabel}`}>Price: </label>
+                        <input
+                            className={`${styles.formInput}`}
+                            type="text"
+                            placeholder="Enter your budget here "
+                            value={budget}
+                            onChange={(e) => setBudget(e.target.value)}
+                        />
+                    </div>
                 </div>
-                <div>
+                <div className="mt-5 flex items-center justify-between">
                     <label className={styles.formLabel}>
                         <input
                             type="checkbox"
@@ -199,8 +210,24 @@ const ProductSearchFilterComponent = () => {
                         />
                         Show only disounted product
                     </label>
+
+                    <div className="flex items-center justify-end gap-5">
+                        <button
+                            // disabled={isLoading}
+                            className={`px-12 py-3 bg-screenColor2 inline-block text-titleColor font-eduoxusSans font-medium text-sm max-mobile:text-xs`}
+                        >
+                            Reset Filters
+                        </button>
+                        <button
+                            type="submit"
+                            // disabled={isLoading}
+                            className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs`}
+                        >
+                            Apply Filters
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };
