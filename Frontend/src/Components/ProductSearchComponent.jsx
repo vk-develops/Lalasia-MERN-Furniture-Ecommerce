@@ -5,6 +5,7 @@ import SearchIcon from "../assets/Search-Icon.png";
 import { useGetAllProductsQuery } from "../App/Service/productApiSlice";
 import { furnitureTypes } from "../Data/furnitureTypes";
 import { styles } from "../Styles/styles";
+import { furnitureColors } from "../Data/furnitureColors";
 
 const ProductSearchResults = ({ search }) => {
     const [products, setProducts] = useState([]);
@@ -120,9 +121,14 @@ const ProductFormComponent = () => {
 
 const ProductSearchFilterComponent = () => {
     const [selectedType, setSelectedType] = useState("");
+    const [selectedColor, setSelectedColor] = useState("");
 
-    const handleRadioChange = (event) => {
-        setSelectedType(event.target.value);
+    const handleRadioChange = (e) => {
+        setSelectedType(e.target.value);
+    };
+
+    const handleSelectColorChange = (e) => {
+        setSelectedColor(e.target.value);
     };
 
     return (
@@ -155,6 +161,44 @@ const ProductSearchFilterComponent = () => {
                             </label>
                         ))}
                     </div>
+                </div>
+                <div>
+                    <div>
+                        <label className={`${styles.formLabel}`}>
+                            Product Type:
+                        </label>
+                        <div className="pb-8 pt-6 grid grid-cols-10 gap-2">
+                            {furnitureColors.map((color, index) => (
+                                <label
+                                    key={index}
+                                    className={`${
+                                        selectedColor === color
+                                            ? `bg-secondaryColor text-screenColor1`
+                                            : `bg-screenColor2`
+                                    } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="furnitureType"
+                                        value={color}
+                                        checked={selectedColor === color}
+                                        onChange={handleSelectColorChange}
+                                        className="hidden"
+                                    />
+                                    {color}
+                                </label>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label className={styles.formLabel}>
+                        <input
+                            type="checkbox"
+                            name="discount"
+                        />
+                        Show only disounted product
+                    </label>
                 </div>
             </div>
         </div>

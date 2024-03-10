@@ -6,7 +6,6 @@ import { furnitureTypes } from "../../Data/furnitureTypes";
 import { useErrorToast, useSuccessToast } from "../../Hooks/useToast";
 import Loader from "../../Components/Loader";
 import NormalBackButton from "../../Components/NormalBackButton";
-import { furnitureMaterialTypes } from "../../Data/furnitureMaterialTypes";
 
 const CreateProductPage = () => {
     const [name, setName] = useState("");
