@@ -232,12 +232,19 @@ const ProductSearchFilterComponent = () => {
     );
 };
 
-const ProductSearchComponent = () => {
+const ProductSearchComponent = ({ toggle }) => {
+    const handleToggle = () => {
+        toggle();
+    };
+
     return (
         <div className="z-10 relative">
             <div className="absolute w-full flex items-start justify-between gap-6">
                 <ProductFormComponent />
-                <button className="px-8 py-4 flex items-center justify-center gap-3 bg-screenColor1 text-base font-eduoxusSans font-medium text-titleColor shadow-new border-[1px] border-[#ccc]">
+                <button
+                    onClick={handleToggle}
+                    className="px-8 py-4 flex items-center justify-center gap-3 bg-screenColor1 text-base font-eduoxusSans font-medium text-titleColor shadow-new border-[1px] border-[#ccc]"
+                >
                     <IoFilter size={24} />
                     Filter
                 </button>
