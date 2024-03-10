@@ -3,6 +3,8 @@ import { IoFilter } from "react-icons/io5";
 import { Link, useSearchParams } from "react-router-dom";
 import SearchIcon from "../assets/Search-Icon.png";
 import { useGetAllProductsQuery } from "../App/Service/productApiSlice";
+import { furnitureTypes } from "../Data/furnitureTypes";
+import { styles } from "../Styles/styles";
 
 const ProductSearchResults = ({ search }) => {
     const [products, setProducts] = useState([]);
@@ -116,6 +118,49 @@ const ProductFormComponent = () => {
     );
 };
 
+const ProductSearchFilterComponent = () => {
+    const [selectedType, setSelectedType] = useState("");
+
+    const handleRadioChange = (event) => {
+        setSelectedType(event.target.value);
+    };
+
+    return (
+        <div className="p-8 bg-screenColor1 border-[1px] border-[#ccc] shadow-new">
+            <div>
+                <div>
+                    <label className={`${styles.formLabel}`}>
+                        Product Type:
+                    </label>
+
+                    <div className="pb-8 pt-6 grid grid-cols-7 gap-2">
+                        {furnitureTypes.map((furniture, index) => (
+                            <label
+                                key={index}
+                                className={`${
+                                    selectedType === furniture
+                                        ? `bg-secondaryColor text-screenColor1`
+                                        : `bg-screenColor2`
+                                } cursor-pointer text-center font-eduoxusSans font-medium text-sm rounded-full px-4 py-2`}
+                            >
+                                <input
+                                    type="radio"
+                                    name="furnitureType"
+                                    value={furniture}
+                                    checked={selectedType === furniture}
+                                    onChange={handleRadioChange}
+                                    className="hidden"
+                                />
+                                {furniture}
+                            </label>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const ProductSearchComponent = () => {
     return (
         <div className="z-10 relative">
@@ -131,3 +176,4 @@ const ProductSearchComponent = () => {
 };
 
 export default ProductSearchComponent;
+export { ProductSearchFilterComponent };
