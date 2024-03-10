@@ -123,6 +123,13 @@ const ProductSearchFilterComponent = () => {
     const [selectedType, setSelectedType] = useState("");
     const [selectedColor, setSelectedColor] = useState("");
     const [budget, setBudget] = useState("");
+    const [showDiscounted, setShowDiscounted] = useState(false);
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const handleCheckboxChange = (e) => {
+        setShowDiscounted(e.target.checked);
+    };
 
     const handleRadioChange = (e) => {
         setSelectedType(e.target.value);
@@ -132,9 +139,41 @@ const ProductSearchFilterComponent = () => {
         setSelectedColor(e.target.value);
     };
 
+    const setParams = (key, value) => {
+        setSearchParams((prevParam) => {
+            if (value === null) {
+                prevParam.delete(key);
+            } else {
+                prevParam.set(key, value);
+            }
+
+            return prevParam;
+        });
+    };
+
+    const handleFilterSubmit = (e) => {
+        e.preventDefault();
+
+        if (selectedType != "") {
+            setParams("type", selectedType);
+        }
+
+        if (selectedColor != "") {
+            setParams("color", selectedColor);
+        }
+
+        if (budget != "") {
+            setParams("budget", budget);
+        }
+
+        if (showDiscounted) {
+            setParams("discount", true);
+        }
+    };
+
     return (
         <div className="p-8 bg-screenColor1 border-[1px] border-[#ccc] shadow-new">
-            <form>
+            <form onSubmit={handleFilterSubmit}>
                 <div>
                     <label className={`${styles.formLabel}`}>
                         Product Type:
@@ -207,6 +246,8 @@ const ProductSearchFilterComponent = () => {
                         <input
                             type="checkbox"
                             name="discount"
+                            checked={showDiscounted}
+                            onChange={handleCheckboxChange}
                         />
                         Show only disounted product
                     </label>
