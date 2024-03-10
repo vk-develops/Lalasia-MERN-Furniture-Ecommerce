@@ -46,6 +46,14 @@ const searchProducts = asyncHandler(async (req, res) => {
             searchCriteria.name = new RegExp(req.query.search.trim(), "i");
         }
 
+        if (req.query.type) {
+            searchCriteria.type = req.query.type;
+        }
+
+        if (req.query.color) {
+            searchCriteria.color = req.query.color;
+        }
+
         const products = await Product.find(searchCriteria)
             .skip(skip)
             .limit(perPage)
