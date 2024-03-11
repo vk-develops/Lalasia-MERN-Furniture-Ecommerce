@@ -32,7 +32,7 @@ const ProductsPage = () => {
             }/search-products?page=${page}`;
             const fullUrl = search ? `${url}&search=${search}` : url;
 
-            const filteredUrl = `${fullUrl}${color && `&color=${color}`}${
+            const filteredUrl = `${fullUrl}${color ? `&color=${color}` : ""}${
                 type ? `&type=${type}` : ""
             }${budget ? `&budget=${budget}` : ""}`;
 
