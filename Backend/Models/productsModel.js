@@ -42,16 +42,11 @@ const productSchema = mongoose.Schema({
             discountType: {
                 type: String,
                 enum: ["Percentage", "Fixed"],
+                default: "Percentage",
             },
             value: {
                 type: Number,
                 min: 0,
-            },
-            startDate: {
-                type: Date,
-            },
-            endDate: {
-                type: Date,
             },
         },
     ],
