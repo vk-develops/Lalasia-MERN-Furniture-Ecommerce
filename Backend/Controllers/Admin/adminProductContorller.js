@@ -95,13 +95,13 @@ const createProduct = asyncHandler(async (req, res) => {
             name,
             subTitle,
             description,
-            price,
+            price: parseInt(price),
             type: typeArray,
             imageUrls,
             starRating,
             commonType,
             color,
-            quantity,
+            quantity: parseInt(quantity),
             lastUpdated: new Date(),
         };
 
@@ -153,11 +153,11 @@ const updateProduct = asyncHandler(async (req, res) => {
             product.name = name || product.name;
             product.subTitle = subTitle || product.subTitle;
             product.description = description || product.description;
-            product.price = price || product.price;
+            product.price = parseInt(price) || product.price;
             product.starRating = starRating || product.starRating;
             product.commonType = commonType || product.commonType;
             product.color = color || product.color;
-            product.quantity = quantity || product.quantity;
+            product.quantity = parseInt(quantity) || product.quantity;
 
             const typeArray = Object.entries(req.body)
                 .filter(([key, value]) => value === "true")

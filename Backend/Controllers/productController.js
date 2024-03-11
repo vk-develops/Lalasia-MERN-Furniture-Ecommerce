@@ -54,6 +54,12 @@ const searchProducts = asyncHandler(async (req, res) => {
             searchCriteria.color = req.query.color;
         }
 
+        // if (req.query.budget) {
+        //     searchCriteria.budget = {
+        //         $gte: parseInt(req.query.budget),
+        //     };
+        // }
+
         const products = await Product.find(searchCriteria)
             .skip(skip)
             .limit(perPage)
