@@ -37,19 +37,12 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    discounts: [
-        {
-            discountType: {
-                type: String,
-                enum: ["Percentage", "Fixed"],
-                default: "Percentage",
-            },
-            value: {
-                type: Number,
-                min: 0,
-            },
-        },
-    ],
+    discountPercentage: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 100,
+    },
     starRating: {
         type: Number,
         required: true,
