@@ -171,6 +171,20 @@ const ProductSearchFilterComponent = () => {
         }
     };
 
+    const handleResetFilter = () => {
+        setSelectedColor("");
+        setParams("color", null);
+
+        setSelectedType("");
+        setParams("type", null);
+
+        setBudget("");
+        setParams("budget", null);
+
+        setShowDiscounted("");
+        setParams("discount", null);
+    };
+
     return (
         <div className="p-8 bg-screenColor1 border-[1px] border-[#ccc] shadow-new">
             <form onSubmit={handleFilterSubmit}>
@@ -205,7 +219,7 @@ const ProductSearchFilterComponent = () => {
                 <div className="grid grid-flow-col gap-10">
                     <div>
                         <label className={`${styles.formLabel}`}>
-                            Product Type:
+                            Product Color:
                         </label>
                         <div className="pb-8 pt-6 grid grid-cols-5 gap-2">
                             {furnitureColors.map((color, index) => (
@@ -254,14 +268,13 @@ const ProductSearchFilterComponent = () => {
 
                     <div className="flex items-center justify-end gap-5">
                         <button
-                            // disabled={isLoading}
+                            onClick={handleResetFilter}
                             className={`px-12 py-3 bg-screenColor2 inline-block text-titleColor font-eduoxusSans font-medium text-sm max-mobile:text-xs`}
                         >
                             Reset Filters
                         </button>
                         <button
                             type="submit"
-                            // disabled={isLoading}
                             className={`px-16 py-3 bg-primaryColor inline-block text-screenColor1 font-eduoxusSans font-medium text-sm max-mobile:text-xs`}
                         >
                             Apply Filters
