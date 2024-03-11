@@ -18,6 +18,7 @@ const CreateProductPage = () => {
     const [commonType, setCommonType] = useState("");
     const [quantity, setQuantity] = useState("");
     const [colors, setColors] = useState("");
+    const [discount, setDiscount] = useState(null);
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
@@ -44,6 +45,7 @@ const CreateProductPage = () => {
         formData.append("commonType", commonType);
         formData.append("color", colors);
         formData.append("quantity", quantity);
+        formData.append("discount", discount);
 
         try {
             const response = await createProduct(formData).unwrap();
@@ -64,6 +66,7 @@ const CreateProductPage = () => {
             setStarRating("");
             setQuantity("");
             setColors("");
+            setDiscount(null);
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
@@ -256,6 +259,7 @@ const CreateProductPage = () => {
                             ))}
                         </select>
                     </div>
+
                     <div className="mt-8">
                         <label className={`${styles.formLabel}`}>
                             Product Type:
@@ -284,6 +288,24 @@ const CreateProductPage = () => {
                                 </label>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Product Discount Percentage:{" "}
+                        </label>
+                        <input
+                            className={`${styles.formInput}`}
+                            type="number"
+                            min={0}
+                            max={100}
+                            placeholder="Enter the total number of products in stock"
+                            value={discount}
+                            required
+                            onChange={(e) =>
+                                setDiscount(parseFloat(e.target.value))
+                            }
+                        />
                     </div>
 
                     <div className="flex items-end justify-end">
