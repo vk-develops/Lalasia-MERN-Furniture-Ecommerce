@@ -60,6 +60,10 @@ const searchProducts = asyncHandler(async (req, res) => {
             };
         }
 
+        if (req.query.discount === "true") {
+            searchCriteria.discountPercentage = { $gt: 0 };
+        }
+
         const products = await Product.find(searchCriteria)
             .skip(skip)
             .limit(perPage)
