@@ -138,6 +138,7 @@ const updateProduct = asyncHandler(async (req, res) => {
             commonType,
             quantity,
             color,
+            discountPercentage,
         } = req.body;
 
         //Check for vaild id
@@ -159,6 +160,8 @@ const updateProduct = asyncHandler(async (req, res) => {
             product.commonType = commonType || product.commonType;
             product.color = color || product.color;
             product.quantity = parseInt(quantity) || product.quantity;
+            product.discountPercentage =
+                parseFloat(discountPercentage) || product.discountPercentage;
 
             const typeArray = Object.entries(req.body)
                 .filter(([key, value]) => value === "true")
