@@ -25,6 +25,7 @@ const UpdateProduct = () => {
     const [deletedImageUrls, setDeletedImageUrls] = useState([]);
     const [color, setColor] = useState("");
     const [quantity, setQuantity] = useState("");
+    const [discountPercentage, setDiscountPercentage] = useState(0);
 
     const {
         data,
@@ -57,6 +58,7 @@ const UpdateProduct = () => {
             setImageFiles(product.imageUrls);
             setQuantity(product.quantity);
             setColor(product.color);
+            setDiscountPercentage(product.discountPercentage);
 
             const initialCheckedItems = {};
             furnitureTypes.forEach(
@@ -103,6 +105,7 @@ const UpdateProduct = () => {
         formData.append("deletedImageUrls", JSON.stringify(deletedImageUrls));
         formData.append("color", color);
         formData.append("quantity", quantity);
+        formData.append("discountPercentage", discountPercentage);
 
         try {
             const response = await updateProduct({
@@ -367,6 +370,26 @@ const UpdateProduct = () => {
                                 </label>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Product Discount Percentage:{" "}
+                        </label>
+                        <input
+                            className={`${styles.formInput}`}
+                            type="number"
+                            min={0}
+                            max={100}
+                            placeholder="Enter the dicount percentage"
+                            value={discountPercentage}
+                            required
+                            onChange={(e) =>
+                                setDiscountPercentage(
+                                    parseFloat(e.target.value)
+                                )
+                            }
+                        />
                     </div>
 
                     <div className="flex items-end justify-end">
