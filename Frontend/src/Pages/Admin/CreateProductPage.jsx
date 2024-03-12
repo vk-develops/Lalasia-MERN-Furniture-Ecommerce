@@ -309,7 +309,7 @@ const CreateProductPage = () => {
                             type="number"
                             min={0}
                             max={100}
-                            placeholder="Enter the total number of products in stock"
+                            placeholder="Enter the dicount percentage"
                             value={discountPercentage}
                             required
                             onChange={(e) =>
