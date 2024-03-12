@@ -80,7 +80,7 @@ const createProduct = asyncHandler(async (req, res) => {
             commonType,
             color,
             quantity,
-            // discounts,
+            discountPercentage,
         } = req.body;
 
         const typeArray = Object.entries(req.body)
@@ -101,6 +101,7 @@ const createProduct = asyncHandler(async (req, res) => {
             starRating,
             commonType,
             color,
+            discountPercentage: parseFloat(discountPercentage),
             quantity: parseInt(quantity),
             lastUpdated: new Date(),
         };

@@ -18,7 +18,7 @@ const CreateProductPage = () => {
     const [commonType, setCommonType] = useState("");
     const [quantity, setQuantity] = useState("");
     const [colors, setColors] = useState("");
-    const [discount, setDiscount] = useState(null);
+    const [discountPercentage, setDiscountPercentage] = useState(0);
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
@@ -26,9 +26,7 @@ const CreateProductPage = () => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
     };
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
+    const submitHandler = async () => {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("subTitle", subTitle);
@@ -45,7 +43,7 @@ const CreateProductPage = () => {
         formData.append("commonType", commonType);
         formData.append("color", colors);
         formData.append("quantity", quantity);
-        formData.append("discount", discount);
+        formData.append("discountPercentage", discountPercentage);
 
         try {
             const response = await createProduct(formData).unwrap();
@@ -66,7 +64,7 @@ const CreateProductPage = () => {
             setStarRating("");
             setQuantity("");
             setColors("");
-            setDiscount(null);
+            setDiscountPercentage(0);
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
@@ -74,6 +72,18 @@ const CreateProductPage = () => {
                 console.log(err.message);
                 useErrorToast("Server Error!");
             }
+        }
+    };
+
+    const validator = (e) => {
+        e.preventDefault();
+
+        if (discountPercentage >= 0 && discountPercentage <= 100) {
+            submitHandler();
+        } else {
+            useErrorToast(
+                "Discount cannot be greater than 100 and lesser than 0"
+            );
         }
     };
 
@@ -97,7 +107,7 @@ const CreateProductPage = () => {
                         Excepturi, consequatur in.
                     </p>
                 </div>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={validator}>
                     <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
                             Product Name:{" "}
@@ -300,10 +310,12 @@ const CreateProductPage = () => {
                             min={0}
                             max={100}
                             placeholder="Enter the total number of products in stock"
-                            value={discount}
+                            value={discountPercentage}
                             required
                             onChange={(e) =>
-                                setDiscount(parseFloat(e.target.value))
+                                setDiscountPercentage(
+                                    parseFloat(e.target.value)
+                                )
                             }
                         />
                     </div>
