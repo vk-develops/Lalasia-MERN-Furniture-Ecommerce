@@ -18,6 +18,7 @@ const CreateProductPage = () => {
     const [commonType, setCommonType] = useState("");
     const [quantity, setQuantity] = useState("");
     const [colors, setColors] = useState("");
+    const [discountPercentage, setDiscountPercentage] = useState(0);
 
     const [createProduct, { isLoading, isError }] = useCreateProductMutation();
 
@@ -25,9 +26,7 @@ const CreateProductPage = () => {
         setCheckedItems({ ...checkedItems, [e.target.name]: e.target.checked });
     };
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-
+    const submitHandler = async () => {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("subTitle", subTitle);
@@ -44,6 +43,7 @@ const CreateProductPage = () => {
         formData.append("commonType", commonType);
         formData.append("color", colors);
         formData.append("quantity", quantity);
+        formData.append("discountPercentage", discountPercentage);
 
         try {
             const response = await createProduct(formData).unwrap();
@@ -64,6 +64,7 @@ const CreateProductPage = () => {
             setStarRating("");
             setQuantity("");
             setColors("");
+            setDiscountPercentage(0);
         } catch (err) {
             if (err.data && err.data.message) {
                 useErrorToast(err.data.message);
@@ -71,6 +72,18 @@ const CreateProductPage = () => {
                 console.log(err.message);
                 useErrorToast("Server Error!");
             }
+        }
+    };
+
+    const validator = (e) => {
+        e.preventDefault();
+
+        if (discountPercentage >= 0 && discountPercentage <= 100) {
+            submitHandler();
+        } else {
+            useErrorToast(
+                "Discount cannot be greater than 100 and lesser than 0"
+            );
         }
     };
 
@@ -94,7 +107,7 @@ const CreateProductPage = () => {
                         Excepturi, consequatur in.
                     </p>
                 </div>
-                <form onSubmit={submitHandler}>
+                <form onSubmit={validator}>
                     <div className="mt-7">
                         <label className={`${styles.formLabel}`}>
                             Product Name:{" "}
@@ -256,6 +269,7 @@ const CreateProductPage = () => {
                             ))}
                         </select>
                     </div>
+
                     <div className="mt-8">
                         <label className={`${styles.formLabel}`}>
                             Product Type:
@@ -284,6 +298,26 @@ const CreateProductPage = () => {
                                 </label>
                             ))}
                         </div>
+                    </div>
+
+                    <div className="mt-7">
+                        <label className={`${styles.formLabel}`}>
+                            Product Discount Percentage:{" "}
+                        </label>
+                        <input
+                            className={`${styles.formInput}`}
+                            type="number"
+                            min={0}
+                            max={100}
+                            placeholder="Enter the dicount percentage"
+                            value={discountPercentage}
+                            required
+                            onChange={(e) =>
+                                setDiscountPercentage(
+                                    parseFloat(e.target.value)
+                                )
+                            }
+                        />
                     </div>
 
                     <div className="flex items-end justify-end">

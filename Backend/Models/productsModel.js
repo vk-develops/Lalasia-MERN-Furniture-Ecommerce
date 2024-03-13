@@ -14,11 +14,11 @@ const productSchema = mongoose.Schema({
         required: true,
     },
     price: {
-        type: String,
+        type: Number,
         required: true,
     },
     quantity: {
-        type: String,
+        type: Number,
         required: true,
         min: 0,
     },
@@ -37,24 +37,12 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    discounts: [
-        {
-            discountType: {
-                type: String,
-                enum: ["Percentage", "Fixed"],
-            },
-            value: {
-                type: Number,
-                min: 0,
-            },
-            startDate: {
-                type: Date,
-            },
-            endDate: {
-                type: Date,
-            },
-        },
-    ],
+    discountPercentage: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 100,
+    },
     starRating: {
         type: Number,
         required: true,

@@ -12,6 +12,11 @@ const ProductsPage = () => {
     const [page, setPage] = useState(1);
 
     const search = searchParams.get("search") || null;
+    const type = searchParams.get("type");
+    const color = searchParams.get("color");
+    const budget = searchParams.get("budget");
+    const discount = searchParams.get("discount");
+    console.log(discount);
 
     const [products, setProducts] = useState([]);
     const [pagination, setPagination] = useState(null);
@@ -28,7 +33,15 @@ const ProductsPage = () => {
             }/search-products?page=${page}`;
             const fullUrl = search ? `${url}&search=${search}` : url;
 
-            const response = await fetch(fullUrl);
+            const filteredUrl = `${fullUrl}${color ? `&color=${color}` : ""}${
+                type ? `&type=${type}` : ""
+            }${budget ? `&budget=${budget}` : ""}${
+                discount ? `&discount=${discount}` : ""
+            }`;
+
+            console.log(filteredUrl);
+
+            const response = await fetch(filteredUrl);
 
             const data = await response.json();
 
@@ -49,7 +62,7 @@ const ProductsPage = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, [search, page]);
+    }, [discount, budget, color, type, search, page]);
 
     const handlePageClick = (pageNumber) => {
         setPage(pageNumber);
