@@ -24,13 +24,13 @@ const ProductCard = ({ product }) => {
                     />
                 </button>
 
-                {/* {product.discountPercentage && (
+                {product.discountPercentage ? (
                     <div className="absolute bottom-3 right-3 bg-[red] px-3 py-1">
                         <h3 className="text-screenColor1 text-base font-eduoxusSans font-medium">
                             {product.discountPercentage}% Discount
                         </h3>
                     </div>
-                )} */}
+                ) : null}
             </div>
             <Link
                 to={`/products/${product._id}`}
