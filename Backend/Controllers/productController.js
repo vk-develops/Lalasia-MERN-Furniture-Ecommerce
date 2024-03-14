@@ -214,6 +214,33 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Get a product review
+// @route   GET /api/v1/furniture/products/get-producr-review/:id
+// @access  Public
+const getProductReview = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+        const reviews = {};
+
+        const review = await Review.find({ productId: id });
+        reviews = review;
+
+        const reviewCount = reviews.length;
+
+        if (reviews) {
+            res.status(200).json({
+                success: true,
+                message: "Retrieved the list of review of the product",
+                data: reviews,
+                count: reviewCount,
+            });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 //Export
 export {
     getAllProducts,
@@ -221,4 +248,5 @@ export {
     getAProduct,
     searchProducts,
     createProductReview,
+    getProductReview,
 };

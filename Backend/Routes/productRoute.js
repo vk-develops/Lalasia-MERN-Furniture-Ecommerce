@@ -3,6 +3,7 @@ import {
     createProductReview,
     getAProduct,
     getAllProducts,
+    getProductReview,
     getRelatedProducts,
     searchProducts,
 } from "../Controllers/productController.js";
@@ -17,6 +18,7 @@ router.get("/search-products", searchProducts);
 router.get("/get-a-product/:id", getAProduct);
 router.get("/get-related-products/:id/:type", getRelatedProducts);
 router.post("/product-review/:id", protect, createProductReview);
+router.get("get-product-review", getProductReview);
 
 //Export
 export default router;
