@@ -1,14 +1,36 @@
 import React from "react";
+import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
     return (
         <div className="w-72 bg-screenColor1 mb-6">
-            <div>
+            <div className="relative">
                 <img
                     src={product.imageUrls[product.imageUrls.length - 1]}
                     alt="Product Image"
                 />
+
+                <button
+                    style={{
+                        backgroundColor: "rgba(17, 17, 17, .3)",
+                        backdropFilter: "blur(3px)",
+                    }}
+                    className="absolute top-3 right-3 p-3 rounded-full"
+                >
+                    <FaRegHeart
+                        color="#fff"
+                        size={18}
+                    />
+                </button>
+
+                {/* {product.discountPercentage && (
+                    <div className="absolute bottom-3 right-3 bg-[red] px-3 py-1">
+                        <h3 className="text-screenColor1 text-base font-eduoxusSans font-medium">
+                            {product.discountPercentage}% Discount
+                        </h3>
+                    </div>
+                )} */}
             </div>
             <Link
                 to={`/products/${product._id}`}
