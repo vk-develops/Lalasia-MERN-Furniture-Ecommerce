@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
+import ProductReviewsSection from "../../Components/ProductReviewsSection";
 
 const RelatedProducts = ({ product }) => {
     const [relatedProducts, setRelatedProducts] = useState(null);
@@ -181,6 +182,7 @@ const ProductDetailPage = () => {
                             </div>
                         </div>
                     </div>
+                    <ProductReviewsSection id={id} />
                     <RelatedProducts product={product} />
                 </section>
             )}

@@ -179,5 +179,36 @@ const isLoggedin = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    To retireve the user details
+// @route   POST /api/v1/users/auth/user-details
+// @access  Private
+const getUserDetails = asyncHandler(async (req, res) => {
+    try {
+        //Getting the id from the protect route
+        const id = req.user._id;
+
+        //Find the user
+        const user = await User.findById(id);
+
+        if (user) {
+            //Destructuring the user details
+            const { password, ...resetofUserDetails } = user._doc;
+
+            //Destructuring the user info
+            const { _id, name, email } = user;
+
+            res.status(200).json({
+                success: true,
+                message: "Yes, User data retrieval done successfully",
+                data: resetofUserDetails,
+                userInfo: { _id, name, email },
+            });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 //Exports
-export { registerUser, loginUser, logoutUser, isLoggedin };
+export { registerUser, loginUser, logoutUser, isLoggedin, getUserDetails };
