@@ -34,6 +34,14 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+        createReview: builder.mutation({
+            query: ({ data, productID }) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/product-review/${productID}`,
+                method: "POST",
+                credentials: "include",
+                body: data,
+            }),
+        }),
     }),
 });
 
@@ -42,4 +50,5 @@ export const {
     useGetRelatedProductsQuery,
     useGetAProductQuery,
     useGetSearchProductsQuery,
+    useCreateReviewMutation,
 } = productApiSlice;
