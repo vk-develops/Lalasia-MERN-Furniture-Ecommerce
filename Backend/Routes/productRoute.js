@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    createProductReview,
     getAProduct,
     getAllProducts,
     getRelatedProducts,
@@ -15,7 +16,7 @@ router.get("/get-all-products", getAllProducts);
 router.get("/search-products", searchProducts);
 router.get("/get-a-product/:id", getAProduct);
 router.get("/get-related-products/:id/:type", getRelatedProducts);
-router.post("/product-review/:id", protect);
+router.post("/product-review/:id", protect, createProductReview);
 
 //Export
 export default router;

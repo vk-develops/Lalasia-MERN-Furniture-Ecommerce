@@ -194,8 +194,8 @@ const createProductReview = asyncHandler(async (req, res) => {
         }
 
         const review = new Review({
-            id,
-            userId,
+            productId: id,
+            userID: userId,
             comment,
         });
 
