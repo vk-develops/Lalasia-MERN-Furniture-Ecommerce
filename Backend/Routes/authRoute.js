@@ -16,7 +16,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/logout", protect, logoutUser);
 router.get("/isloggedin", protect, isLoggedin);
-router.get("/user-details", protect, getUserDetails);
+router.get("/user-details/:id", protect, getUserDetails);
 
 //Export
 export default router;

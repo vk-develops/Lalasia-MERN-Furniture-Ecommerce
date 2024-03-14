@@ -185,10 +185,10 @@ const isLoggedin = asyncHandler(async (req, res) => {
 const getUserDetails = asyncHandler(async (req, res) => {
     try {
         //Getting the id from the protect route
-        const id = req.user._id;
+        const id = req.params.id;
 
         //Find the user
-        const user = await User.findById(id);
+        const user = await User.findById({ _id: id });
 
         if (user) {
             //Destructuring the user details
