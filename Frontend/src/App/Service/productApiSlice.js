@@ -42,6 +42,13 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 body: data,
             }),
         }),
+        getProductReview: builder.query({
+            query: ({ id }) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/get-product-review/${id}`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
@@ -51,4 +58,5 @@ export const {
     useGetAProductQuery,
     useGetSearchProductsQuery,
     useCreateReviewMutation,
+    useGetProductReviewQuery,
 } = productApiSlice;
