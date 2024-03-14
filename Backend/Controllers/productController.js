@@ -220,10 +220,9 @@ const createProductReview = asyncHandler(async (req, res) => {
 const getProductReview = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
-        const reviews = {};
+        let reviews = {};
 
-        const review = await Review.find({ productId: id });
-        reviews = review;
+        reviews = await Review.find({ productId: id });
 
         const reviewCount = reviews.length;
 
@@ -231,8 +230,8 @@ const getProductReview = asyncHandler(async (req, res) => {
             res.status(200).json({
                 success: true,
                 message: "Retrieved the list of review of the product",
-                data: reviews,
                 count: reviewCount,
+                data: reviews,
             });
         }
     } catch (err) {
