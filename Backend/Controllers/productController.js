@@ -178,7 +178,7 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 const createProductReview = asyncHandler(async (req, res) => {
     try {
         //Getting comment from the user
-        const { comment } = req.body;
+        const { comment, starRating } = req.body;
 
         //Extracting the product id
         const { id } = req.params;
@@ -186,7 +186,7 @@ const createProductReview = asyncHandler(async (req, res) => {
         //Getting the user id
         const user = req.user;
 
-        if (!comment || !id || !user) {
+        if (!comment || !starRating || !id || !user) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid, Missing certain params",
@@ -195,8 +195,12 @@ const createProductReview = asyncHandler(async (req, res) => {
 
         const review = new Review({
             productId: id,
-            userID: userId,
+            userID: user._id,
             comment,
+            userName: user.name,
+            userEmail: user.email,
+            userImage: user.profileImg,
+            starRating: parseInt(starRating),
         });
 
         //Saving the product review

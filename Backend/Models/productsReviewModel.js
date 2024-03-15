@@ -26,6 +26,12 @@ const reviewSchema = mongoose.Schema({
     userImage: {
         type: String,
     },
+    starRating: {
+        type: Number,
+        required: true,
+        min: 0,
+        max: 5,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
