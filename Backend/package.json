@@ -5,6 +5,7 @@
     "description": "",
     "main": "app.js",
     "scripts": {
+        "build": "npm install && npm start",
         "start": "node app.js",
         "dev": "nodemon app.js"
     },
