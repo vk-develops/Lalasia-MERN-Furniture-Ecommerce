@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useGetProductReviewQuery } from "../App/Service/productApiSlice";
 import Loader from "./Loader";
+import ProductReviewCard from "./ProductReviewCard";
 
 const ProductReviewsSection = ({ id }) => {
-    console.log(id);
-
     const { data, isLoading, isError } = useGetProductReviewQuery({ id });
 
-    const [productReview, setProductReview] = useState({});
+    const [productReview, setProductReview] = useState(null);
 
     useEffect(() => {
         if (data) {
-            console.log(data);
             setProductReview(data.data);
         }
     }, [data]);
@@ -29,11 +27,13 @@ const ProductReviewsSection = ({ id }) => {
                 >
                     Product Reviews
                 </h2>
-                {productReview && (
-                    <div className="w-2/4 bg-[red] p-10">
-                        <div></div>
-                    </div>
-                )}
+                {productReview &&
+                    productReview.map((review) => (
+                        <ProductReviewCard
+                            key={review._id}
+                            productReview={review}
+                        />
+                    ))}
             </div>
         </>
     );
