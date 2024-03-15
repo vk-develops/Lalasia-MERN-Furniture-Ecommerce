@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { FaStar } from "react-icons/fa6";
 import { styles } from "../../Styles/styles";
 import { useGetAProductQuery } from "../../App/Service/productApiSlice";
 import { useParams } from "react-router-dom";
 import Loader from "../../Components/Loader";
 import ProductCard from "../../Components/ProductCard";
 import { useGetRelatedProductsQuery } from "../../App/Service/productApiSlice";
+import ProductReviewsSection from "../../Components/ProductReviewsSection";
 
 const RelatedProducts = ({ product }) => {
     const [relatedProducts, setRelatedProducts] = useState(null);
@@ -89,6 +91,15 @@ const ProductDetailPage = () => {
         setSelectedImg(imageUrl);
     };
 
+    const renderStar = (star) => {
+        const stars = [];
+        for (let i = 0; i < star; i++) {
+            stars.push(i);
+        }
+
+        return stars;
+    };
+
     return (
         <>
             {isLoading && <Loader />}
@@ -135,6 +146,17 @@ const ProductDetailPage = () => {
                                     ))}
                             </div>
 
+                            <div className="flex items-center justify-start gap-3 mt-8">
+                                {renderStar(product.starRating).map(
+                                    (star, index) => (
+                                        <FaStar
+                                            key={index}
+                                            className="text-secondaryColor"
+                                        />
+                                    )
+                                )}
+                            </div>
+
                             <p className={`${styles.secondaryParaText} pt-6`}>
                                 {truncatedText}
                                 <button
@@ -144,6 +166,7 @@ const ProductDetailPage = () => {
                                     {isExpanded ? `Read Less` : `Read More`}
                                 </button>
                             </p>
+
                             <h1
                                 className={`text-secondaryColor font-eduoxusSans text-3xl font-medium mt-10`}
                             >
@@ -159,6 +182,7 @@ const ProductDetailPage = () => {
                             </div>
                         </div>
                     </div>
+                    <ProductReviewsSection id={id} />
                     <RelatedProducts product={product} />
                 </section>
             )}

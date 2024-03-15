@@ -45,6 +45,14 @@ export const usersAuthApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+
+        userDetails: builder.query({
+            query: ({ id }) => ({
+                url: `${USERS_AUTH_URL}/user-details/:id`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
@@ -53,4 +61,5 @@ export const {
     useLoginMutation,
     useLogoutMutation,
     useIsLoggedInQuery,
+    useUserDetailsQuery,
 } = usersAuthApiSlice;

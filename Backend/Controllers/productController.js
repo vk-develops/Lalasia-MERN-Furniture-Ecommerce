@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import mongoose from "mongoose";
 import Product from "../Models/productsModel.js";
+import Review from "../Models/productsReviewModel.js";
 
 // @desc    Get all the products
 // @route   GET /api/v1/furniture/products/get-all-products
@@ -171,5 +172,84 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Create a product review
+// @route   GET /api/v1/furniture/products/create-review/:id
+// @access  Private
+const createProductReview = asyncHandler(async (req, res) => {
+    try {
+        //Getting comment from the user
+        const { comment, starRating } = req.body;
+
+        //Extracting the product id
+        const { id } = req.params;
+
+        //Getting the user id
+        const user = req.user;
+
+        if (!comment || !starRating || !id || !user) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid, Missing certain params",
+            });
+        }
+
+        const review = new Review({
+            productId: id,
+            userID: user._id,
+            comment,
+            userName: user.name,
+            userEmail: user.email,
+            userImage: user.profileImg,
+            starRating: parseInt(starRating),
+        });
+
+        //Saving the product review
+        const newReview = await review.save();
+
+        if (newReview) {
+            res.status(200).json({
+                success: true,
+                message: "Review created successfully",
+            });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
+// @desc    Get a product review
+// @route   GET /api/v1/furniture/products/get-producr-review/:id
+// @access  Public
+const getProductReview = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+        let reviews = {};
+
+        reviews = await Review.find({ productId: id });
+
+        const reviewCount = reviews.length;
+
+        if (reviews) {
+            res.status(200).json({
+                success: true,
+                message: "Retrieved the list of review of the product",
+                count: reviewCount,
+                data: reviews,
+            });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 //Export
-export { getAllProducts, getRelatedProducts, getAProduct, searchProducts };
+export {
+    getAllProducts,
+    getRelatedProducts,
+    getAProduct,
+    searchProducts,
+    createProductReview,
+    getProductReview,
+};
