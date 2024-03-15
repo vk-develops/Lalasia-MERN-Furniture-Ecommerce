@@ -184,9 +184,9 @@ const createProductReview = asyncHandler(async (req, res) => {
         const { id } = req.params;
 
         //Getting the user id
-        const userId = req.user._id;
+        const user = req.user;
 
-        if (!comment || !id || !userId) {
+        if (!comment || !id || !user) {
             return res.status(400).json({
                 success: false,
                 message: "Invalid, Missing certain params",

@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useGetProductReviewQuery } from "../App/Service/productApiSlice";
-import { useParams } from "react-router-dom";
 import Loader from "./Loader";
 
 const ProductReviewsSection = ({ id }) => {
-    // const { id } = useParams();
-
     console.log(id);
 
     const { data, isLoading, isError } = useGetProductReviewQuery({ id });

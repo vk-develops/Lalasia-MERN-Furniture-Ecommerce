@@ -15,6 +15,17 @@ const reviewSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    userName: {
+        type: String,
+        required: true,
+    },
+    userEmail: {
+        type: String,
+        required: true,
+    },
+    userImage: {
+        type: String,
+    },
     createdAt: {
         type: Date,
         default: Date.now,
