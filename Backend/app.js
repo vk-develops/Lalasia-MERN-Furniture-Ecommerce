@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import { fileURLToPath } from "url";
 import { v2 as cloudinary } from "cloudinary";
 import path from "path";
 import cookieParser from "cookie-parser";
@@ -14,6 +15,10 @@ dotenv.config();
 connectDb();
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+//Constants
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //Built-in Middlewares and Imported ones
 app.use(express.json());
