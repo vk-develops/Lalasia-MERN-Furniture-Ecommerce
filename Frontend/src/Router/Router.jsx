@@ -6,7 +6,7 @@ import ProductsPage from "../Pages/Products/ProductsPage";
 import RegisterPage from "../Pages/Auth/RegisterPage";
 import LoginPage from "../Pages/Auth/LoginPage";
 import VerifyPage from "../Pages/Auth/VerifyPage";
-import AdminPage from "../Pages/Admin/AdminPAge";
+import AdminPage from "../Pages/Admin/AdminPage";
 import CreateProductPage from "../Pages/Admin/CreateProductPage";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../App/Features/usersAuthSlice";
