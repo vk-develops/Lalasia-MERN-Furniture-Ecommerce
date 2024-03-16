@@ -54,7 +54,7 @@ app.use("/api/v1/furniture/products/", productsRoute);
 
 //Express Static
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+    res.sendFile(path.join(__dirname, "../../Frontend/dist/index.html"));
 });
 
 //App listen
