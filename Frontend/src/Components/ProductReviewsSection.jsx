@@ -1,14 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { MdCreate } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { useGetProductReviewQuery } from "../App/Service/productApiSlice";
+import {
+    useCreateReviewMutation,
+    useGetProductReviewQuery,
+} from "../App/Service/productApiSlice";
 import Loader from "./Loader";
 import ProductReviewCard from "./ProductReviewCard";
 import { styles } from "../Styles/styles";
+import { useErrorToast } from "../Hooks/useToast";
 
 const ProductReviewForm = ({ handleToggleReviewForm }) => {
     const [starRating, setStarRating] = useState("");
     const [comment, setComment] = useState("");
+
+    const [createReview, { isLoading }] = useCreateReviewMutation();
+
+    const submitReviewHandler = (e) => {
+        e.preventDefault();
+        try {
+        } catch (err) {
+            console.log(err.message);
+            useErrorToast("Server Error! please try again later");
+        }
+    };
 
     return (
         <div className="w-3/4 p-7 bg-screenColor1 border-[.5px] border-[#8885]">
