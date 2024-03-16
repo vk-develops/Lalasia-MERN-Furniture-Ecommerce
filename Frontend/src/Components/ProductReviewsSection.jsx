@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MdCreate } from "react-icons/md";
+import { useSelector } from "react-redux";
 import { useGetProductReviewQuery } from "../App/Service/productApiSlice";
 import Loader from "./Loader";
 import ProductReviewCard from "./ProductReviewCard";
@@ -62,6 +63,10 @@ const ProductReviewForm = ({ handleToggleReviewForm }) => {
 };
 
 const ProductReviewsSection = ({ id }) => {
+    const user = useSelector((state) => state.auth);
+
+    console.log(user);
+
     const { data, isLoading, isError } = useGetProductReviewQuery({ id });
 
     const [productReview, setProductReview] = useState(null);
@@ -112,18 +117,29 @@ const ProductReviewsSection = ({ id }) => {
                             Be the first to upload a product review and make
                             everyone understand the value of this product
                         </p>
-                        <button
-                            onClick={handleClick}
-                            className="bg-screenColor2 border-[.5px] border-[#8885] px-8 py-3 rounded-sm flex items-center justify-center gap-2"
-                        >
-                            <MdCreate
-                                size={22}
-                                color="#555"
-                            />
-                            <h4 className="text-base font-eduoxusSans font-medium text-[#555]">
-                                Post Review
-                            </h4>
-                        </button>
+                        {user.isAuthenticated ? (
+                            <button
+                                onClick={handleClick}
+                                className="bg-screenColor2 border-[.5px] border-[#8885] px-8 py-3 rounded-sm flex items-center justify-center gap-2"
+                            >
+                                <MdCreate
+                                    size={22}
+                                    color="#555"
+                                />
+                                <h4 className="text-base font-eduoxusSans font-medium text-[#555]">
+                                    Post Review
+                                </h4>
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handleClick}
+                                className="bg-screenColor2 border-[.5px] border-[#8885] px-8 py-3 rounded-sm"
+                            >
+                                <h4 className="text-base font-eduoxusSans font-medium text-[#555] capitalize">
+                                    Login to post a review
+                                </h4>
+                            </button>
+                        )}
                     </div>
                 )}
             </div>
