@@ -8,7 +8,7 @@ import {
 import Loader from "./Loader";
 import ProductReviewCard from "./ProductReviewCard";
 import { styles } from "../Styles/styles";
-import { useErrorToast } from "../Hooks/useToast";
+import { useErrorToast, useSuccessToast } from "../Hooks/useToast";
 
 const ProductReviewForm = ({ handleToggleReviewForm }) => {
     const [starRating, setStarRating] = useState("");
@@ -16,9 +16,18 @@ const ProductReviewForm = ({ handleToggleReviewForm }) => {
 
     const [createReview, { isLoading }] = useCreateReviewMutation();
 
-    const submitReviewHandler = (e) => {
+    const submitReviewHandler = async (e) => {
         e.preventDefault();
         try {
+            const response = await createReview({
+                starRating,
+                comment,
+            }).unwrap();
+            console.log(response);
+
+            if (response.success) {
+                useSuccessToast("Review Posted Successfully");
+            }
         } catch (err) {
             console.log(err.message);
             useErrorToast("Server Error! please try again later");
@@ -69,7 +78,10 @@ const ProductReviewForm = ({ handleToggleReviewForm }) => {
                 >
                     Cancel
                 </button>
-                <button className="py-2 px-12 bg-primaryColor font-eduoxusSans text-base font-medium text-screenColor1">
+                <button
+                    onClick={submitReviewHandler}
+                    className="py-2 px-12 bg-primaryColor font-eduoxusSans text-base font-medium text-screenColor1"
+                >
                     Post Review
                 </button>
             </div>
