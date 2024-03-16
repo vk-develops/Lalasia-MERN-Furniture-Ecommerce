@@ -10,7 +10,7 @@ import ProductReviewCard from "./ProductReviewCard";
 import { styles } from "../Styles/styles";
 import { useErrorToast, useSuccessToast } from "../Hooks/useToast";
 
-const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
+const ProductReviewForm = ({ productId, refetch, handleToggleReviewForm }) => {
     const [starRating, setStarRating] = useState("");
     const [comment, setComment] = useState("");
 
@@ -27,6 +27,8 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
 
             if (response.success) {
                 useSuccessToast("Review Posted Successfully");
+
+                await refetch();
             }
         } catch (err) {
             console.log(err.message);
@@ -95,7 +97,9 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
 const ProductReviewsSection = ({ id }) => {
     const user = useSelector((state) => state.auth);
 
-    const { data, isLoading, isError } = useGetProductReviewQuery({ id });
+    const { data, isLoading, isError, refetch } = useGetProductReviewQuery({
+        id,
+    });
 
     const [productReview, setProductReview] = useState(null);
     const [addReview, setAddReview] = useState(false);
@@ -137,6 +141,7 @@ const ProductReviewsSection = ({ id }) => {
                 ) : addReview ? (
                     <ProductReviewForm
                         productId={id}
+                        refetch={refetch}
                         handleToggleReviewForm={handleToggleReviewForm}
                     />
                 ) : (
