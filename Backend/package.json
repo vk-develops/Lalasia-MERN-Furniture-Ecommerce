@@ -2,7 +2,7 @@
     "name": "backend",
     "version": "1.0.0",
     "type": "module",
-    "description": "",
+    "description": "This is a fully functional MERN (MongoDB, Express.js, React.js, Node.js) furniture e-commerce application. It provides users with an intuitive user interface for browsing and purchasing furniture items. The application includes a range of features to enhance user experience and streamline the shopping process.",
     "main": "app.js",
     "scripts": {
         "build": "npm install && npm start",
