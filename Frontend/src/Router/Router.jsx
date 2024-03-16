@@ -21,7 +21,7 @@ const Router = () => {
     const checkIsLoggedIn = async () => {
         try {
             const response = await fetch(
-                `http://localhost:8080/${
+                `${import.meta.env.VITE_APP_BACKEND_URI}/${
                     import.meta.env.VITE_BACKEND_USERS_AUTH_URI
                 }/isloggedin`,
                 {
