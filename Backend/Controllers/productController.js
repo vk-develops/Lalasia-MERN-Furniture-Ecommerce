@@ -186,6 +186,11 @@ const createProductReview = asyncHandler(async (req, res) => {
         //Getting the user id
         const user = req.user;
 
+        console.log(comment);
+        console.log(user);
+        console.log(id);
+        console.log(starRating);
+
         if (!comment || !starRating || !id || !user) {
             return res.status(400).json({
                 success: false,

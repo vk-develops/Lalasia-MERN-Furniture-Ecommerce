@@ -39,7 +39,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 url: `${FURNITURE_PRODUCTS_URI}/product-review/${productID}`,
                 method: "POST",
                 credentials: "include",
-                body: data,
+                body: JSON.stringify(data),
             }),
         }),
         getProductReview: builder.query({

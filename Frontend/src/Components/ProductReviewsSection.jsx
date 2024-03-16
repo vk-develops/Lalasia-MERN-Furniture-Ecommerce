@@ -14,8 +14,6 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
     const [starRating, setStarRating] = useState("");
     const [comment, setComment] = useState("");
 
-    console.log(productId);
-
     const [createReview, { isLoading }] = useCreateReviewMutation();
 
     const submitReviewHandler = async (e) => {
@@ -27,7 +25,7 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
             formData.append("comment", comment);
 
             const response = await createReview({
-                data: formData,
+                data: { starRating, comment },
                 productID: productId,
             }).unwrap();
             console.log(response);
@@ -98,8 +96,6 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
 
 const ProductReviewsSection = ({ id }) => {
     const user = useSelector((state) => state.auth);
-
-    console.log(user);
 
     const { data, isLoading, isError } = useGetProductReviewQuery({ id });
 
