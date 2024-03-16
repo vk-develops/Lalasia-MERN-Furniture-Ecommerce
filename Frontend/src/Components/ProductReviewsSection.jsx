@@ -46,8 +46,17 @@ const ProductReviewForm = ({ handleToggleReviewForm }) => {
                     ></textarea>
                 </div>
             </form>
-            <button onClick={handleToggleReviewForm}>Cancel</button>
-            <button>Submit</button>
+            <div className="flex items-center justify-end gap-5 mt-8">
+                <button
+                    className="py-2 px-12 bg-screenColor2 font-eduoxusSans text-base font-medium border-[1px] border-paragraphColor"
+                    onClick={handleToggleReviewForm}
+                >
+                    Cancel
+                </button>
+                <button className="py-2 px-12 bg-primaryColor font-eduoxusSans text-base font-medium text-screenColor1">
+                    Post Review
+                </button>
+            </div>
         </div>
     );
 };
