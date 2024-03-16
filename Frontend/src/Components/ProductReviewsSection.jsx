@@ -19,11 +19,6 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
     const submitReviewHandler = async (e) => {
         e.preventDefault();
         try {
-            const formData = new FormData();
-
-            formData.append("starRating", starRating);
-            formData.append("comment", comment);
-
             const response = await createReview({
                 data: { starRating, comment },
                 productID: productId,
@@ -40,57 +35,60 @@ const ProductReviewForm = ({ productId, handleToggleReviewForm }) => {
     };
 
     return (
-        <div className="w-3/4 p-7 bg-screenColor1 border-[.5px] border-[#8885]">
-            <form onSubmit={submitReviewHandler}>
-                <div className="mt-2">
-                    <label className={`${styles.formLabel}`}>
-                        Product Rating:{" "}
-                    </label>
-                    <select
-                        value={starRating}
-                        required
-                        onChange={(e) => setStarRating(e.target.value)}
-                        className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
-                    >
-                        <option value="">Select an option</option>
-                        {[1, 2, 3, 4, 5].map((num, index) => (
-                            <option
-                                key={index}
-                                value={num}
-                            >
-                                {num}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-                <div className="mt-6">
-                    <label className={`${styles.formLabel}`}>
-                        Product Review:{" "}
-                    </label>
-                    <textarea
-                        value={comment}
-                        required
-                        onChange={(e) => setComment(e.target.value)}
-                        placeholder="Enter the description of the product"
-                        className="w-full pt-5 h-40 outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
-                    ></textarea>
-                </div>
-                <div className="flex items-center justify-end gap-5 mt-8">
-                    <button
-                        className="py-2 px-12 bg-screenColor2 font-eduoxusSans text-base font-medium border-[1px] border-paragraphColor"
-                        onClick={handleToggleReviewForm}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="Submit"
-                        className="py-2 px-12 bg-primaryColor font-eduoxusSans text-base font-medium text-screenColor1"
-                    >
-                        Post Review
-                    </button>
-                </div>
-            </form>
-        </div>
+        <>
+            {isLoading && <Loader />}
+            <div className="w-3/4 p-7 bg-screenColor1 border-[.5px] border-[#8885]">
+                <form onSubmit={submitReviewHandler}>
+                    <div className="mt-2">
+                        <label className={`${styles.formLabel}`}>
+                            Product Rating:{" "}
+                        </label>
+                        <select
+                            value={starRating}
+                            required
+                            onChange={(e) => setStarRating(e.target.value)}
+                            className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
+                        >
+                            <option value="">Select an option</option>
+                            {[1, 2, 3, 4, 5].map((num, index) => (
+                                <option
+                                    key={index}
+                                    value={num}
+                                >
+                                    {num}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mt-6">
+                        <label className={`${styles.formLabel}`}>
+                            Product Review:{" "}
+                        </label>
+                        <textarea
+                            value={comment}
+                            required
+                            onChange={(e) => setComment(e.target.value)}
+                            placeholder="Enter the description of the product"
+                            className="w-full pt-5 h-40 outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
+                        ></textarea>
+                    </div>
+                    <div className="flex items-center justify-end gap-5 mt-8">
+                        <button
+                            className="py-2 px-12 bg-screenColor2 font-eduoxusSans text-base font-medium border-[1px] border-paragraphColor"
+                            onClick={handleToggleReviewForm}
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="Submit"
+                            className="py-2 px-12 bg-primaryColor font-eduoxusSans text-base font-medium text-screenColor1"
+                        >
+                            Post Review
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </>
     );
 };
 
