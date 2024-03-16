@@ -6,21 +6,44 @@ import ProductReviewCard from "./ProductReviewCard";
 import { styles } from "../Styles/styles";
 
 const ProductReviewForm = ({ handleToggleReviewForm }) => {
+    const [starRating, setStarRating] = useState("");
+    const [comment, setComment] = useState("");
+
     return (
         <div className="w-3/4 p-7 bg-screenColor1 border-[.5px] border-[#8885]">
             <form>
-                <div className="mt-7">
+                <div className="mt-2">
                     <label className={`${styles.formLabel}`}>
-                        Product Name:{" "}
+                        Product Rating:{" "}
                     </label>
-                    <input
-                        className={`${styles.formInput}`}
-                        type="text"
-                        placeholder="Enter the name of the product"
-                        // value={name}
+                    <select
+                        value={starRating}
                         required
-                        // onChange={(e) => setName(e.target.value)}
-                    />
+                        onChange={(e) => setStarRating(e.target.value)}
+                        className="border-[1.5px] border-paragraphColor mt-3 px-5 pr-5 font-eduoxusSans rounded-lg w-full p-2 text-paragraphColor outline-none font-normal"
+                    >
+                        <option value="">Select an option</option>
+                        {[1, 2, 3, 4, 5].map((num, index) => (
+                            <option
+                                key={index}
+                                value={num}
+                            >
+                                {num}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mt-6">
+                    <label className={`${styles.formLabel}`}>
+                        Product Review:{" "}
+                    </label>
+                    <textarea
+                        value={comment}
+                        required
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Enter the description of the product"
+                        className="w-full pt-5 h-40 outline-none border-[1.5px] text-sm pl-5 rounded-md font-eduoxusSans mt-3 py-3 border-paragraphColor"
+                    ></textarea>
                 </div>
             </form>
             <button onClick={handleToggleReviewForm}>Cancel</button>
