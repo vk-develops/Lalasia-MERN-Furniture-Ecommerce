@@ -3,6 +3,8 @@ import { useGetProductReviewQuery } from "../App/Service/productApiSlice";
 import Loader from "./Loader";
 import ProductReviewCard from "./ProductReviewCard";
 
+const ProductReviewForm = () => {};
+
 const ProductReviewsSection = ({ id }) => {
     const { data, isLoading, isError } = useGetProductReviewQuery({ id });
 

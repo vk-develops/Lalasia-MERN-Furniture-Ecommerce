@@ -1,8 +1,18 @@
 import React from "react";
+import { FaStar } from "react-icons/fa6";
 
 const ProductReviewCard = ({ productReview }) => {
+    const renderStar = (star) => {
+        const stars = [];
+        for (let i = 0; i < star; i++) {
+            stars.push(i);
+        }
+
+        return stars;
+    };
+
     return (
-        <div className="w-2/4 p-10">
+        <div className="w-2/4 py-7">
             <div>
                 <div className="flex items-start justify-start gap-5">
                     <img
@@ -24,7 +34,18 @@ const ProductReviewCard = ({ productReview }) => {
                             </h6>
                         </div>
 
-                        <p className="pt-3 text-base font-eduoxusSans text-titleColor font-medium">
+                        <div className="flex items-center justify-start mt-4">
+                            {renderStar(productReview.starRating).map(
+                                (star, index) => (
+                                    <FaStar
+                                        key={index}
+                                        className="text-secondaryColor"
+                                    />
+                                )
+                            )}
+                        </div>
+
+                        <p className="pt-2 text-base font-eduoxusSans text-titleColor font-medium">
                             {productReview.comment}
                         </p>
                     </div>
