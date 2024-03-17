@@ -11,6 +11,34 @@ const ProductReviewCard = ({ productReview }) => {
         return stars;
     };
 
+    const getReviewDate = (reviewDate) => {
+        const date = new Date();
+
+        const monthNames = [
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+        ];
+
+        //Extracting date
+        const day = date.getDate();
+        const monthIndex = date.getMonth();
+        const year = date.getFullYear();
+
+        const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
+
+        return formattedDate;
+    };
+
     return (
         <div className="w-2/4 py-7">
             <div>
@@ -24,7 +52,7 @@ const ProductReviewCard = ({ productReview }) => {
                         alt="Profile Image"
                         className="w-[40px] rounded-full"
                     />
-                    <div className=" -mt-[3px]">
+                    <div className="-mt-[3px] w-full">
                         <div className="flex items-start justify-start flex-col gap-[2px]">
                             <h6 className="text-base font-eduoxusSans font-medium text-primaryColor">
                                 {productReview.userName}
