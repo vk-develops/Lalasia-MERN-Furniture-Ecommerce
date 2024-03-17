@@ -244,6 +244,35 @@ const getProductReview = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Delete a product review
+// @route   GET /api/v1/furniture/products/delete-producr-review/:id
+// @access  Private
+
+const deleteProductReview = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const review = await Review.findById({ _id: id });
+
+        if (review) {
+            //Deleting the review
+            await review.deleteOne();
+
+            res.status(200).json({
+                success: true,
+                message: "Review deleted successfully",
+            });
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No reviews found" });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 //Export
 export {
     getAllProducts,
@@ -252,4 +281,5 @@ export {
     searchProducts,
     createProductReview,
     getProductReview,
+    deleteProductReview,
 };
