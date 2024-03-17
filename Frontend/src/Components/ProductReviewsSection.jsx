@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { MdCreate } from "react-icons/md";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
     useCreateReviewMutation,
     useGetProductReviewQuery,
@@ -147,18 +148,29 @@ const ProductReviewsSection = ({ id }) => {
                                 productReview={review}
                             />
                         ))}
-                        <button
-                            onClick={handleClick}
-                            className="w-2/4 mt-5 bg-screenColor2 border-[.5px] border-[#8885] py-3 flex items-center justify-center gap-3"
-                        >
-                            <MdCreate
-                                size={22}
-                                color="#555"
-                            />
-                            <h1 className="text-base text-titleColor font-eduoxusSans font-medium">
-                                Post Review
-                            </h1>
-                        </button>
+                        {user.isAuthenticated ? (
+                            <button
+                                onClick={handleClick}
+                                className="w-2/4 mt-5 bg-screenColor2 border-[.5px] border-[#8885] py-3 flex items-center justify-center gap-3"
+                            >
+                                <MdCreate
+                                    size={22}
+                                    color="#555"
+                                />
+                                <h1 className="text-base text-titleColor font-eduoxusSans font-medium">
+                                    Post Review
+                                </h1>
+                            </button>
+                        ) : (
+                            <Link
+                                to={`/account/login`}
+                                className="w-2/4 mt-5 bg-screenColor2 border-[.5px] border-[#8885] py-3"
+                            >
+                                <h1 className="text-base text-titleColor font-eduoxusSans font-medium">
+                                    Login To Post Review
+                                </h1>
+                            </Link>
+                        )}
                     </>
                 ) : (
                     <div className="w-3/4 p-7 bg-screenColor1 border-[.5px] border-[#8885] flex items-center justify-center flex-col">
@@ -181,14 +193,14 @@ const ProductReviewsSection = ({ id }) => {
                                 </h4>
                             </button>
                         ) : (
-                            <button
-                                onClick={handleClick}
+                            <Link
+                                to={`/account/login`}
                                 className="bg-screenColor2 border-[.5px] border-[#8885] px-8 py-3 rounded-sm"
                             >
                                 <h4 className="text-base font-eduoxusSans font-medium text-[#555] capitalize">
                                     Login to post a review
                                 </h4>
-                            </button>
+                            </Link>
                         )}
                     </div>
                 )}
