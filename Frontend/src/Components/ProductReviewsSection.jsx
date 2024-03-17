@@ -202,66 +202,6 @@ const ProductReviewsSection = ({ id }) => {
                         )}
                     </div>
                 )}
-
-                {/* {productReview && productReview.length > 0 ? (
-                    <>
-                        {productReview.map((review) => (
-                            <ProductReviewCard
-                                key={review._id}
-                                productReview={review}
-                            />
-                        ))}
-                        <button
-                            onClick={handleClick}
-                            className="w-2/4 mt-5 bg-screenColor2 border-[.5px] border-[#8885] py-3 flex items-center justify-center gap-3"
-                        >
-                            <MdCreate
-                                size={22}
-                                color="#555"
-                            />
-                            <h1 className="text-base text-titleColor font-eduoxusSans font-medium">
-                                Post Review
-                            </h1>
-                        </button>
-                    </>
-                ) : addReview ? (
-                    <ProductReviewForm
-                        productId={id}
-                        refetch={refetch}
-                        handleToggleReviewForm={handleToggleReviewForm}
-                    />
-                ) : (
-                    <div className="w-3/4 p-7 bg-screenColor1 border-[.5px] border-[#8885] flex items-center justify-center flex-col">
-                        <p className="text-center font-eduoxusSans text-base font-medium text-titleColor pb-8 pt-3">
-                            There is no customer reviews for this product yet.
-                            Be the first to upload a product review and make
-                            everyone understand the value of this product
-                        </p>
-                        {user.isAuthenticated ? (
-                            <button
-                                onClick={handleClick}
-                                className="bg-screenColor2 border-[.5px] border-[#8885] px-8 py-3 rounded-sm flex items-center justify-center gap-2"
-                            >
-                                <MdCreate
-                                    size={22}
-                                    color="#555"
-                                />
-                                <h4 className="text-base font-eduoxusSans font-medium text-[#555]">
-                                    Post Review
-                                </h4>
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handleClick}
-                                className="bg-screenColor2 border-[.5px] border-[#8885] px-8 py-3 rounded-sm"
-                            >
-                                <h4 className="text-base font-eduoxusSans font-medium text-[#555] capitalize">
-                                    Login to post a review
-                                </h4>
-                            </button>
-                        )}
-                    </div>
-                )} */}
             </div>
         </>
     );

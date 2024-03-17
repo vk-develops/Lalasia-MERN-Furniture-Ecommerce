@@ -22,8 +22,6 @@ const RelatedProducts = ({ product }) => {
     useEffect(() => {
         if (data) {
             setRelatedProducts(data.data);
-        } else {
-            console.log(isError);
         }
     }, [data, isError]);
 
@@ -66,10 +64,6 @@ const ProductDetailPage = () => {
     useEffect(() => {
         if (data) {
             setProduct(data.data);
-        }
-
-        if (isError) {
-            console.log(isError);
         }
     }, [data]);
 
