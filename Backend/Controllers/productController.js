@@ -252,16 +252,26 @@ const deleteProductReview = asyncHandler(async (req, res) => {
     try {
         const { id } = req.params;
 
+        const user = req.user;
+
+        console.log(user._id);
         const review = await Review.findById({ _id: id });
 
         if (review) {
-            //Deleting the review
-            await review.deleteOne();
+            if (review.userID === user._id) {
+                //Deleting the review
+                await review.deleteOne();
 
-            res.status(200).json({
-                success: true,
-                message: "Review deleted successfully",
-            });
+                res.status(200).json({
+                    success: true,
+                    message: "Review deleted successfully",
+                });
+            } else {
+                return res.status(400).json({
+                    success: false,
+                    message: "You cannot delete someone's review",
+                });
+            }
         } else {
             return res
                 .status(400)
