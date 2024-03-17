@@ -99,7 +99,7 @@ const ProductReviewForm = ({ productId, refetch, handleToggleReviewForm }) => {
 const ProductReviewsSection = ({ id }) => {
     const user = useSelector((state) => state.auth);
 
-    const { data, isLoading, isError, refetch } = useGetProductReviewQuery({
+    const { data, isLoading, refetch } = useGetProductReviewQuery({
         id,
     });
 
@@ -111,10 +111,6 @@ const ProductReviewsSection = ({ id }) => {
             setProductReview(data.data);
         }
     }, [data]);
-
-    if (isError) {
-        return <h1>An error occured!</h1>;
-    }
 
     const handleToggleReviewForm = () => {
         setAddReview(!addReview);
@@ -162,14 +158,16 @@ const ProductReviewsSection = ({ id }) => {
                                 </h1>
                             </button>
                         ) : (
-                            <Link
-                                to={`/account/login`}
-                                className="w-2/4 mt-5 bg-screenColor2 border-[.5px] border-[#8885] py-3"
-                            >
-                                <h1 className="text-base text-titleColor font-eduoxusSans font-medium">
-                                    Login To Post Review
-                                </h1>
-                            </Link>
+                            <div className="w-2/4 flex items-center justify-center mt-5">
+                                <Link
+                                    to={"/account/login"}
+                                    className="w-full bg-screenColor2 border-[.5px] border-[#8885] py-3 flex items-center justify-center"
+                                >
+                                    <h5 className="text-base font-eduoxusSans font-medium text-[#555] capitalize">
+                                        Login to post a review
+                                    </h5>
+                                </Link>
+                            </div>
                         )}
                     </>
                 ) : (
