@@ -254,7 +254,6 @@ const deleteProductReview = asyncHandler(async (req, res) => {
 
         const user = req.user;
 
-        console.log(user._id);
         const review = await Review.findById({ _id: id });
 
         if (review) {
