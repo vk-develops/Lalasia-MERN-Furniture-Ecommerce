@@ -132,12 +132,26 @@ const ProductReviewsSection = ({ id }) => {
                     Product Reviews
                 </h2>
                 {productReview && productReview.length > 0 ? (
-                    productReview.map((review) => (
-                        <ProductReviewCard
-                            key={review._id}
-                            productReview={review}
-                        />
-                    ))
+                    <>
+                        {productReview.map((review) => (
+                            <ProductReviewCard
+                                key={review._id}
+                                productReview={review}
+                            />
+                        ))}
+                        <button
+                            onClick={handleClick}
+                            className="w-2/4 mt-5 bg-screenColor2 border-[.5px] border-[#8885] py-3 flex items-center justify-center gap-3"
+                        >
+                            <MdCreate
+                                size={22}
+                                color="#555"
+                            />
+                            <h1 className="text-base text-titleColor font-eduoxusSans font-medium">
+                                Post Review
+                            </h1>
+                        </button>
+                    </>
                 ) : addReview ? (
                     <ProductReviewForm
                         productId={id}
