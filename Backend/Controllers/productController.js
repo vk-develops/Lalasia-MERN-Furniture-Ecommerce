@@ -258,7 +258,13 @@ const deleteProductReview = asyncHandler(async (req, res) => {
         const review = await Review.findById({ _id: id });
 
         if (review) {
-            if (review.userID === user._id) {
+            // Convert user._id to ObjectId if necessary
+            const userId =
+                typeof user._id === "string"
+                    ? mongoose.Types.ObjectId(user._id)
+                    : user._id;
+
+            if (review.userID.equals(userId)) {
                 //Deleting the review
                 await review.deleteOne();
 
