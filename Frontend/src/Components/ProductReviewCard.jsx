@@ -76,6 +76,10 @@ const ProductReviewCard = ({ productReview }) => {
                         <p className="pt-2 text-base font-eduoxusSans text-titleColor font-medium">
                             {productReview.comment}
                         </p>
+
+                        <p className="pt-5 text-[12px] font-eduoxusSans font-medium text-[#555]">
+                            {getReviewDate(productReview.createdAt)}
+                        </p>
                     </div>
                 </div>
             </div>
