@@ -1,8 +1,11 @@
 import React from "react";
 import { FaStar } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
+import { useDeleteReviewMutation } from "../App/Service/productApiSlice";
 
 const ProductReviewCard = ({ productReview, user }) => {
+    const [deleteReview] = useDeleteReviewMutation();
+
     const renderStar = (star) => {
         const stars = [];
         for (let i = 0; i < star; i++) {
@@ -38,6 +41,16 @@ const ProductReviewCard = ({ productReview, user }) => {
         const formattedDate = `${day} ${monthNames[monthIndex]} ${year}`;
 
         return formattedDate;
+    };
+
+    const deleteProductReview = async ({ id }) => {
+        try {
+            const response = await deleteReview({ id }).unwrap();
+
+            console.log(response);
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     return (
