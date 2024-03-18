@@ -244,6 +244,56 @@ const getProductReview = asyncHandler(async (req, res) => {
     }
 });
 
+// @desc    Delete a product review
+// @route   GET /api/v1/furniture/products/delete-producr-review/:id
+// @access  Private
+
+const deleteProductReview = asyncHandler(async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const user = req.user;
+
+        if (!id) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Review ID is required" });
+        }
+
+        const review = await Review.findById({ _id: id });
+
+        if (review) {
+            // Converting user._id to ObjectId if necessary
+            const userId =
+                typeof user._id === "string"
+                    ? mongoose.Types.ObjectId(user._id)
+                    : user._id;
+
+            if (review.userID.equals(userId)) {
+                //Deleting the review
+                await review.deleteOne();
+
+                res.status(200).json({
+                    success: true,
+                    message: "Review deleted successfully",
+                });
+            } else {
+                return res.status(400).json({
+                    success: false,
+                    message: "You cannot delete someone's review",
+                });
+            }
+        } else {
+            return res
+                .status(400)
+                .json({ success: false, message: "No reviews found" });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ success: false, err: err.message });
+    }
+});
+
 //Export
 export {
     getAllProducts,
@@ -252,4 +302,5 @@ export {
     searchProducts,
     createProductReview,
     getProductReview,
+    deleteProductReview,
 };
