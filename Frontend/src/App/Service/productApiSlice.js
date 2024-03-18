@@ -49,6 +49,13 @@ export const productApiSlice = apiSlice.injectEndpoints({
                 credentials: "include",
             }),
         }),
+        deleteReview: builder.mutation({
+            query: ({ productID }) => ({
+                url: `${FURNITURE_PRODUCTS_URI}/delete-product-review/${productID}`,
+                method: "DELETE",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
@@ -59,4 +66,5 @@ export const {
     useGetSearchProductsQuery,
     useCreateReviewMutation,
     useGetProductReviewQuery,
+    useDeleteReviewMutation,
 } = productApiSlice;
