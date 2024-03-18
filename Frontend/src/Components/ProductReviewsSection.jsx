@@ -143,6 +143,7 @@ const ProductReviewsSection = ({ id }) => {
                                 key={review._id}
                                 productReview={review}
                                 user={user}
+                                refetch={refetch}
                             />
                         ))}
                         {user.isAuthenticated ? (

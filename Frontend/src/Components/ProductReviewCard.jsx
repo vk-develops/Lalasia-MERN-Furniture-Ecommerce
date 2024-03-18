@@ -2,8 +2,9 @@ import React from "react";
 import { FaStar } from "react-icons/fa6";
 import { MdDeleteOutline } from "react-icons/md";
 import { useDeleteReviewMutation } from "../App/Service/productApiSlice";
+import { useSuccessToast } from "../Hooks/useToast";
 
-const ProductReviewCard = ({ productReview, user }) => {
+const ProductReviewCard = ({ productReview, user, refetch }) => {
     const [deleteReview] = useDeleteReviewMutation();
 
     const renderStar = (star) => {
@@ -44,11 +45,13 @@ const ProductReviewCard = ({ productReview, user }) => {
     };
 
     const deleteProductReview = async (id) => {
-        console.log(id);
         try {
             const response = await deleteReview({ productID: id }).unwrap();
 
-            console.log(response);
+            if (response.success) {
+                await refetch();
+                useSuccessToast(response.message);
+            }
         } catch (error) {
             console.log(error.message);
         }
