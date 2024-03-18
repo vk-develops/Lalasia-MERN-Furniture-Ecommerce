@@ -142,6 +142,7 @@ const ProductReviewsSection = ({ id }) => {
                             <ProductReviewCard
                                 key={review._id}
                                 productReview={review}
+                                user={user}
                             />
                         ))}
                         {user.isAuthenticated ? (

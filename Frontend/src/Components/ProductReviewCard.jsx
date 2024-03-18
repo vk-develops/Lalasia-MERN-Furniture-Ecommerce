@@ -1,7 +1,8 @@
 import React from "react";
 import { FaStar } from "react-icons/fa6";
+import { MdDeleteOutline } from "react-icons/md";
 
-const ProductReviewCard = ({ productReview }) => {
+const ProductReviewCard = ({ productReview, user }) => {
     const renderStar = (star) => {
         const stars = [];
         for (let i = 0; i < star; i++) {
@@ -53,13 +54,27 @@ const ProductReviewCard = ({ productReview }) => {
                         className="w-[40px] rounded-full"
                     />
                     <div className="-mt-[3px] w-full">
-                        <div className="flex items-start justify-start flex-col gap-[2px]">
-                            <h6 className="text-base font-eduoxusSans font-medium text-primaryColor">
-                                {productReview.userName}
-                            </h6>
-                            <h6 className="text-[12px] font-eduoxusSans font-noraml text-paragraphColor">
-                                {productReview.userEmail}
-                            </h6>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-start justify-start flex-col gap-[2px]">
+                                <h6 className="text-base font-eduoxusSans font-medium text-primaryColor">
+                                    {productReview.userName}
+                                </h6>
+                                <h6 className="text-[12px] font-eduoxusSans font-noraml text-paragraphColor">
+                                    {productReview.userEmail}
+                                </h6>
+                            </div>
+
+                            {user.isAuthenticated &&
+                            productReview.userId === user._id ? (
+                                <div className="mt-4">
+                                    <button className="bg-screenColor2 p-1">
+                                        <MdDeleteOutline
+                                            color="red"
+                                            size={24}
+                                        />
+                                    </button>
+                                </div>
+                            ) : null}
                         </div>
 
                         <div className="flex items-center justify-start mt-4">
