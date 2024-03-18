@@ -80,9 +80,8 @@ const ProductReviewCard = ({ productReview, user, refetch }) => {
                                     {productReview.userEmail}
                                 </h6>
                             </div>
-
                             {user.isAuthenticated &&
-                            productReview.userId === user._id ? (
+                            productReview.userID === user.user._id ? (
                                 <div className="mt-4">
                                     <button
                                         onClick={() =>

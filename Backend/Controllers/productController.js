@@ -254,6 +254,12 @@ const deleteProductReview = asyncHandler(async (req, res) => {
 
         const user = req.user;
 
+        if (!id) {
+            return res
+                .status(400)
+                .json({ success: false, message: "Review ID is required" });
+        }
+
         const review = await Review.findById({ _id: id });
 
         if (review) {
