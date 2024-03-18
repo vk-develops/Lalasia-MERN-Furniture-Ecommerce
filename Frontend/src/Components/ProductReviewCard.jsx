@@ -43,9 +43,10 @@ const ProductReviewCard = ({ productReview, user }) => {
         return formattedDate;
     };
 
-    const deleteProductReview = async ({ id }) => {
+    const deleteProductReview = async (id) => {
+        console.log(id);
         try {
-            const response = await deleteReview({ id }).unwrap();
+            const response = await deleteReview({ productID: id }).unwrap();
 
             console.log(response);
         } catch (error) {
@@ -80,7 +81,14 @@ const ProductReviewCard = ({ productReview, user }) => {
                             {user.isAuthenticated &&
                             productReview.userId === user._id ? (
                                 <div className="mt-4">
-                                    <button className="bg-screenColor2 p-1">
+                                    <button
+                                        onClick={() =>
+                                            deleteProductReview(
+                                                productReview._id
+                                            )
+                                        }
+                                        className="bg-screenColor2 p-1"
+                                    >
                                         <MdDeleteOutline
                                             color="red"
                                             size={24}
