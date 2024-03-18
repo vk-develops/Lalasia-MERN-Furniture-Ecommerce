@@ -13,7 +13,7 @@ const ProductReviewCard = ({ productReview, user }) => {
     };
 
     const getReviewDate = (reviewDate) => {
-        const date = new Date();
+        const date = new Date(reviewDate);
 
         const monthNames = [
             "Jan",
